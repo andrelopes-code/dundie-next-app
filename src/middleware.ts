@@ -19,12 +19,10 @@ export async function middleware(request: NextRequest, res: NextResponse) {
 
     // Caso não existam os tokens, redireciona para a rota de login
     if (!access_token && !refresh_token) {
-        console.log("condição 1");
         return LoginPage;
     }
     // Caso apenas o refresh token exista, tenta realizar o refresh do token
     if (!access_token && refresh_token) {
-        console.log("condição 2");
 
         let response = NextResponse.redirect(request?.nextUrl?.href);
 
@@ -57,7 +55,6 @@ export async function middleware(request: NextRequest, res: NextResponse) {
     //redireciona para a rota de login
     const isValid = await validateUserToken(access_token as string);
     if (!isValid) {
-        console.log("condição 3");
         return LoginPage;
     }
 

@@ -1,3 +1,5 @@
+import useLogout from "@/hooks/useLogout";
+
 export default function Navbar() {
     return (
         <header className="bg-background-light">
@@ -57,12 +59,12 @@ export default function Navbar() {
                                 ADMIN
                             </a>
                         </div>
-                        <a
-                            href="/logout"
+                        <button
+                            onClick={useLogout}
                             className="bg-primary py-1 px-2 rounded-lg text-sm font-semibold leading-6 text-text-invert"
                         >
                             Log out
-                        </a>
+                        </button>
                     </div>
                 </div>
             </nav>
@@ -119,12 +121,13 @@ export default function Navbar() {
                                 </a>
                             </div>
                             <div className="py-6">
-                                <a
+                                <button
+                                    onClick={useLogout}
                                     href="/logout"
                                     className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-text hover:bg-gray-50"
                                 >
                                     Log out
-                                </a>
+                                </button>
                             </div>
                         </div>
                     </div>

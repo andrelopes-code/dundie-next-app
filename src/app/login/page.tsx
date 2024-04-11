@@ -2,13 +2,12 @@
 import { FormEvent } from "react";
 
 export default function Login() {
-
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         const uname = (event.target as any)[0].value;
         const pass = (event.target as any)[1].value;
-        
+
         fetch("http://localhost:3000/api/login", {
             method: "POST",
             headers: {
@@ -19,8 +18,11 @@ export default function Login() {
                 password: pass,
             }),
         })
-            .then((res) => res.json())
-            .then((data) => console.log(data))
+            .then((res) => {
+                if (res.status === 200) {
+                    window.location.assign("/");
+                }
+            })
             .catch((err) => console.log(err));
     };
 

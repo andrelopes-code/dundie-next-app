@@ -5,10 +5,10 @@ import getTimeDeltaString from "@/functions/get-time-delta";
 
 const HeaderItem = () => {
     return (
-        <div className="flex flex-row bg-background items-center justify-between mb-3 py-1 px-4 rounded-lg border-border">
+        <div className="flex flex-row bg-primary items-center justify-between mb-3 py-1 px-4 rounded-lg border-border">
             <div className="flex flex-row gap-4 items-center">
                 <p className="flex justify-center w-16 overflow-hidden">
-                    <p className="text-text flex font-bold text-nowrap max-w-32 overflow-hidden">
+                    <p className="text-text-invert flex font-semibold tracking-wide text-nowrap max-w-32 overflow-hidden">
                         FROM
                     </p>
                 </p>
@@ -16,13 +16,17 @@ const HeaderItem = () => {
                     <CgArrowLongRight size={22} color="#00000000" />
                 </p>
                 <p className="flex justify-center w-16 overflow-hidden">
-                    <p className="text-text font-bold text-nowrap max-w-32 overflow-hidden">
+                    <p className="text-text-invert tracking-wide font-semibold text-nowrap max-w-32 overflow-hidden">
                         TO
                     </p>
                 </p>
             </div>
-            <p className="text-text font-bold text-center w-24">POINTS</p>
-            <p className="text-text font-bold text-center w-24">DATE</p>
+            <p className="text-text-invert font-semibold tracking-wide text-center w-24">
+                POINTS
+            </p>
+            <p className="text-text-invert font-semibold tracking-wide text-center w-24">
+                DATE
+            </p>
         </div>
     );
 };

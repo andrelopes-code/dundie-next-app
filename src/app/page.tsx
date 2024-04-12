@@ -12,17 +12,15 @@ export default function Home() {
             </div>
             <div className="bg-background px-24 h-content grid grid-cols-[2fr_1fr]">
                 {/* MAIN DIV */}
-                <div className="bg-background-light m-3 rounded-lg"></div>
+                <div className="bg-background-light m-3 rounded-lg shadow-md"></div>
 
-                <div className="grid grid-rows-[60%_40%] h-content">
-                    {" "}
-                    {/* h-content */}
+                <div className="grid grid-rows-[auto_auto] h-content">
                     {/* RANKING DIV */}
-                    <div className="overflow-hidden bg-background-light m-[0.75rem_0.75rem_0_0] rounded-lg">
+                    <div className="shadow-md overflow-hidden bg-background-light m-[0.75rem_0.75rem_0_0] rounded-lg">
                         <Ranking />
                     </div>
                     {/* RECENT TRANSACTIONS DIV */}
-                    <div className="overflow-hidden bg-background-light m-[0.75rem_0.75rem_0.75rem_0] rounded-lg">
+                    <div className="shadow-md overflow-hidden bg-background-light m-[0.75rem_0.75rem_0.75rem_0] rounded-lg">
                         <RecentTransactions />
                     </div>
                 </div>

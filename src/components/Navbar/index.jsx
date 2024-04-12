@@ -1,21 +1,22 @@
 import useLogout from "@/hooks/useLogout";
 import { SiDogecoin } from "react-icons/si";
+import Link from "next/link";
 
 export default function Navbar() {
     return (
         <div className="shadow-sm">
             <header className="bg-background-light">
                 <nav
-                    className="mx-24 flex items-center justify-between p-4 lg:px-14"
+                    className="mx-28 flex items-center justify-between p-4 lg:px-16 "
                     aria-label="Global"
                 >
                     <div className="flex lg:flex-1">
-                        <a href="/dashboard" className="-m-1.5 p-1.5">
+                        <Link href="/" className="-m-1.5 p-1.5">
                             <span className="flex flex-row items-center gap-[1px] font-bold text-2xl text-primary">
                                 <SiDogecoin size={30} />
                                 <spam className="mt-[3px]">UNDIE</spam>
                             </span>
-                        </a>
+                        </Link>
                     </div>
                     <div className="flex lg:hidden">
                         <button
@@ -42,25 +43,25 @@ export default function Navbar() {
 
                     <div className="hidden lg:flex lg:flex-1 lg:justify-end">
                         <div className="flex flex-row items-center gap-11">
-                            <div className="hidden lg:flex lg:gap-x-12">
-                                <a
-                                    href="/profile"
+                            <div className="hidden lg:flex lg:gap-x-16">
+                                <Link
+                                    href="/user/profile"
                                     className="text-sm font-semibold leading-6 text-text"
                                 >
                                     PROFILE
-                                </a>
-                                <a
+                                </Link>
+                                <Link
                                     href="/donate"
                                     className="text-sm font-semibold leading-6 text-text"
                                 >
                                     DONATE
-                                </a>
-                                <a
-                                    href="/admin"
+                                </Link>
+                                <Link
+                                    href="/Linkdmin"
                                     className="text-sm font-semibold leading-6 text-text"
                                 >
                                     ADMIN
-                                </a>
+                                </Link>
                             </div>
                             <button
                                 onClick={useLogout}
@@ -75,11 +76,11 @@ export default function Navbar() {
                     <div className="fixed inset-0 z-10"></div>
                     <div className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
                         <div className="flex items-center justify-between">
-                            <a href="/dashboard" className="-m-1.5 p-1.5">
+                            <Link href="/dashboard" className="-m-1.5 p-1.5">
                                 <span className="font-bold text-2xl text-primary">
                                     DUNDIE
                                 </span>
-                            </a>
+                            </Link>
                             <button
                                 type="button"
                                 className="-m-2.5 rounded-md p-2.5 text-text-light"
@@ -104,24 +105,24 @@ export default function Navbar() {
                         <div className="mt-6 flow-root">
                             <div className="-my-6 divide-y divide-gray-500/10">
                                 <div className="space-y-2 py-6">
-                                    <a
-                                        href="/profile"
+                                    <Link
+                                        href="/user/profile"
                                         className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-text hover:bg-gray-50"
                                     >
                                         Profile
-                                    </a>
-                                    <a
+                                    </Link>
+                                    <Link
                                         href="/donate"
                                         className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-text hover:bg-gray-50"
                                     >
                                         Donate
-                                    </a>
-                                    <a
-                                        href="/admin"
+                                    </Link>
+                                    <Link
+                                        href="/Linkdmin"
                                         className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-text hover:bg-gray-50"
                                     >
                                         Administrative
-                                    </a>
+                                    </Link>
                                 </div>
                                 <div className="py-6">
                                     <button

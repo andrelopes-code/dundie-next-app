@@ -36,6 +36,8 @@ const TransactionItem = ({ from, to, points, date }) => {
 
     const delta = getTimeDeltaString(difference);
 
+    const PDM = ["💸","📦","🌟","⭐","💜","💫","💌","✨",]
+
     return (
         <div className="flex flex-row bg-background items-center justify-between py-1 px-4 rounded-lg border-border">
             <div className="flex flex-row gap-4 items-center">
@@ -44,7 +46,7 @@ const TransactionItem = ({ from, to, points, date }) => {
                     className="flex justify-center w-16 overflow-hidden"
                 >
                     <p className="text-text font-semibold text-nowrap max-w-32 overflow-hidden">
-                        {from.name}
+                        {from.name == "Points Delivery Man" ? "PDM" + PDM[Math.floor(Math.random() * PDM.length)] : from.name}
                     </p>
                 </a>
                 <p>

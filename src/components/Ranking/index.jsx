@@ -1,13 +1,35 @@
 "use client";
 import { useEffect, useState } from "react";
 import Loading from "@/components/Loading";
+import { SiDogecoin } from "react-icons/si";
+import {
+    TbRosetteNumber1,
+    TbRosetteNumber2,
+    TbRosetteNumber3,
+} from "react-icons/tb";
+
+const TbRosetteNumber = ({ pos }) => {
+    if (pos === 1) {
+        return <TbRosetteNumber1 size={20} color="#f0b90b" />;
+    }
+    if (pos === 2) {
+        return <TbRosetteNumber2 size={20} color="#c0c0c0" />;
+    }
+    if (pos === 3) {
+        return <TbRosetteNumber3 size={20} color="#cd7f32" />;
+    } else {
+        return <>{pos}</>;
+    }
+};
 
 const ItemRanking = ({ name, points, pos, username, avatar }) => {
     return (
         <div className="flex flex-row bg-background items-center justify-between py-1 px-4 rounded-lg border-border">
             <div className="flex flex-row gap-4 items-center">
                 <div className="w-7">
-                    <p className="text-text font-semibold">{pos}.</p>
+                    <p className="text-text flex items-center justify-center font-semibold">
+                        <TbRosetteNumber pos={pos} />
+                    </p>
                 </div>
                 <a
                     href={`/user/${username}`}
@@ -19,8 +41,11 @@ const ItemRanking = ({ name, points, pos, username, avatar }) => {
                     {name}
                 </p>
             </div>
-            <p className="text-text font-bold">
-                {points} <span className="font-semibold text-sm pl-1">dp</span>
+            <p className="text-text font-bold flex flex-row">
+                {points}{" "}
+                <span className="pl-2 pt-[0.3rem] text-text">
+                    <SiDogecoin size={12} />
+                </span>
             </p>
         </div>
     );

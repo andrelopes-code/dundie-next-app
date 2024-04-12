@@ -24,8 +24,8 @@ const config: Config = {
           light: '#f1f1f1',
         },
         text: {
-          DEFAULT: '#2a2a2a',
-          light: '#3a3a3a',
+          DEFAULT: '#2f2f2f',
+          light: '#3f3f3f',
           invert: '#f9f9fb',
         },
         border: {

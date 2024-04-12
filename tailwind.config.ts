@@ -20,12 +20,12 @@ const config: Config = {
           light: '#8dd0e4',
         },
         background: {
-          DEFAULT: '#DFF5FF',
+          DEFAULT: '#f1f1f3', //ededef //f8f9fa 
           light: '#f8f9fa',
         },
         text: {
-          DEFAULT: '#1c1c1d',
-          light: '#39393b',
+          DEFAULT: '#2a2a2a',
+          light: '#3a3a3a',
           invert: '#f9f9fb',
         },
         border: {

@@ -1,33 +1,33 @@
 "use client";
 
 import Navbar from "@/components/Navbar";
-import { useEffect, useState } from "react";
+import Ranking from "@/components/Ranking";
 
-interface RankingUser {
-    name: string;
-    username: string;
-    avatar: string;
-    id: number;
-    points: number;
-}
 
 export default function Home() {
-    const [ranking, setRanking] = useState<RankingUser[]>();
-
-    useEffect(() => {
-        const getRanking = async () => {
-            fetch("http://localhost:3000/api/ranking")
-                .then(async (res) => setRanking(await res.json()))
-                .catch((err) => console.log("RANKING ERROR: ", err));
-        };
-        getRanking();
-    }, []);
-
     return (
-        <>
-            <Navbar />
-            {ranking && <div>{ranking.map((user) => (<p key={user.id} >{user.name}</p>))}</div>}
-            <h1 className="text-3xl font-bold underline">Hello, Next.js!</h1>
-        </>
+        <div className="h-screen">
+            <div>
+                <Navbar />
+            </div>
+            <div className="bg-background px-24 h-content grid grid-cols-[2fr_1fr]">
+                {/* MAIN DIV */}
+                <div className="bg-background-light m-3 rounded-lg">
+
+                </div>
+
+                <div className="grid grid-rows-[50%_50%] h-content"> {/* h-content */}
+                    {/* RANKING DIV */}
+                    <div className="bg-background-light m-[0.75rem_0.75rem_0_0] rounded-lg">
+                        <Ranking />
+                    </div>
+                    {/* RECENT TRANSACTIONS DIV */}
+                    <div className="bg-background-light m-[0.75rem_0.75rem_0.75rem_0] rounded-lg">
+                    <Ranking />
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
     );
 }

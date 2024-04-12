@@ -1,5 +1,5 @@
 "use client";
-import { FormEvent } from "react";
+import { FormEvent, useState, useEffect } from "react";
 
 export default function Login() {
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -19,38 +19,74 @@ export default function Login() {
             }),
         })
             .then((res) => {
-                if (res.status === 200) {
+                if (res?.ok) {
                     window.location.assign("/");
+                } else {
+                    setAlert();
                 }
             })
             .catch((err) => console.log(err));
     };
 
+    const setAlert = () => {
+        setMsg("Invalid credentials!");
+        const btn = document.getElementById("btn");
+        //@ts-ignore
+        btn.disabled = true;
+
+        setTimeout(() => {
+            setMsg("Sign in to your account");
+            //@ts-ignore
+            btn.disabled = false;
+        }, 2000);
+    };
+
+    const [msg, setMsg] = useState("Sign in to your account");
+
+    useEffect(() => {});
     return (
-        <div className="container text-black">
-            <form
-                onSubmit={handleSubmit}
-                className="bg-blue text-center w-1/3 px-3 py-4 text-white mx-auto rounded"
-            >
-                <input
-                    type="text"
-                    placeholder="Username"
-                    id="Username"
-                    className="block text-black w-full mx-auto text-sm py-2 px-3 rounded"
-                />
-                <input
-                    type="text"
-                    placeholder="Password"
-                    id="Password"
-                    className="block text-black w-full mx-auto text-sm py-2 px-3 rounded my-3"
-                />
-                <button
-                    type="submit"
-                    className="bg-blue text-white font-bold py-2 px-4 rounded border block mx-auto w-full"
-                >
-                    Login
-                </button>
-            </form>
+        <div className="h-screen bg-gradient-to-r from-slate-50 via-sky-200 to-indigo-500">
+            <div className="flex justify-center items-center h-screen">
+                <div className="w-1/3 p-4 bg-background-light rounded-md min-w-80 max-w-96 flex flex-col flex-nowrap justify-center">
+                    <h1 className="font-bold text-2xl mb-6 text-center bg-gradient-to-r from-gray-400 to-indigo-500 bg-clip-text text-transparent">
+                        {msg}
+                    </h1>
+                    <form
+                        className="flex flex-col gap-3 mb-5 justify-center"
+                        onSubmit={handleSubmit}
+                    >
+                        <input
+                            className="transition-all ease duration-300 border outline-gray-300 border-gray-300 p-2 rounded-md focus:outline-primary-light"
+                            type="text"
+                            placeholder="username"
+                            name="username"
+                            id="username"
+                            autoComplete="off"
+                            required
+                        />
+                        <input
+                            className="transition-all ease duration-300 border outline-gray-300 border-gray-300 p-2 rounded-md focus:outline-primary-light"
+                            type="password"
+                            placeholder="password"
+                            name="password"
+                            id="password"
+                            required
+                        />
+                        <a
+                            className="font-medium text-xs ml-1 text-secondary-dark mb-4"
+                            href="http://"
+                        >
+                            Forgot Password?
+                        </a>
+                        <input
+                            className="transition ease duration-300 border border-gray-300 text-text-invert p-2 rounded-md bg-primary font-bold hover:bg-primary-dark cursor-pointer"
+                            type="submit"
+                            id="btn"
+                            value="Login"
+                        />
+                    </form>
+                </div>
+            </div>
         </div>
     );
 }

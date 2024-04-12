@@ -5,7 +5,7 @@ import { api } from "@/api/axios";
 export async function GET(request: Request) {
     // Verifica o token de autenticação
     const access_token = cookies().get("access_token")?.value;
-
+    
     // Configura os headers da requisição
     const config = {
         headers: {

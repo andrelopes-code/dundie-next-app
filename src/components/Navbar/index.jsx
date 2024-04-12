@@ -42,19 +42,19 @@ export default function Navbar() {
                         <div className="hidden lg:flex lg:gap-x-7">
                             <a
                                 href="/profile"
-                                className="text-sm font-bold leading-6 text-text"
+                                className="text-sm font-semibold leading-6 text-text"
                             >
                                 PROFILE
                             </a>
                             <a
                                 href="/donate"
-                                className="text-sm font-bold leading-6 text-text"
+                                className="text-sm font-semibold leading-6 text-text"
                             >
                                 DONATE
                             </a>
                             <a
                                 href="/admin"
-                                className="text-sm font-bold leading-6 text-text"
+                                className="text-sm font-semibold leading-6 text-text"
                             >
                                 ADMIN
                             </a>

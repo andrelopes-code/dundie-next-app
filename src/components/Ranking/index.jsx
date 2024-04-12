@@ -15,12 +15,12 @@ const ItemRanking = ({ name, points, pos, username, avatar }) => {
                 >
                     <img className="h-8" src={avatar} alt="userImage" />
                 </a>
-                <p className="text-text font-medium text-nowrap max-w-32 overflow-hidden">
+                <p className="text-text font-semibold text-nowrap max-w-32 overflow-hidden">
                     {name}
                 </p>
             </div>
             <p className="text-text font-bold">
-                {points} <span className="font-normal text-sm pl-1">pts</span>
+                {points} <span className="font-semibold text-sm pl-1">dp</span>
             </p>
         </div>
     );
@@ -41,20 +41,20 @@ const Ranking = () => {
         hasData = true;
     }, []);
 
-    useEffect(() => {
-        console.log(users);
-    }, [users]);
+    // useEffect(() => {
+    //     console.log(users);
+    // }, [users]);
 
     return (
         <>
             {!users.length ? (
                 <Loading />
             ) : (
-                <div className="h-full m-4">
-                    <div className="h-1/6 flex items-center justify-center">
-                        <h2 className="bg-background text-center w-full py-3 rounded-lg font-semibold text-primary text-2xl">TOP USERS</h2>
-                    </div>
-                    <div className="h-[70%] overflow-auto noscrollbar flex flex-col gap-2">
+                <div className="h-full m-4 flex justify-start flex-col">
+                    <h2 className="bg-background h-[3.5rem] mb-3 text-center w-full py-3 rounded-lg font-semibold text-primary text-2xl">
+                        Ranking
+                    </h2>
+                    <div className="h-[calc(100%-5.9rem)] overflow-auto noscrollbar flex flex-col gap-2">
                         {users.map((user, pos) => (
                             <ItemRanking
                                 key={user.id}

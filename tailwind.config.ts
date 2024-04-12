@@ -10,8 +10,8 @@ const config: Config = {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#5356FF',
-          dark: '#4344bc',
+          DEFAULT: '#4344bc', 
+          dark: '#5356FF',
           light: '#9495ee',
         },
         secondary: {
@@ -20,8 +20,8 @@ const config: Config = {
           light: '#8dd0e4',
         },
         background: {
-          DEFAULT: '#f1f1f3', //ededef //f8f9fa 
-          light: '#f8f9fa',
+          DEFAULT: '#eaeaea', //ededef //f8f9fa 
+          light: '#f1f1f1',
         },
         text: {
           DEFAULT: '#2a2a2a',

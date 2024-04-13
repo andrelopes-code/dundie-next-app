@@ -10,8 +10,8 @@ export interface User {
 }
 
 export interface ProfileUpdateRequest  {
-    name: string;
-    bio: string;
-    username: string;
-    dept?: string;
+    name: string|null;
+    bio: string|null;
+    username: string|null;
+    dept?: string|null;
 }

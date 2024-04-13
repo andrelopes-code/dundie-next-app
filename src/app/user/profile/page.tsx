@@ -6,23 +6,23 @@ import { useState, useEffect } from "react";
 import Loading from "@/components/Loading";
 import { User } from "@/types/user";
 
-function getUser(): Promise<User> {
-    return new Promise<User>((resolve) => {
-        setTimeout(() => {
-            const user: User = {
-                id: 1,
-                name: "Taylor Swift",
-                username: "taylorswift",
-                email: "taylorswift@me.com",
-                avatar: "https://i.pravatar.cc/300",
-                bio: "Explorador do desconhecido. Envolvido em uma dança constante com as palavras. Sempre em busca de novas histórias para contar e horizontes para desbravar.",
-                points: 145021230,
-                dept: "management",
-            };
-            resolve(user);
-        }, 500); // 0.5 segundos
-    });
-}
+// function getUser(): Promise<User> {
+//     return new Promise<User>((resolve) => {
+//         setTimeout(() => {
+//             const user: User = {
+//                 id: 1,
+//                 name: "Taylor Swift",
+//                 username: "taylorswift",
+//                 email: "taylorswift@me.com",
+//                 avatar: "https://i.pravatar.cc/300",
+//                 bio: "Explorador do desconhecido. Envolvido em uma dança constante com as palavras. Sempre em busca de novas histórias para contar e horizontes para desbravar.",
+//                 points: 145021230,
+//                 dept: "management",
+//             };
+//             resolve(user);
+//         }, 500); // 0.5 segundos
+//     });
+// }
 
 export default function Profile() {
     const [user, setUser] = useState<User>();
@@ -31,10 +31,10 @@ export default function Profile() {
         let isMounted = true;
 
         if (!user) {
-            getUser()
-                .then((userData) => {
+            fetch("http://localhost:3000/api/user/profile")
+                .then(async (res) => {
                     if (isMounted) {
-                        setUser(userData);
+                        setUser(await res.json());
                     }
                 })
                 .catch((error) => {

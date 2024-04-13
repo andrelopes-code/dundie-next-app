@@ -54,6 +54,7 @@ export async function PATCH(request: Request) {
         const response = NextResponse.json(res.data, { status: res.status });
         return response;
     } catch (error: any) {
+        console.log(error)
         return NextResponse.json(
             { detail: error?.response?.data?.detail || "nada" },
             {

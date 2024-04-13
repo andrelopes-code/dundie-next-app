@@ -2,8 +2,6 @@ import { User, ProfileUpdateRequest } from "@/types/user";
 import { FormEvent, useState } from "react";
 import { AlertError, AlertSuccess } from "@/components/alert";
 
-// VALIDAR DADOS DOS INPUTS ANTES DE SEREM ENVIADOS
-
 const inputClassnameDisabled =
     "w-full bg-background transition-all ease duration-300 border outline-gray-300 p-2 rounded-lg focus:outline-primary-light";
 
@@ -84,20 +82,18 @@ export default function ProfileDetails({ user }: Readonly<{ user: User }>) {
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        const name = (event.target as any)[0].value;
-        const username = (event.target as any)[2].value.slice(1);
-        const bio = (event.target as any)[4].value;
+        let name = (event.target as any)[0].value;
+        let username = (event.target as any)[2].value.slice(1);
+        let bio = (event.target as any)[4].value;
 
         const data: ProfileUpdateRequest = {
-            name,
-            username,
-            bio,
+            name: name == user.name ? "" : name,
+            username: username == user.username ? "" : username,
+            bio: bio == user.bio ? "" : bio
         };
         await sendData(data);
         toggleEdit();
-    };
-
-    // LOGICA PARA ENVIAR OS DADOS ALTERADOS
+    };  
 
     return (
         <div className="h-full flex flex-col justify-evenly">
@@ -125,7 +121,7 @@ export default function ProfileDetails({ user }: Readonly<{ user: User }>) {
                             placeholder="enter your full name here"
                             id="up_name"
                             defaultValue={user.name}
-                            pattern="[a-zA-Z ]*"
+                            pattern="[a-zA-ZÀ-ú ]*"
                             minLength={8}
                             maxLength={50}
                             title="Only letters are allowed, ex: 'Dundie Awesome'"
@@ -165,7 +161,7 @@ export default function ProfileDetails({ user }: Readonly<{ user: User }>) {
                             placeholder="enter your username here"
                             id="up_username"
                             defaultValue={"@" + user.username}
-                            pattern="@[a-z_]*"
+                            pattern="@[a-z-_0-9]*"
                             minLength={3}
                             maxLength={50}
                             title="Only lowercase letters are allowed, ex: '@username'"

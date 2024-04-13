@@ -16,7 +16,7 @@ export default function ProfileCard({ user }: Readonly<{ user: User }>) {
                     }
                 </div>
                 <div className="h-32 w-32 mx-auto rounded-full overflow-hidden drop-shadow-xl">
-                    {!user.avatar && <NoAvatar />}
+                    {!user.avatar && <NoAvatar className="transition-transform ease-in-out delay-100 duration-1000 hover:scale-105" />}
                     {user.avatar && <img className="transition-transform ease-in-out delay-100 duration-1000 hover:scale-105" src={user.avatar} alt="user avatar" />}
                 </div>
             </div>

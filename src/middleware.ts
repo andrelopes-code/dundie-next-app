@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { validateUserToken } from "./functions/validate-user-token";
 import { tryRefreshToken } from "./functions/try-refresh-token";
+import { setResponseAuthCookies } from "./functions/set-response-auth-cookies";
 
 const allowedOrigins = ["http://localhost:3000/", "http://localhost:3000"];
 
@@ -29,21 +30,7 @@ export async function middleware(request: NextRequest, res: NextResponse) {
         try {
             const newTokens = await tryRefreshToken(refresh_token);
 
-            response.cookies.set({
-                name: "access_token",
-                value: newTokens.access_token,
-                maxAge: 60 * 5, // 5 minutes
-                httpOnly: true,
-                sameSite: "strict",
-            });
-
-            response.cookies.set({
-                name: "refresh_token",
-                value: newTokens.refresh_token,
-                maxAge: 60 * 60 * 10, // 10 hours
-                httpOnly: true,
-                sameSite: "strict",
-            });
+            setResponseAuthCookies(response, newTokens);
 
             return response;
         } catch (error) {

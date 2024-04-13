@@ -86,14 +86,22 @@ export default function ProfileDetails({ user }: Readonly<{ user: User }>) {
         let username = (event.target as any)[2].value.slice(1);
         let bio = (event.target as any)[4].value;
 
+        
         const data: ProfileUpdateRequest = {
             name: name == user.name ? "" : name,
             username: username == user.username ? "" : username,
-            bio: bio == user.bio ? "" : bio
+            bio: bio == user.bio ? "" : bio,
         };
+
+        if (!data.name && !data.username && !data.bio) {
+            setSuccessWithTimeout("No changes");
+            toggleEdit();
+            return;
+        }
+
         await sendData(data);
         toggleEdit();
-    };  
+    };
 
     return (
         <div className="h-full flex flex-col justify-evenly">
@@ -161,7 +169,7 @@ export default function ProfileDetails({ user }: Readonly<{ user: User }>) {
                             placeholder="enter your username here"
                             id="up_username"
                             defaultValue={"@" + user.username}
-                            pattern="@[a-z-_0-9]*"
+                            pattern="@[a-z]*"
                             minLength={3}
                             maxLength={50}
                             title="Only lowercase letters are allowed, ex: '@username'"

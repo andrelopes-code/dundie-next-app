@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { api } from "@/api/axios";
 import { ProfileUpdateRequest } from "@/types/user";
+import { setResponseAuthCookies } from "@/functions/set-response-auth-cookies";
 
 export async function GET(request: Request) {
     // Verifica o token de autenticação
@@ -38,7 +39,6 @@ export async function PATCH(request: Request) {
     }
 
     const data: ProfileUpdateRequest = await request.json();
-    console.log(data);
 
     // Configura os headers da requisição
     const config = {
@@ -51,10 +51,23 @@ export async function PATCH(request: Request) {
     // Tenta realizar a requisição e retorna o resultado
     try {
         const res = await api.patch("/user/profile", data, config);
-        const response = NextResponse.json(res.data, { status: res.status });
+
+        let response = NextResponse.json(
+            { detail: res.data?.detail },
+            { status: res.status }
+        );
+
+        // Verifica se o token de autenticação deve ser atualizado para o possivel novo username
+        if (res.data?.refresh) {
+            setResponseAuthCookies(response, {
+                refresh_token: res.data.refresh_token,
+                access_token: res.data.access_token,
+            });
+        }
+
         return response;
     } catch (error: any) {
-        console.log(error)
+        console.log(error);
         return NextResponse.json(
             { detail: error?.response?.data?.detail || "nada" },
             {

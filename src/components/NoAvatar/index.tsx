@@ -1,10 +1,19 @@
 export const NoAvatar = ({
     alt = "user avatar",
     gender = "M",
-}: Readonly<{ alt?: string; gender?: "M" | "F" }>) => {
+    className = "",
+}: Readonly<{ alt?: string; gender?: "M" | "F"; className?: string; }>) => {
     if (gender === "F") {
-        return <img src="/images/no_avatar_male.jpg" alt={alt} />;
+        return (
+            <img
+                className={className}
+                src="/images/no_avatar_female.jpg"
+                alt={alt}
+            />
+        );
     } else {
-        return <img src="/images/no_avatar_famale.jpg" alt={alt} />;
+        return (
+            <img className={className} src="/images/no_avatar.jpg" alt={alt} />
+        );
     }
 };

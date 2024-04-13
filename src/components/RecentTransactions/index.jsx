@@ -35,6 +35,7 @@ const TransactionItem = ({ from, to, points, date }) => {
     const difference = new Date() - new Date(date);
 
     const delta = getTimeDeltaString(difference);
+    console.log(date, difference, delta, from.username)
 
     const PDM = ["💸","📦","🌟","⭐","💜","💫","💌","✨",]
 

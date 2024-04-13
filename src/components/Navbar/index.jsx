@@ -65,7 +65,7 @@ export default function Navbar() {
                             </div>
                             <button
                                 onClick={useLogout}
-                                className="bg-primary py-1 px-2 rounded-lg text-sm font-semibold leading-6 text-text-invert"
+                                className="bg-primary py-1 px-2 rounded-lg text-sm font-medium leading-6 text-text-invert"
                             >
                                 Log out
                             </button>
@@ -128,7 +128,7 @@ export default function Navbar() {
                                     <button
                                         onClick={useLogout}
                                         href="/logout"
-                                        className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-text hover:bg-gray-50"
+                                        className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-medium leading-7 text-text hover:bg-gray-50"
                                     >
                                         Log out
                                     </button>

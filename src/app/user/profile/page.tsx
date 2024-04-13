@@ -1,18 +1,10 @@
 "use client";
 import Navbar from "@/components/Navbar";
 import ProfileCard from "@/components/profile/profile-card";
+import ProfileDetails from "@/components/profile/profile-datails";
 import { useState, useEffect } from "react";
 import Loading from "@/components/Loading";
-
-interface User {
-    id: number;
-    name: string;
-    avatar: string;
-    username: string;
-    bio: string;
-    points: number;
-    dept: string;
-}
+import { User } from "@/types/user";
 
 function getUser(): Promise<User> {
     return new Promise<User>((resolve) => {
@@ -21,9 +13,10 @@ function getUser(): Promise<User> {
                 id: 1,
                 name: "Taylor Swift",
                 username: "taylorswift",
+                email: "taylorswift@me.com",
                 avatar: "https://i.pravatar.cc/300",
                 bio: "Explorador do desconhecido. Envolvido em uma dança constante com as palavras. Sempre em busca de novas histórias para contar e horizontes para desbravar.",
-                points: 100,
+                points: 145021230,
                 dept: "management",
             };
             resolve(user);
@@ -55,9 +48,7 @@ export default function Profile() {
         return () => {
             isMounted = false;
         };
-    }, []); // Executa apenas quando o usuário for nulo
-
-    useEffect(() => {}, [user]);
+    }, []);
 
     return (
         <div className="h-screen bg-background">
@@ -65,7 +56,7 @@ export default function Profile() {
                 <Navbar />
             </div>
             <div className="bg-background px-24 h-content grid grid-cols-[1fr_2fr]">
-                <div className="grid grid-rows-[50%_50%] min-h-[650px] h-content">
+                <div className="grid grid-rows-[65%_35%] min-h-[650px] h-content">
                     {/* PROFILE CARD */}
                     <div className="shadow-lg flex flex-col gap-3 min-w-80 p-5 items-center justify-center overflow-hidden bg-background-light m-[0.75rem_0.75rem_0_0] rounded-lg">
                         {user && <ProfileCard user={user} />}
@@ -74,10 +65,12 @@ export default function Profile() {
                     {/* PROFILE LINKS */}
                     <div className="shadow-lg overflow-hidden bg-background-light m-[0.75rem_0.75rem_0.75rem_0] rounded-lg"></div>
                 </div>
-
                 <div className="grid grid-rows-[50%_50%] min-h-[650px] h-content">
                     {/* PROFILE DETAILS */}
-                    <div className="shadow-lg overflow-hidden bg-background-light m-[0.75rem_0.75rem_0_0] rounded-lg"></div>
+                    <div className="shadow-lg p-5 overflow-scroll noscrollbar bg-background-light m-[0.75rem_0.75rem_0_0] rounded-lg">
+                        {user && <ProfileDetails user={user} />}
+                        {!user && <Loading />}
+                    </div>
                     {/* ALL TRANSACTIONS */}
                     <div className="shadow-lg overflow-hidden bg-background-light m-[0.75rem_0.75rem_0.75rem_0] rounded-lg"></div>
                 </div>

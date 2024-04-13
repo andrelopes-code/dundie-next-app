@@ -30,6 +30,10 @@ const config: Config = {
         },
         border: {
           DEFAULT: '#f1f1f1',
+        },
+        alert: {
+          error: '#f8d7da',
+          success: '#d4edda',
         }
       },
     },

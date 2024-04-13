@@ -23,6 +23,20 @@ const TbRosetteNumber = ({ pos }) => {
 };
 
 const ItemRanking = ({ name, points, pos, username, avatar }) => {
+
+    const [pontos, setPontos] = useState(0);
+
+    useEffect(() => {
+      const intervalo = setInterval(() => {
+        setPontos(prevPontos => {
+          const novoValor = prevPontos + Math.floor(Math.random() * 500);
+          return novoValor >= points ? points : novoValor;
+        });
+      }, 20);
+  
+      return () => clearInterval(intervalo); 
+    }, [points]); 
+
     return (
         <div className="flex flex-row bg-background items-center justify-between py-1 px-4 rounded-lg border-border">
             <div className="flex flex-row gap-4 items-center">
@@ -42,7 +56,7 @@ const ItemRanking = ({ name, points, pos, username, avatar }) => {
                 </p>
             </div>
             <p className="text-text font-bold flex flex-row">
-                {points}{" "}
+                {pontos}
                 <span className="pl-2 pt-[0.3rem] text-text">
                     <SiDogecoin size={12} />
                 </span>

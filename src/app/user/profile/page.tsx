@@ -2,27 +2,10 @@
 import Navbar from "@/components/Navbar";
 import ProfileCard from "@/components/profile/profile-card";
 import ProfileDetails from "@/components/profile/profile-datails";
+import ProfileLinks from "@/components/profile/profile-links";
 import { useState, useEffect } from "react";
 import Loading from "@/components/Loading";
 import { User } from "@/types/user";
-
-// function getUser(): Promise<User> {
-//     return new Promise<User>((resolve) => {
-//         setTimeout(() => {
-//             const user: User = {
-//                 id: 1,
-//                 name: "Taylor Swift",
-//                 username: "taylorswift",
-//                 email: "taylorswift@me.com",
-//                 avatar: "https://i.pravatar.cc/300",
-//                 bio: "Explorador do desconhecido. Envolvido em uma dança constante com as palavras. Sempre em busca de novas histórias para contar e horizontes para desbravar.",
-//                 points: 145021230,
-//                 dept: "management",
-//             };
-//             resolve(user);
-//         }, 500); // 0.5 segundos
-//     });
-// }
 
 export default function Profile() {
     const [user, setUser] = useState<User>();
@@ -50,6 +33,13 @@ export default function Profile() {
         };
     }, []);
 
+    useEffect(() => {
+        if (user) {
+            document.title = `Dundie - ${user.username}`;
+            console.log(user);
+        }
+    }, [user]);
+
     return (
         <div className="h-screen bg-background">
             <div>
@@ -63,7 +53,10 @@ export default function Profile() {
                         {!user && <Loading />}
                     </div>
                     {/* PROFILE LINKS */}
-                    <div className="shadow-lg overflow-hidden bg-background-light m-[0.75rem_0.75rem_0.75rem_0] rounded-lg"></div>
+                    <div className="overflow-hidden m-[0.75rem_0.75rem_0.75rem_0]">
+                        {user && <ProfileLinks user={user} />}
+                        {!user && <Loading />}
+                    </div>
                 </div>
                 <div className="grid grid-rows-[50%_50%] min-h-[650px] h-content">
                     {/* PROFILE DETAILS */}

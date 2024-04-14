@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { api } from "@/api/axios";
+import { setResponseAuthCookies } from "@/functions/set-response-auth-cookies";
 
 export async function POST(request: Request) {
     const data = await request.json();
@@ -12,23 +13,9 @@ export async function POST(request: Request) {
 
     try {
         const res = await api.post("/token", data, config);
-        const response = NextResponse.json(res.data, { status: res.status });
+        let response = NextResponse.json(res.data, { status: res.status });
 
-        response.cookies.set({
-            name: "access_token",
-            value: res?.data?.access_token,
-            maxAge: 60 * 5, // 5 minutes
-            httpOnly: true,
-            sameSite: "strict",
-        });
-
-        response.cookies.set({
-            name: "refresh_token",
-            value: res?.data?.refresh_token,
-            maxAge: 60 * 60 * 10, // 10 hours
-            httpOnly: true,
-            sameSite: "strict",
-        });
+        setResponseAuthCookies(response, res.data);
 
         return response;
     } catch (error: any) {

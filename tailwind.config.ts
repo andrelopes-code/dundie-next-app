@@ -27,6 +27,7 @@ const config: Config = {
           DEFAULT: '#2f2f2f',
           light: '#3f3f3f',
           invert: '#f9f9fb',
+          inactive: '#929292',
         },
         border: {
           DEFAULT: '#f1f1f1',

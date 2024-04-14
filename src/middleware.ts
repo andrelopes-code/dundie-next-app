@@ -24,7 +24,6 @@ export async function middleware(request: NextRequest, res: NextResponse) {
     }
     // Caso apenas o refresh token exista, tenta realizar o refresh do token
     if (!access_token && refresh_token) {
-
         let response = NextResponse.redirect(request?.nextUrl?.href);
 
         try {

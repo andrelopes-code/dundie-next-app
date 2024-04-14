@@ -5,6 +5,24 @@ import { AlertError, AlertSuccess } from "@/components/alert";
 const inputClassnameDisabled =
     "w-full bg-background transition-all ease duration-300 border outline-gray-300 p-2 rounded-lg focus:outline-primary-light";
 
+/**
+ * ProfileDetails component allows users to view and edit their profile information.
+ *
+ * @prop {User} user - An object containing the user's data. (Readonly)
+ *
+ * @state {boolean} isEditing - Determines if the profile is in edit mode.
+ * @state {string} error - Stores error message for user feedback.
+ * @state {string} success - Stores success message for user feedback.
+ *
+ * @function toggleEdit - Switches the component between editing and viewing modes.
+ * @function setErrorWithTimeout - Displays an error message for a brief duration.
+ * @function setSuccessWithTimeout - Displays a success message for a brief duration.
+ * @function sendData - Sends updated profile data to the backend server.
+ * @function handleSubmit - Handles form submission and updates user profile.
+ *
+ * @return {JSX.Element} Renders the profile details form with edit and save buttons.
+ */
+
 export default function ProfileDetails({ user }: Readonly<{ user: User }>) {
     const [isEditing, setIsEditing] = useState<boolean>(false);
     const [error, setError] = useState<string>("");
@@ -86,7 +104,6 @@ export default function ProfileDetails({ user }: Readonly<{ user: User }>) {
         let username = (event.target as any)[2].value.slice(1);
         let bio = (event.target as any)[4].value;
 
-        
         const data: ProfileUpdateRequest = {
             name: name == user.name ? "" : name,
             username: username == user.username ? "" : username,

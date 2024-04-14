@@ -7,6 +7,7 @@ import {
     TbRosetteNumber2,
     TbRosetteNumber3,
 } from "react-icons/tb";
+import { NoAvatar } from "../NoAvatar";
 
 const TbRosetteNumber = ({ pos }) => {
     if (pos === 1) {
@@ -23,19 +24,18 @@ const TbRosetteNumber = ({ pos }) => {
 };
 
 const ItemRanking = ({ name, points, pos, username, avatar }) => {
-
     const [pontos, setPontos] = useState(0);
 
     useEffect(() => {
-      const intervalo = setInterval(() => {
-        setPontos(prevPontos => {
-          const novoValor = prevPontos + Math.floor(Math.random() * 500);
-          return novoValor >= points ? points : novoValor;
-        });
-      }, 20);
-  
-      return () => clearInterval(intervalo); 
-    }, [points]); 
+        const intervalo = setInterval(() => {
+            setPontos((prevPontos) => {
+                const novoValor = prevPontos + Math.floor(Math.random() * 2000);
+                return novoValor >= points ? points : novoValor;
+            });
+        }, 20);
+
+        return () => clearInterval(intervalo);
+    }, [points]);
 
     return (
         <div className="flex flex-row bg-background items-center justify-between py-1 px-4 rounded-lg border-border">
@@ -49,7 +49,11 @@ const ItemRanking = ({ name, points, pos, username, avatar }) => {
                     href={`/user/${username}`}
                     className="flex justify-center rounded-full w-8 overflow-hidden"
                 >
-                    <img className="h-8" src={avatar} alt="userImage" />
+                    {!avatar && (
+                        <NoAvatar className="h-8" />
+                    )}
+                    
+                    {avatar && <img className="h-8" src={avatar} alt="userImage" /> }
                 </a>
                 <p className="text-text font-semibold text-nowrap max-w-32 overflow-hidden">
                     {name}
@@ -79,10 +83,6 @@ const Ranking = () => {
         !hasData && getRanking();
         hasData = true;
     }, []);
-
-    // useEffect(() => {
-    //     console.log(users);
-    // }, [users]);
 
     return (
         <>

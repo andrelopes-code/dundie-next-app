@@ -36,7 +36,6 @@ export default function Profile() {
     useEffect(() => {
         if (user) {
             document.title = `Dundie - ${user.username}`;
-            console.log(user);
         }
     }, [user]);
 

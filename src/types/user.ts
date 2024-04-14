@@ -18,3 +18,10 @@ export interface ProfileUpdateRequest  {
     username: string|null;
     dept?: string|null;
 }
+
+export interface ProfileLinksRequest  {
+    github: string|null;
+    linkedin: string|null;
+    instagram: string|null;
+    
+}

@@ -1,21 +1,69 @@
+"use client";
+
 import { User } from "@/types/user";
 import { FaSquareGithub, FaLinkedin, FaSquareInstagram } from "react-icons/fa6";
+import { useState } from "react";
+import { AlertError } from "@/components/alert";
+import { FormEvent } from "react";
 
 export function EditLinksForm({
     user,
     setEditLinks,
 }: Readonly<{ user: User; setEditLinks: any }>) {
-    const toggleEditLinks = () => {
+    const [error, setError] = useState<string>("");
+
+    const setErrorWithTimeout = (errorMessage: string) => {
+        setError(errorMessage);
+        setTimeout(() => {
+            setError("");
+        }, 2000);
+    };
+
+    // Desativa a caixa de edição
+    const disableEditLinks = () => {
         setEditLinks(false);
     };
 
+    // Caso clique no fundo, fecha a caixa de edição
+    document.addEventListener("mousedown", (event: any) => {
+        if (event.target.id === "background_div") {
+            disableEditLinks();
+        }
+    });
+
+    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+
+        let github = (event.target as any)[0].value;
+        let linkedin = (event.target as any)[1].value;
+        let instagram = (event.target as any)[2].value;
+
+        fetch("http://localhost:3000/api/user/profile/links", {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ github, linkedin, instagram }),
+        })
+            .then(async (res) => {
+                if (res.ok) {
+                    setEditLinks(false);
+                } else {
+                    const data = await res.json();
+                    setErrorWithTimeout(data?.detail);
+                }
+            })
+            .catch((err: Error) => setErrorWithTimeout(err?.message));
+    };
+
     return (
-        <div className="transition-all duration-200 bg-[rgba(0,0,0,0.1)]  top-0 left-0 flex flex-col backdrop-blur-sm z-20 items-center h-screen w-screen justify-center absolute">
-            <div className="bg-background-light opacity-85 backdrop-blur-lg shadow-lg rounded-lg w-1/3 p-5">
-                <form
-                    id="links_form"
-                    onSubmit={(event) => event.preventDefault()}
-                >
+        <div
+            id="background_div"
+            className="transition-all duration-200 bg-[rgba(0,0,0,0.1)] animate-fadeIn top-0 left-0 flex flex-col backdrop-blur-sm z-20 items-center h-screen w-screen justify-center absolute"
+        >
+            {error && <AlertError msg={error} />}
+            <div className="bg-background-light opacity-85 animate-scaleIn backdrop-blur-lg shadow-lg rounded-lg w-1/3 p-5">
+                <form id="links_form" onSubmit={handleSubmit}>
                     {/* GITHUB FIELD */}
                     <label
                         htmlFor="github"
@@ -30,7 +78,7 @@ export function EditLinksForm({
                         type="text"
                         name="github"
                         spellCheck="false"
-                        placeholder="enter your github link"
+                        placeholder="https://github.com/..."
                         id="github"
                         defaultValue={user?.github as string}
                         pattern="https://github.com/.*"
@@ -52,7 +100,7 @@ export function EditLinksForm({
                         type="text"
                         name="linkedin"
                         spellCheck="false"
-                        placeholder="enter your linkedin link"
+                        placeholder="https://linkedin.com/in/..."
                         id="linkedin"
                         defaultValue={user?.linkedin as string}
                         pattern="https://linkedin.com/in/.*"
@@ -73,7 +121,7 @@ export function EditLinksForm({
                         type="text"
                         name="instagram"
                         spellCheck="false"
-                        placeholder="enter your instagram link"
+                        placeholder="https://instagram.com/..."
                         id="instagram"
                         defaultValue={user?.instagram as string}
                         pattern="https://instagram.com/.*"
@@ -82,9 +130,8 @@ export function EditLinksForm({
                         title="enter a valid linkedin link with https://instagram.com/"
                     />
                     {/* SAVE BUTTON */}
-                    <div className="flex flex-row justify-end mt-5">
+                    <div className="flex flex-row justify-end mt-8">
                         <button
-                            onClick={toggleEditLinks}
                             className="w-28 text-text-invert font-medium bg-primary p-1 rounded-lg"
                             form="links_form"
                         >

@@ -1,10 +1,17 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { api } from "@/api/axios";
+import { ProfileLinksRequest } from "@/types/user";
 
-export async function GET(request: Request) {
+
+export async function PATCH(request: Request) {
     // Verifica o token de autenticação
     const access_token = cookies().get("access_token")?.value;
+    if (!access_token) {
+        return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    }
+
+    const data: ProfileLinksRequest = await request.json();
 
     // Configura os headers da requisição
     const config = {
@@ -16,14 +23,19 @@ export async function GET(request: Request) {
 
     // Tenta realizar a requisição e retorna o resultado
     try {
-        const res = await api.get("/user/current", config);
-        const response = NextResponse.json(res.data, { status: res.status });
+        const res = await api.patch("/user/links", data, config);
+
+        let response = NextResponse.json(
+            { detail: res.data?.detail },
+            { status: res.status }
+        );
+
         return response;
     } catch (error: any) {
         return NextResponse.json(
-            { detail: "Cannot get current user data" },
+            { detail: error?.response?.data?.detail || "error" },
             {
-                status: error.response.status,
+                status: error?.response?.status,
             }
         );
     }

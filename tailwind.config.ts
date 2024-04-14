@@ -37,6 +37,28 @@ const config: Config = {
           success: '#d4edda',
         }
       },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        fadeOut: {
+          '0%': { opacity: '1' },
+          '100%': { opacity: '0' },
+        },
+        scaleIn: {
+          '0%': { transform: 'scale(.94)' },
+          '100%': { transform: 'scale(1)' },
+        },
+        scaleOut: {
+          '0%': { transform: 'scale(1)' },
+          '100%': { transform: 'scale(.94)' },
+        }
+      },
+      animation: {
+        'fadeIn': 'fadeIn 0.1s ease forwards',
+        'scaleIn': 'scaleIn 0.1s ease forwards',
+      }
     },
   },
   plugins: [],

@@ -6,6 +6,9 @@ import { setResponseAuthCookies } from "./functions/set-response-auth-cookies";
 const allowedOrigins = ["http://localhost:3000/", "http://localhost:3000"];
 
 export async function middleware(request: NextRequest, res: NextResponse) {
+
+    const initialTime = new Date().getTime();
+
     // Bypass para as seguintes rotas:
     if (request.nextUrl.pathname.startsWith("/api/login")) {
         return NextResponse.next();
@@ -39,14 +42,15 @@ export async function middleware(request: NextRequest, res: NextResponse) {
 
     // Verifica se o token é valido, caso não seja,
     //redireciona para a rota de login
-    const isValid = await validateUserToken(access_token as string);
-    if (!isValid) {
-        return LoginPage;
-    }
+    // const isValid = await validateUserToken(access_token as string);
+    // if (!isValid) {
+    //     return LoginPage;
+    // }
 
     // Continua com a requisição
     const response = NextResponse.next();
-
+    console.log(`Process Time: ${new Date().getTime() - initialTime} ms`);
+    console.log("For: " + request.nextUrl.pathname + "\n");
     return response;
 }
 

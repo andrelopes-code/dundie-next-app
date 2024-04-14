@@ -7,19 +7,19 @@ const HeaderItem = () => {
     return (
         <div className="flex flex-row bg-primary items-center justify-between mb-3 py-1 px-4 rounded-lg border-border">
             <div className="flex flex-row gap-4 items-center">
-                <p className="flex justify-center w-16 overflow-hidden">
+                <div className="flex justify-center w-16 overflow-hidden">
                     <p className="text-text-invert flex font-semibold tracking-wide text-nowrap max-w-32 overflow-hidden">
                         FROM
                     </p>
-                </p>
+                </div>
                 <p>
                     <CgArrowLongRight size={22} color="#00000000" />
                 </p>
-                <p className="flex justify-center w-16 overflow-hidden">
+                <div className="flex justify-center w-16 overflow-hidden">
                     <p className="text-text-invert tracking-wide font-semibold text-nowrap max-w-32 overflow-hidden">
                         TO
                     </p>
-                </p>
+                </div>
             </div>
             <p className="text-text-invert font-semibold tracking-wide text-center w-24">
                 POINTS
@@ -35,7 +35,6 @@ const TransactionItem = ({ from, to, points, date }) => {
     const difference = new Date() - new Date(date);
 
     const delta = getTimeDeltaString(difference);
-    console.log(date, difference, delta, from.username)
 
     const PDM = ["💸","📦","🌟","⭐","💜","💫","💌","✨",]
 
@@ -76,10 +75,6 @@ const RecentTransactions = () => {
             .then(async (res) => await res.json())
             .then((data) => setTransactions(data));
     }, []);
-
-    useEffect(() => {
-        transactions.length && console.log(transactions);
-    }, [transactions]);
 
     return (
         <>

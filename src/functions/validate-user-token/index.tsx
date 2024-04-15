@@ -17,17 +17,3 @@ export const validateUserToken = async (token: string): Promise<boolean> => {
             return false;
         });
 };
-
-// try {
-//     const response = await api.get("/token/validate", {
-//         headers: {
-//             "x-access-token": `${token}`,
-//         },
-//     });
-
-//     return response.status == 200;
-
-// } catch (error) {
-//     console.error(error);
-//     return false;
-// }

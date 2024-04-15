@@ -4,7 +4,7 @@ import Navbar from "@/components/Navbar";
 import ProfileCard from "@/components/profile/profile-card";
 import ProfileDetails from "@/components/profile/profile-datails";
 import ProfileLinks from "@/components/profile/profile-links";
-import { useState, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import Loading from "@/components/Loading";
 import { User } from "@/types/user";
 import UserProfileTransactions from "@/components/profile/user-transactions";
@@ -14,24 +14,33 @@ export default function PublicProfile({
 }: {
     params: { username: string };
 }) {
+    const isFirstRender = useRef(true);
     const [user, setUser] = useState<User>();
     const [noUser, setNoUser] = useState<boolean>(false);
 
     useEffect(() => {
-        fetch(`http://localhost:3000/api/user/public/${params.username}`)
-            .then(async (res) => {
-                if (res.ok) {
-                    const data = await res.json();
-                    setUser(data);
-                } else {
-                    setNoUser(true);
-                    console.log("user not found");
-                }
-            })
-            .catch((error) => {
-                console.error("Ocorreu um erro ao buscar o usuário:", error);
-            });
-    }, []);
+        const getPublicProfile = () => {
+            console.log("getting public profile");
+            fetch(`http://localhost:3000/api/user/public/${params.username}`)
+                .then(async (res) => {
+                    if (res.ok) {
+                        const data = await res.json();
+                        setUser(data);
+                    } else {
+                        setNoUser(true);
+                        console.log("user not found");
+                    }
+                })
+                .catch((error) => {
+                    console.error(
+                        "Ocorreu um erro ao buscar o usuário:",
+                        error
+                    );
+                });
+        };
+        isFirstRender.current && getPublicProfile();
+        isFirstRender.current = false;
+    });
 
     useEffect(() => {
         if (user) {
@@ -52,7 +61,7 @@ export default function PublicProfile({
                             <span className="sr-only">Error</span>404
                         </h2>
                         <p className="text-2xl md:text-3xl">
-                            Sorry, user '{params.username}' not found.
+                            Sorry, user &apos;{params.username}&apos; not found.
                         </p>
                         <Link
                             href="/"

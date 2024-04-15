@@ -3,25 +3,32 @@ import Navbar from "@/components/Navbar";
 import ProfileCard from "@/components/profile/profile-card";
 import ProfileDetails from "@/components/profile/profile-datails";
 import ProfileLinks from "@/components/profile/profile-links";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Loading from "@/components/Loading";
 import { User } from "@/types/user";
 import UserProfileTransactions from "@/components/profile/user-transactions";
 
 export default function Profile() {
+    const isFirstRender = useRef(true);
     const [user, setUser] = useState<User>();
-
     useEffect(() => {
-        fetch("http://localhost:3000/api/user/profile")
-            .then(async (res) => {
-                if (res.ok) {
-                    const data = await res.json();
-                    setUser(data);
-                }
-            })
-            .catch((error) => {
-                console.error("Ocorreu um erro ao buscar o usuário:", error);
-            });
+        const getProfile = () => {
+            fetch("http://localhost:3000/api/user/profile")
+                .then(async (res) => {
+                    if (res.ok) {
+                        const data = await res.json();
+                        setUser(data);
+                    }
+                })
+                .catch((error) => {
+                    console.error(
+                        "Ocorreu um erro ao buscar o usuário:",
+                        error
+                    );
+                });
+        };
+        isFirstRender.current && getProfile();
+        isFirstRender.current = false;
     }, []);
 
     useEffect(() => {

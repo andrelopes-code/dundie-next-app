@@ -1,7 +1,7 @@
 import { NoAvatar } from "@/components/NoAvatar";
 import { RiUpload2Fill } from "react-icons/ri";
 import { User } from "@/types/user";
-
+import Image from "next/image";
 
 export default function ProfileCard({ user }: Readonly<{ user: User }>) {
     return (
@@ -16,8 +16,18 @@ export default function ProfileCard({ user }: Readonly<{ user: User }>) {
                     }
                 </div>
                 <div className="h-32 w-32 mx-auto rounded-full overflow-hidden drop-shadow-xl">
-                    {!user.avatar && <NoAvatar className="transition-transform ease-in-out delay-100 duration-1000 hover:scale-105" />}
-                    {user.avatar && <img className="transition-transform ease-in-out delay-100 duration-1000 hover:scale-105" src={user.avatar} alt="user avatar" />}
+                    {!user.avatar && (
+                        <NoAvatar className="transition-transform ease-in-out delay-100 duration-1000 hover:scale-105" />
+                    )}
+                    {user.avatar && (
+                        <Image
+                            className="transition-transform ease-in-out delay-100 duration-1000 hover:scale-105"
+                            src={user.avatar}
+                            alt="user avatar"
+                            width={200}
+                            height={200}
+                        />
+                    )}
                 </div>
             </div>
             <div>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Loading from "@/components/Loading";
 import { CgArrowLongRight } from "react-icons/cg";
 import { User } from "@/types/user";
@@ -91,18 +91,23 @@ const UserProfileTransactions = ({
 }: {
     targetUser?: string;
 }) => {
+    const isFirstRender = useRef(true);
     const [transactions, setTransactions] = useState([]);
 
     useEffect(() => {
-        fetch(
-            `http://localhost:3000/api/user/profile/transaction${
-                targetUser && "/" + targetUser
-            }`
-        )
-            .then(async (res) => await res.json())
-            .then((data) => setTransactions(data))
-            .catch((err) => console.log(err));
-    }, []);
+        const getUserTransactions = () => {
+            fetch(
+                `http://localhost:3000/api/user/profile/transaction${
+                    targetUser && "/" + targetUser
+                }`
+            )
+                .then(async (res) => await res.json())
+                .then((data) => setTransactions(data))
+                .catch((err) => console.log(err));
+        };
+        isFirstRender.current && getUserTransactions();
+        isFirstRender.current = false;
+    });
 
     return (
         <>
@@ -114,7 +119,7 @@ const UserProfileTransactions = ({
                         Transactions
                     </h2>
                     <HeaderItem />
-                    <div className="overflow-auto noscrollbar flex flex-col gap-4">
+                    <div className="overflow-auto noscrollbar flex flex-col gap-5">
                         {transactions.map((trans: any, idx) => (
                             <TransactionItem
                                 key={trans.from_id * idx}

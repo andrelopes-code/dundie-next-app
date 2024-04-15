@@ -34,7 +34,7 @@ const PrivateRoute = ({ children }) => {
         if (uAuth === false) {
             push(APP_ROUTES.public.login);
         }
-    }, [uAuth]);
+    }, [push, uAuth]);
 
 
     return (

@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Loading from "@/components/Loading";
 import { SiDogecoin } from "react-icons/si";
 import {
@@ -8,6 +8,7 @@ import {
     TbRosetteNumber3,
 } from "react-icons/tb";
 import { NoAvatar } from "../NoAvatar";
+import Image from "next/image";
 
 const TbRosetteNumber = ({ pos }) => {
     if (pos === 1) {
@@ -52,7 +53,13 @@ const ItemRanking = ({ name, points, pos, username, avatar }) => {
                     {!avatar && <NoAvatar className="h-8" />}
 
                     {avatar && (
-                        <img className="h-8" src={avatar} alt="userImage" />
+                        <Image
+                            className="h-8"
+                            src={avatar}
+                            alt="userImage"
+                            width={200}
+                            height={200}
+                        />
                     )}
                 </a>
                 <p className="text-text font-semibold text-nowrap max-w-32 overflow-hidden">
@@ -70,7 +77,7 @@ const ItemRanking = ({ name, points, pos, username, avatar }) => {
 };
 
 const Ranking = () => {
-    let hasData = false;
+    const isFirstRender = useRef(true);
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
@@ -80,8 +87,8 @@ const Ranking = () => {
                 .then((data) => setUsers(data))
                 .catch((err) => console.log(err));
         };
-        !hasData && getRanking();
-        hasData = true;
+        isFirstRender.current && getRanking();
+        isFirstRender.current = false;
     }, []);
 
     return (

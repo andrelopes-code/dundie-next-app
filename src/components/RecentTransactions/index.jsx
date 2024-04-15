@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Loading from "@/components/Loading";
 import { CgArrowLongRight } from "react-icons/cg";
 import getTimeDeltaString from "@/functions/get-time-delta";
@@ -72,13 +72,18 @@ const TransactionItem = ({ from, to, points, date }) => {
 };
 
 const RecentTransactions = () => {
+    const isFirstRender = useRef(true);
     const [transactions, setTransactions] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:3000/api/transaction/recent")
-            .then(async (res) => await res.json())
-            .then((data) => setTransactions(data))
-            .catch((err) => console.log(err));
+        const getRecentTransactions = () => {
+            fetch("http://localhost:3000/api/transaction/recent")
+                .then(async (res) => await res.json())
+                .then((data) => setTransactions(data))
+                .catch((err) => console.log(err));
+        };
+        isFirstRender.current && getRecentTransactions();
+        isFirstRender.current = false;
     }, []);
 
     return (

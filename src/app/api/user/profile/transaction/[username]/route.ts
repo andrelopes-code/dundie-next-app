@@ -14,9 +14,12 @@ export async function GET(request: Request) {
         },
     };
 
-    const match = request.url.match(/user\/profile\/transaction\/([^/]+)\/?$/);
+    // Obtém o pathname da URL
+    const url = new URL(request.url);
+    const match = url.pathname.match(/\/transaction\/([^\/]+)$/);
+
+    // Extrai o username se encontrado
     const username = match ? match[1] : "";
-    console.log("username: ", username);
 
     // Tenta realizar a requisição e retorna o resultado
     try {
@@ -28,7 +31,7 @@ export async function GET(request: Request) {
         return response;
     } catch (error: any) {
         return NextResponse.json(
-            { detail: "Cannot get profile" },
+            { detail: "Cannot get public profile transactions" },
             {
                 status: error.response.status,
             }

@@ -12,7 +12,7 @@ const HeaderItem = () => {
                         ID
                     </p>
                 </div>
-                <div className="flex justify-center w-36 overflow-hidden">
+                <div className="flex justify-center w-48 overflow-hidden">
                     <p className="text-text-invert flex font-semibold tracking-wide text-nowrap max-w-32 overflow-hidden">
                         FROM
                     </p>
@@ -20,7 +20,7 @@ const HeaderItem = () => {
                 <p>
                     <CgArrowLongRight size={22} color="#00000000" />
                 </p>
-                <div className="flex justify-center w-36 overflow-hidden">
+                <div className="flex justify-center w-48 overflow-hidden">
                     <p className="text-text-invert tracking-wide font-semibold text-nowrap max-w-32 overflow-hidden">
                         TO
                     </p>
@@ -52,8 +52,6 @@ const TransactionItem = ({
     const newDate = date.slice(0, 10);
     const time = date.slice(11, 16);
 
-    const PDM = ["💸", "📦", "🌟", "⭐", "💜", "💫", "💌", "✨"];
-
     return (
         <div className="flex flex-row bg-background items-center justify-between py-1 px-4 rounded-lg border-border">
             <div className="flex flex-row gap-4 items-center">
@@ -62,24 +60,21 @@ const TransactionItem = ({
                 </p>
                 <a
                     href={`/user/${from.username}`}
-                    className="flex justify-center w-36 overflow-hidden"
+                    className="flex justify-center w-48 overflow-hidden"
                 >
-                    <p className="text-text font-semibold text-nowrap max-w-32 overflow-hidden">
-                        {from.name == "Points Delivery Man"
-                            ? "PDM" +
-                              PDM[Math.floor(Math.random() * PDM.length)]
-                            : from.name}
+                    <p className="text-text font-semibold text-nowrap max-w-48 overflow-hidden">
+                        {from.username}
                     </p>
                 </a>
                 <p>
-                    <CgArrowLongRight size={22} color="#4344bc" />
+                    <CgArrowLongRight size={22} color="#0000" />
                 </p>
                 <a
                     href={`/user/${to.username}`}
-                    className="flex justify-center w-36 overflow-hidden"
+                    className="flex justify-center w-48 overflow-hidden"
                 >
-                    <p className="text-text font-semibold text-nowrap max-w-32 overflow-hidden">
-                        {to.name}
+                    <p className="text-text font-semibold text-nowrap max-w-48 overflow-hidden">
+                        {to.username}
                     </p>
                 </a>
             </div>
@@ -91,11 +86,19 @@ const TransactionItem = ({
     );
 };
 
-const UserProfileTransactions = () => {
+const UserProfileTransactions = ({
+    targetUser = "",
+}: {
+    targetUser?: string;
+}) => {
     const [transactions, setTransactions] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:3000/api/user/profile/transaction")
+        fetch(
+            `http://localhost:3000/api/user/profile/transaction${
+                targetUser && "/" + targetUser
+            }`
+        )
             .then(async (res) => await res.json())
             .then((data) => setTransactions(data))
             .catch((err) => console.log(err));
@@ -103,15 +106,15 @@ const UserProfileTransactions = () => {
 
     return (
         <>
-            {!transactions.length ? (
+            {!transactions ? (
                 <Loading />
             ) : (
-                <div className="h-full m-4 flex justify-start flex-col">
+                <div className="h-full m-4 flex pb-7 justify-start flex-col">
                     <h2 className="bg-background h-[3.5rem] mb-3 text-center w-full py-3 rounded-lg font-semibold text-primary text-2xl">
                         Transactions
                     </h2>
                     <HeaderItem />
-                    <div className="overflow-auto noscrollbar flex flex-col gap-2">
+                    <div className="overflow-auto noscrollbar flex flex-col gap-4">
                         {transactions.map((trans: any, idx) => (
                             <TransactionItem
                                 key={trans.from_id * idx}

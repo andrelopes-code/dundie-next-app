@@ -43,7 +43,7 @@ export default function Navbar() {
 
                     <div className="hidden lg:flex lg:flex-1 lg:justify-end">
                         <div className="flex flex-row items-center gap-11">
-                            <div className="hidden lg:flex lg:gap-x-10">
+                            <div className="hidden lg:flex lg:gap-x-14">
                                 <Link
                                     href="/"
                                     className="text-sm font-semibold leading-6 text-text"

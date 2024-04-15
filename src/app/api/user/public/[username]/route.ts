@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { api } from "@/api/axios";
+import { ProfileUpdateRequest } from "@/types/user";
+import { setResponseAuthCookies } from "@/functions/set-response-auth-cookies";
 
 export async function GET(request: Request) {
     // Verifica o token de autenticação
@@ -14,23 +16,18 @@ export async function GET(request: Request) {
         },
     };
 
-    const match = request.url.match(/user\/profile\/transaction\/([^/]+)\/?$/);
-    const username = match ? match[1] : "";
-    console.log("username: ", username);
+    const username = request.url.slice(request.url.lastIndexOf("/") + 1);
 
     // Tenta realizar a requisição e retorna o resultado
     try {
-        const res = await api.get(
-            `/transaction/list?username=${username}`,
-            config
-        );
+        const res = await api.get(`/user/public/${username}`, config);
         const response = NextResponse.json(res.data, { status: res.status });
         return response;
     } catch (error: any) {
         return NextResponse.json(
             { detail: "Cannot get profile" },
             {
-                status: error.response.status,
+                status: 404,
             }
         );
     }

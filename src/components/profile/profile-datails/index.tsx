@@ -23,7 +23,10 @@ const inputClassnameDisabled =
  * @return {JSX.Element} Renders the profile details form with edit and save buttons.
  */
 
-export default function ProfileDetails({ user }: Readonly<{ user: User }>) {
+export default function ProfileDetails({
+    user,
+    isPublic = false,
+}: Readonly<{ user: User; isPublic?: boolean }>) {
     const [isEditing, setIsEditing] = useState<boolean>(false);
     const [error, setError] = useState<string>("");
     const [success, setSuccess] = useState<string>("");
@@ -99,6 +102,7 @@ export default function ProfileDetails({ user }: Readonly<{ user: User }>) {
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        if (isPublic) return;
 
         let name = (event.target as any)[0].value;
         let username = (event.target as any)[2].value.slice(1);
@@ -167,7 +171,7 @@ export default function ProfileDetails({ user }: Readonly<{ user: User }>) {
                             spellCheck="false"
                             placeholder="enter your email here"
                             id="up_email"
-                            defaultValue={user.email}
+                            defaultValue={user.email || "***************"}
                         />
                     </div>
                     <div>
@@ -245,23 +249,26 @@ export default function ProfileDetails({ user }: Readonly<{ user: User }>) {
                     />
                 </div>
             </form>
-            <div className="w-full flex flex-row justify-end">
-                <button
-                    className="w-32 hidden text-text-invert font-medium bg-primary p-2 rounded-lg"
-                    form="profile_form"
-                    type="submit"
-                    id="save_profile_btn"
-                >
-                    Save Profile
-                </button>
-                <button
-                    className="w-32 text-text-invert font-medium bg-primary p-2 rounded-lg"
-                    onClick={toggleEdit}
-                    id="edit_profile_btn"
-                >
-                    Edit Profile
-                </button>
-            </div>
+
+            {!isPublic && (
+                <div className="w-full flex flex-row justify-end">
+                    <button
+                        className="w-32 hidden text-text-invert font-medium bg-primary p-2 rounded-lg"
+                        form="profile_form"
+                        type="submit"
+                        id="save_profile_btn"
+                    >
+                        Save Profile
+                    </button>
+                    <button
+                        className="w-32 text-text-invert font-medium bg-primary p-2 rounded-lg"
+                        onClick={toggleEdit}
+                        id="edit_profile_btn"
+                    >
+                        Edit Profile
+                    </button>
+                </div>
+            )}
         </div>
     );
 }

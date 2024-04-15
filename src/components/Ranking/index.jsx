@@ -49,11 +49,11 @@ const ItemRanking = ({ name, points, pos, username, avatar }) => {
                     href={`/user/${username}`}
                     className="flex justify-center rounded-full w-8 overflow-hidden"
                 >
-                    {!avatar && (
-                        <NoAvatar className="h-8" />
+                    {!avatar && <NoAvatar className="h-8" />}
+
+                    {avatar && (
+                        <img className="h-8" src={avatar} alt="userImage" />
                     )}
-                    
-                    {avatar && <img className="h-8" src={avatar} alt="userImage" /> }
                 </a>
                 <p className="text-text font-semibold text-nowrap max-w-32 overflow-hidden">
                     {name}
@@ -101,6 +101,7 @@ const Ranking = () => {
                                 points={user.points}
                                 avatar={user.avatar}
                                 pos={pos + 1}
+                                username={user.username}
                             />
                         ))}
                     </div>

@@ -6,31 +6,22 @@ import ProfileLinks from "@/components/profile/profile-links";
 import { useState, useEffect } from "react";
 import Loading from "@/components/Loading";
 import { User } from "@/types/user";
+import UserProfileTransactions from "@/components/profile/user-transactions";
 
 export default function Profile() {
     const [user, setUser] = useState<User>();
 
     useEffect(() => {
-        let isMounted = true;
-
-        if (!user) {
-            fetch("http://localhost:3000/api/user/profile")
-                .then(async (res) => {
-                    if (isMounted) {
-                        setUser(await res.json());
-                    }
-                })
-                .catch((error) => {
-                    console.error(
-                        "Ocorreu um erro ao buscar o usuário:",
-                        error
-                    );
-                });
-        }
-
-        return () => {
-            isMounted = false;
-        };
+        fetch("http://localhost:3000/api/user/profile")
+            .then(async (res) => {
+                if (res.ok) {
+                    const data = await res.json();
+                    setUser(data);
+                }
+            })
+            .catch((error) => {
+                console.error("Ocorreu um erro ao buscar o usuário:", error);
+            });
     }, []);
 
     useEffect(() => {
@@ -54,7 +45,6 @@ export default function Profile() {
                     {/* PROFILE LINKS */}
                     <div className="overflow-hidden m-[0.75rem_0.75rem_0.75rem_0]">
                         {user && <ProfileLinks user={user} />}
-                        {!user && <Loading />}
                     </div>
                 </div>
                 <div className="grid grid-rows-[50%_50%] min-h-[650px] h-content">
@@ -63,8 +53,11 @@ export default function Profile() {
                         {user && <ProfileDetails user={user} />}
                         {!user && <Loading />}
                     </div>
-                    {/* ALL TRANSACTIONS */}
-                    <div className="shadow-lg overflow-hidden bg-background-light m-[0.75rem_0.75rem_0.75rem_0] rounded-lg"></div>
+                    {/* USER TRANSACTIONS */}
+                    <div className="shadow-lg overflow-hidden bg-background-light m-[0.75rem_0.75rem_0.75rem_0] rounded-lg">
+                        {user && <UserProfileTransactions />}
+                        {!user && <Loading />}
+                    </div>
                 </div>
             </div>
         </div>

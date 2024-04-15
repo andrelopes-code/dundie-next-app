@@ -7,14 +7,14 @@ export default function Navbar() {
         <div className="shadow-sm">
             <header className="bg-background-light">
                 <nav
-                    className="mx-28 flex items-center justify-between p-4 lg:px-16 "
+                    className="mx-20 flex items-center justify-between p-4 lg:px-16 "
                     aria-label="Global"
                 >
                     <div className="flex lg:flex-1">
                         <Link href="/" className="-m-1.5 p-1.5">
                             <span className="flex flex-row items-center gap-[1px] font-bold text-2xl text-primary">
                                 <SiDogecoin size={30} />
-                                <spam className="mt-[3px]">UNDIE</spam>
+                                <span className="mt-[3px]">UNDIE</span>
                             </span>
                         </Link>
                     </div>
@@ -43,7 +43,13 @@ export default function Navbar() {
 
                     <div className="hidden lg:flex lg:flex-1 lg:justify-end">
                         <div className="flex flex-row items-center gap-11">
-                            <div className="hidden lg:flex lg:gap-x-16">
+                            <div className="hidden lg:flex lg:gap-x-10">
+                                <Link
+                                    href="/"
+                                    className="text-sm font-semibold leading-6 text-text"
+                                >
+                                    HOME
+                                </Link>
                                 <Link
                                     href="/user/profile"
                                     className="text-sm font-semibold leading-6 text-text"

@@ -32,11 +32,12 @@ const HeaderItem = () => {
 };
 
 const TransactionItem = ({ from, to, points, date }) => {
+    // console.log(typeof from, typeof to, typeof points, typeof date);
     const difference = new Date() - new Date(date);
 
     const delta = getTimeDeltaString(difference);
 
-    const PDM = ["💸","📦","🌟","⭐","💜","💫","💌","✨",]
+    const PDM = ["💸", "📦", "🌟", "⭐", "💜", "💫", "💌", "✨"];
 
     return (
         <div className="flex flex-row bg-background items-center justify-between py-1 px-4 rounded-lg border-border">
@@ -46,7 +47,10 @@ const TransactionItem = ({ from, to, points, date }) => {
                     className="flex justify-center w-16 overflow-hidden"
                 >
                     <p className="text-text font-semibold text-nowrap max-w-32 overflow-hidden">
-                        {from.name == "Points Delivery Man" ? "PDM" + PDM[Math.floor(Math.random() * PDM.length)] : from.name}
+                        {from.name == "Points Delivery Man"
+                            ? "PDM" +
+                              PDM[Math.floor(Math.random() * PDM.length)]
+                            : from.name}
                     </p>
                 </a>
                 <p>
@@ -73,7 +77,8 @@ const RecentTransactions = () => {
     useEffect(() => {
         fetch("http://localhost:3000/api/transaction/recent")
             .then(async (res) => await res.json())
-            .then((data) => setTransactions(data));
+            .then((data) => setTransactions(data))
+            .catch((err) => console.log(err));
     }, []);
 
     return (

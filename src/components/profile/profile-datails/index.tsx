@@ -3,7 +3,7 @@ import { FormEvent, useState } from "react";
 import { AlertError, AlertSuccess } from "@/components/alert";
 
 const inputClassnameDisabled =
-    "w-full bg-background transition-all ease duration-300 border outline-gray-300 p-2 rounded-lg focus:outline-primary-light";
+    "w-full bg-background transition-all ease duration-300 border text-text-inactive focus:text-text outline-gray-300 p-2 rounded-lg focus:outline-primary-light";
 
 /**
  * ProfileDetails component allows users to view and edit their profile information.
@@ -102,7 +102,7 @@ export default function ProfileDetails({ user }: Readonly<{ user: User }>) {
 
         let name = (event.target as any)[0].value;
         let username = (event.target as any)[2].value.slice(1);
-        let bio = (event.target as any)[4].value;
+        let bio = (event.target as any)[5].value;
 
         const data: ProfileUpdateRequest = {
             name: name == user.name ? "" : name,
@@ -192,21 +192,39 @@ export default function ProfileDetails({ user }: Readonly<{ user: User }>) {
                             title="Only lowercase letters are allowed, ex: '@username'"
                         />
                     </div>
-                    <div>
-                        <label
-                            className="text-text text-sm font-medium pl-1 pb-2"
-                            htmlFor="up_dept"
-                        >
-                            Departament
-                        </label>
-                        <input
-                            className={inputClassnameDisabled}
-                            type="text"
-                            name="up_dept"
-                            disabled
-                            id="up_dept"
-                            defaultValue={user.dept}
-                        />
+                    <div className="grid grid-cols-2 gap-3">
+                        <div>
+                            <label
+                                className="text-text text-sm font-medium pl-1 pb-2"
+                                htmlFor="up_dept"
+                            >
+                                Departament
+                            </label>
+                            <input
+                                className={inputClassnameDisabled}
+                                type="text"
+                                name="up_dept"
+                                disabled
+                                id="up_dept"
+                                defaultValue={user.dept}
+                            />
+                        </div>
+                        <div>
+                            <label
+                                className="text-text text-sm font-medium pl-1 pb-2"
+                                htmlFor="up_points"
+                            >
+                                Points
+                            </label>
+                            <input
+                                className={inputClassnameDisabled}
+                                type="text"
+                                name="up_points"
+                                disabled
+                                id="up_points"
+                                defaultValue={user.points}
+                            />
+                        </div>
                     </div>
                 </div>
                 <div>
@@ -217,7 +235,7 @@ export default function ProfileDetails({ user }: Readonly<{ user: User }>) {
                         Bio
                     </label>
                     <textarea
-                        className="w-full h-20 resize-none text-sm bg-background noscrollbar transition-all ease duration-300 border outline-gray-300 p-2 rounded-lg focus:outline-primary-light"
+                        className="w-full h-20 resize-none text-sm text-text-inactive focus:text-text bg-background noscrollbar transition-all ease duration-300 border outline-gray-300 p-2 rounded-lg focus:outline-primary-light"
                         name="up_bio"
                         disabled
                         spellCheck="false"

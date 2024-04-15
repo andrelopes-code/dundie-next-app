@@ -45,7 +45,7 @@ export async function PATCH(request: Request) {
         headers: {
             accept: "application/json",
             authorization: `Bearer ${access_token}`,
-        },
+        }
     };
 
     // Tenta realizar a requisição e retorna o resultado

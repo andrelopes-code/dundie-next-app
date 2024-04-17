@@ -19,6 +19,10 @@ export async function POST(request: Request) {
 
         return response;
     } catch (error: any) {
+        console.error(
+            "Error while logging in [/api/login]:",
+            error?.response?.data
+        );
         return NextResponse.json(error.response.data, {
             status: error.response.status,
         });

@@ -1,6 +1,6 @@
 @tailwind base;
 @tailwind components;
-@tailwind utilities;
+@tailwind utilities; 
 
 :root {
     --foreground-rgb: 0, 0, 0;
@@ -16,6 +16,10 @@
 
 html {
     font-family: "Poppins", "Noto Sans", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+    text-rendering: optimizeLegibility;
 }
 
 .h-content {
@@ -23,5 +27,13 @@ html {
 }
 
 .noscrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-calendar-picker-indicator {
+    -webkit-appearance: none;
+    margin: 0;
     display: none;
 }

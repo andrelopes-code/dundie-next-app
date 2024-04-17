@@ -19,9 +19,12 @@ export interface ProfileUpdateRequest  {
     dept?: string|null;
 }
 
-export interface ProfileLinksRequest  {
-    github: string|null;
-    linkedin: string|null;
-    instagram: string|null;
-    
+export interface ProfileLinksRequest {
+    github: string | null;
+    linkedin: string | null;
+    instagram: string | null;
+}
+
+export interface ProfileAvatarRequest {
+    avatar_url: string;
 }

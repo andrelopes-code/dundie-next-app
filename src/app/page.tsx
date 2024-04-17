@@ -16,11 +16,11 @@ export default function Home() {
 
                 <div className="grid grid-rows-[auto_auto] h-content">
                     {/* RANKING DIV */}
-                    <div className="shadow-lg overflow-hidden bg-background-light m-[0.75rem_0.75rem_0_0] rounded-lg">
+                    <div className="shadow-lg overflow-hidden bg-background-light m-[0.75rem_0.75rem_0_0] rounded-lg transition-all duration-700 delay-200 hover:translate-x-2">
                         <Ranking />
                     </div>
                     {/* RECENT TRANSACTIONS DIV */}
-                    <div className="shadow-lg overflow-hidden bg-background-light m-[0.75rem_0.75rem_0.75rem_0] rounded-lg">
+                    <div className="shadow-lg overflow-hidden bg-background-light m-[0.75rem_0.75rem_0.75rem_0] z-10 rounded-lg transition-all duration-700 delay-200 hover:translate-x-2">
                         <RecentTransactions />
                     </div>
                 </div>

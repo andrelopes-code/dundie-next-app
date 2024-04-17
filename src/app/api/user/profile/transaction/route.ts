@@ -16,7 +16,6 @@ export async function GET(request: Request) {
 
     const match = request.url.match(/user\/profile\/transaction\/([^/]+)\/?$/);
     const username = match ? match[1] : "";
-    console.log("username: ", username);
 
     // Tenta realizar a requisição e retorna o resultado
     try {
@@ -27,6 +26,10 @@ export async function GET(request: Request) {
         const response = NextResponse.json(res.data, { status: res.status });
         return response;
     } catch (error: any) {
+        console.error(
+            "Error while getting profile transactions [/api/user/profile/transaction]:",
+            error?.response?.data
+        );
         return NextResponse.json(
             { detail: "Cannot get profile" },
             {

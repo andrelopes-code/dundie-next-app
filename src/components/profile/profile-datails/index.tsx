@@ -1,8 +1,10 @@
 import { User, ProfileUpdateRequest } from "@/types/user";
 import { FormEvent, useState } from "react";
 import { AlertError, AlertSuccess } from "@/components/alert";
+import Link from "next/link";
+import API_URL from "@/constants/apiRoute";
 
-const inputClassnameDisabled =
+const inputClassname =
     "w-full bg-background transition-all ease duration-300 border text-text-inactive focus:text-text outline-gray-300 p-2 rounded-lg focus:outline-primary-light";
 
 /**
@@ -81,7 +83,7 @@ export default function ProfileDetails({
     };
 
     const sendData = async (data: any) => {
-        fetch("http://localhost:3000/api/user/profile", {
+        fetch(`${API_URL}/user/profile`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
@@ -142,7 +144,7 @@ export default function ProfileDetails({
                             Full Name
                         </label>
                         <input
-                            className={inputClassnameDisabled}
+                            className={inputClassname}
                             type="text"
                             name="up_name"
                             spellCheck="false"
@@ -164,7 +166,7 @@ export default function ProfileDetails({
                             Email
                         </label>
                         <input
-                            className={inputClassnameDisabled}
+                            className={inputClassname}
                             type="email"
                             disabled
                             name="up_email"
@@ -182,7 +184,7 @@ export default function ProfileDetails({
                             Username
                         </label>
                         <input
-                            className={inputClassnameDisabled}
+                            className={inputClassname}
                             type="text"
                             disabled
                             name="up_username"
@@ -205,7 +207,7 @@ export default function ProfileDetails({
                                 Departament
                             </label>
                             <input
-                                className={inputClassnameDisabled}
+                                className={inputClassname}
                                 type="text"
                                 name="up_dept"
                                 disabled
@@ -221,7 +223,7 @@ export default function ProfileDetails({
                                 Points
                             </label>
                             <input
-                                className={inputClassnameDisabled}
+                                className={inputClassname}
                                 type="text"
                                 name="up_points"
                                 disabled
@@ -268,6 +270,16 @@ export default function ProfileDetails({
                         Edit Profile
                     </button>
                 </div>
+            )}
+            {isPublic && (
+                <Link href={"/donate?target=" + user.username || "undefined"}>
+                    <button
+                        className="w-32 text-text-invert font-medium bg-primary p-2 rounded-lg transition-all ease duration-300 hover:translate-x-1"
+                        id="edit_profile_btn"
+                    >
+                        Send Points
+                    </button>
+                </Link>
             )}
         </div>
     );

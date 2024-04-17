@@ -20,7 +20,6 @@ export default function PublicProfile({
 
     useEffect(() => {
         const getPublicProfile = () => {
-            console.log("getting public profile");
             fetch(`http://localhost:3000/api/user/public/${params.username}`)
                 .then(async (res) => {
                     if (res.ok) {

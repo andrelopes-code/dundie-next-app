@@ -6,13 +6,13 @@ import { setResponseAuthCookies } from "@/functions/set-response-auth-cookies";
 
 export async function GET(request: Request) {
     // Verifica o token de autenticação
-    const access_token = cookies().get("access_token")?.value;
+    const accessToken = cookies().get("access_token")?.value;
 
     // Configura os headers da requisição
     const config = {
         headers: {
             accept: "application/json",
-            authorization: `Bearer ${access_token}`,
+            authorization: `Bearer ${accessToken}`,
         },
     };
 
@@ -22,6 +22,10 @@ export async function GET(request: Request) {
         const response = NextResponse.json(res.data, { status: res.status });
         return response;
     } catch (error: any) {
+        console.error(
+            "Error while getting profile [/api/user/profile]:",
+            error?.response?.data
+        );
         return NextResponse.json(
             { detail: "Cannot get profile" },
             {
@@ -45,7 +49,7 @@ export async function PATCH(request: Request) {
         headers: {
             accept: "application/json",
             authorization: `Bearer ${access_token}`,
-        }
+        },
     };
 
     // Tenta realizar a requisição e retorna o resultado
@@ -67,7 +71,10 @@ export async function PATCH(request: Request) {
 
         return response;
     } catch (error: any) {
-        console.log(error);
+        console.error(
+            "Error while updating profile [PATCH /api/user/profile]:",
+            error?.response?.data
+        );
         return NextResponse.json(
             { detail: error?.response?.data?.detail || "nada" },
             {

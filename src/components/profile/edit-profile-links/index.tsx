@@ -5,6 +5,7 @@ import { FaSquareGithub, FaLinkedin, FaSquareInstagram } from "react-icons/fa6";
 import { useState } from "react";
 import { AlertError } from "@/components/alert";
 import { FormEvent } from "react";
+import API_URL from "@/constants/apiRoute";
 
 export function EditLinksForm({
     user,
@@ -38,7 +39,7 @@ export function EditLinksForm({
         let linkedin = (event.target as any)[1].value;
         let instagram = (event.target as any)[2].value;
 
-        fetch("http://localhost:3000/api/user/profile/links", {
+        fetch(`${API_URL}/user/profile/links`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",

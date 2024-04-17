@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import Loading from "@/components/Loading";
 import { CgArrowLongRight } from "react-icons/cg";
 import getTimeDeltaString from "@/functions/get-time-delta";
+import API_URL from "@/constants/apiRoute";
 
 const HeaderItem = () => {
     return (
@@ -77,7 +78,7 @@ const RecentTransactions = () => {
 
     useEffect(() => {
         const getRecentTransactions = () => {
-            fetch("http://localhost:3000/api/transaction/recent")
+            fetch(`${API_URL}/transaction/recent`)
                 .then(async (res) => await res.json())
                 .then((data) => setTransactions(data))
                 .catch((err) => console.log(err));
@@ -97,9 +98,9 @@ const RecentTransactions = () => {
                     </h2>
                     <HeaderItem />
                     <div className="overflow-auto noscrollbar flex flex-col gap-2">
-                        {transactions.map((trans, idx) => (
+                        {transactions.map((trans) => (
                             <TransactionItem
-                                key={trans.from_id * idx}
+                                key={trans.id}
                                 from={trans.from_user}
                                 points={trans.points}
                                 to={trans.to_user}

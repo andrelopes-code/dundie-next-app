@@ -4,16 +4,16 @@ import { api } from "@/api/axios";
 
 export async function GET(request: Request) {
     // Verifica o token de autenticação
-    const access_token = cookies().get("access_token")?.value;
-    if (!access_token) {
+    const accessToken = cookies().get("access_token")?.value;
+    if (!accessToken) {
         return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
-    
+
     // Configura os headers da requisição
     const config = {
         headers: {
             accept: "application/json",
-            authorization: `Bearer ${access_token}`,
+            authorization: `Bearer ${accessToken}`,
         },
     };
 
@@ -23,10 +23,14 @@ export async function GET(request: Request) {
         const response = NextResponse.json(res.data, { status: res.status });
         return response;
     } catch (error: any) {
+        console.error(
+            "Error while fetching ranking [/api/ranking]:",
+            error?.response?.data
+        );
         return NextResponse.json(
-            { detail: "Cannot get ranking" },
+            { detail: "Failed to retrieve ranking" },
             {
-                status: error.response.status,
+                status: 500,
             }
         );
     }

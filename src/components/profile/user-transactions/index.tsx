@@ -120,9 +120,9 @@ const UserProfileTransactions = ({
                     </h2>
                     <HeaderItem />
                     <div className="overflow-auto noscrollbar flex flex-col gap-5">
-                        {transactions.map((trans: any, idx) => (
+                        {transactions.map((trans: any) => (
                             <TransactionItem
-                                key={trans.from_id * idx}
+                                key={trans.id}
                                 from={trans.from_user}
                                 points={trans.points}
                                 to={trans.to_user}

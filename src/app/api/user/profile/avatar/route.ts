@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { api } from "@/api/axios";
-import { ProfileLinksRequest } from "@/types/user";
-
+import { ProfileAvatarRequest } from "@/types/user";
 
 export async function PATCH(request: Request) {
     // Verifica o token de autenticação
@@ -11,7 +10,7 @@ export async function PATCH(request: Request) {
         return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 
-    const data: ProfileLinksRequest = await request.json();
+    const data: ProfileAvatarRequest = await request.json();
 
     // Configura os headers da requisição
     const config = {
@@ -23,7 +22,7 @@ export async function PATCH(request: Request) {
 
     // Tenta realizar a requisição e retorna o resultado
     try {
-        const res = await api.patch("/user/links", data, config);
+        const res = await api.patch("/user/profile/avatar", data, config);
 
         let response = NextResponse.json(
             { detail: res.data?.detail },
@@ -33,13 +32,16 @@ export async function PATCH(request: Request) {
         return response;
     } catch (error: any) {
         console.error(
-            "Error while updating links [PATCH /api/user/profile/links]:",
+            "Error while updating avatar [PATCH /api/user/profile/avatar]:",
             error?.response?.data
         );
         return NextResponse.json(
-            { detail: error?.response?.data?.detail || "failed to " },
             {
-                status: error?.response?.status,
+                detail:
+                    error?.response?.data?.detail || "failed to update avatar",
+            },
+            {
+                status: error?.response?.status || 500,
             }
         );
     }

@@ -1,6 +1,18 @@
 "use client";
 import { FormEvent, useState, useEffect } from "react";
+import API_URL from "@/constants/apiRoute";
+import { useRouter } from "next/navigation";
 
+/**
+ * Renders a login form component.
+ *
+ * This component displays a login form with username and password input fields.
+ * When the form is submitted, it sends a POST request to the API_URL/login endpoint
+ * with the entered username and password. If the response is successful, it redirects
+ * the user to the home page. Otherwise, it displays an alert message indicating invalid credentials.
+ *
+ * @returns {JSX.Element} The login form component.
+ */
 export default function Login() {
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -8,7 +20,7 @@ export default function Login() {
         const uname = (event.target as any)[0].value;
         const pass = (event.target as any)[1].value;
 
-        fetch("http://localhost:3000/api/login", {
+        fetch(`${API_URL}/login`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -20,7 +32,7 @@ export default function Login() {
         })
             .then((res) => {
                 if (res?.ok) {
-                    window.location.assign("/");
+                    window.location.href = "/";
                 } else {
                     setAlert();
                 }

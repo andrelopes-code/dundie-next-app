@@ -4,13 +4,16 @@ import { api } from "@/api/axios";
 
 export async function GET(request: Request) {
     // Verifica o token de autenticação
-    const access_token = cookies().get("access_token")?.value;
+    const accessToken = cookies().get("access_token")?.value;
+    if (!accessToken) {
+        return NextResponse.redirect(new URL("/login", request.url));
+    }
 
     // Configura os headers da requisição
     const config = {
         headers: {
             accept: "application/json",
-            authorization: `Bearer ${access_token}`,
+            authorization: `Bearer ${accessToken}`,
         },
     };
 
@@ -21,19 +24,27 @@ export async function GET(request: Request) {
     // Extrai o username se encontrado
     const username = match ? match[1] : "";
 
+    // Constrói a query string
+    const queryParams = new URLSearchParams({ username });
+
     // Tenta realizar a requisição e retorna o resultado
     try {
         const res = await api.get(
-            `/transaction/list?username=${username}`,
+            `/transaction/list?${queryParams.toString()}`,
             config
         );
         const response = NextResponse.json(res.data, { status: res.status });
         return response;
     } catch (error: any) {
+        console.error(
+            `Error while getting public profile for ${username} [/api/user/profile/username]:`,
+            error?.response?.data
+        );
+        const status = error.response?.status || 500;
         return NextResponse.json(
             { detail: "Cannot get public profile transactions" },
             {
-                status: error.response.status,
+                status,
             }
         );
     }

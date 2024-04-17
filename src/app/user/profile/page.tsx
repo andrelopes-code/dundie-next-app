@@ -7,13 +7,14 @@ import { useState, useEffect, useRef } from "react";
 import Loading from "@/components/Loading";
 import { User } from "@/types/user";
 import UserProfileTransactions from "@/components/profile/user-transactions";
+import API_URL from "@/constants/apiRoute";
 
 export default function Profile() {
     const isFirstRender = useRef(true);
     const [user, setUser] = useState<User>();
     useEffect(() => {
         const getProfile = () => {
-            fetch("http://localhost:3000/api/user/profile")
+            fetch(`${API_URL}/user/profile`)
                 .then(async (res) => {
                     if (res.ok) {
                         const data = await res.json();

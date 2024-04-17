@@ -7,8 +7,12 @@ export async function GET(request: Request) {
         response.cookies.delete("refresh_token");
         return response;
     } catch (error: any) {
+        console.error(
+            "Error while logging out [/api/logout]:",
+            error?.response?.data
+        );
         return NextResponse.json(
-            { detail: "Cannot logout" },
+            { detail: "Failed to logout" },
             {
                 status: 500,
             }

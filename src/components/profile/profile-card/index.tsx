@@ -2,18 +2,25 @@ import { NoAvatar } from "@/components/NoAvatar";
 import { RiUpload2Fill } from "react-icons/ri";
 import { User } from "@/types/user";
 import Image from "next/image";
+import { useState } from "react";
+import { EditAvatarForm } from "../profile-avatar";
 
 export default function ProfileCard({ user }: Readonly<{ user: User }>) {
+    const [editAvatar, setEditAvatar] = useState<boolean>(false);
     return (
         <>
+            {editAvatar && (
+                <EditAvatarForm user={user} setEditAvatar={setEditAvatar} />
+            )}
             <div>
-                <div className="cursor-pointer">
-                    {
-                        <RiUpload2Fill
-                            size={28}
-                            className="transition-transform ease-in-out delay-200 duration-500 absolute z-10 bg-primary p-1 translate-x-24 translate-y-24 hover:translate-y-[5.8rem] text-text-invert rounded-full"
-                        />
-                    }
+                <div
+                    onClick={() => setEditAvatar(true)}
+                    className="cursor-pointer"
+                >
+                    <RiUpload2Fill
+                        size={28}
+                        className="transition-transform ease-in-out delay-200 duration-500 absolute z-10 bg-primary p-1 translate-x-24 translate-y-24 hover:translate-y-[5.8rem] text-text-invert rounded-full"
+                    />
                 </div>
                 <div className="h-32 w-32 mx-auto rounded-full overflow-hidden drop-shadow-xl">
                     {!user.avatar && (

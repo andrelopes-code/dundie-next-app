@@ -9,6 +9,7 @@ import {
 } from "react-icons/tb";
 import { NoAvatar } from "../NoAvatar";
 import Image from "next/image";
+import API_URL from "@/constants/apiRoute";
 
 const TbRosetteNumber = ({ pos }) => {
     if (pos === 1) {
@@ -82,7 +83,7 @@ const Ranking = () => {
 
     useEffect(() => {
         const getRanking = async () => {
-            fetch("http://localhost:3000/api/ranking")
+            fetch(`${API_URL}/ranking`)
                 .then(async (res) => await res.json())
                 .then((data) => setUsers(data))
                 .catch((err) => console.log(err));

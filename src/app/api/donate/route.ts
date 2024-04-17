@@ -1,8 +1,8 @@
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import { cookies } from "next/headers";
 import { api } from "@/api/axios";
 
-export async function GET(request: Request) {
+export async function POST(request: NextRequest) {
     // Verifica o token de autenticação
     const accessToken = cookies().get("access_token")?.value;
     if (!accessToken) {
@@ -17,20 +17,38 @@ export async function GET(request: Request) {
         },
     };
 
+    const data = await request.json();
+
+    const target = data?.target;
+    const amount = data?.amount;
+
+    if (!target) {
+        return NextResponse.json(
+            { detail: "Target is required" },
+            {
+                status: 400,
+            }
+        );
+    }
+
     // Tenta realizar a requisição e retorna o resultado
     try {
-        const res = await api.get("/transaction/recent", config);
+        const res = await api.post(
+            `/transaction/${target}?points=${amount}`,
+            null,
+            config
+        );
         const response = NextResponse.json(res.data, { status: res.status });
         return response;
     } catch (error: any) {
         console.error(
-            "Error while fetching recent transactions [/api/transaction/recent]:",
+            "Error while donating [/api/donate]:",
             error?.response?.data
         );
         return NextResponse.json(
-            { detail: "Failed to retrieve recent transactions" },
+            { detail: error?.response?.data?.detail || "failed to donate." },
             {
-                status: error.response.status,
+                status: error?.response?.status || 500,
             }
         );
     }

@@ -1,10 +1,12 @@
+"use client";
+
 import useLogout from "@/hooks/useLogout";
 import { SiDogecoin } from "react-icons/si";
 import Link from "next/link";
 
 export default function Navbar() {
     return (
-        <div className="shadow-sm">
+        <div>
             <header className="bg-background-light">
                 <nav
                     className="mx-20 flex items-center justify-between p-4 lg:px-16 "
@@ -12,7 +14,7 @@ export default function Navbar() {
                 >
                     <div className="flex lg:flex-1">
                         <Link href="/" className="-m-1.5 p-1.5">
-                            <span className="flex flex-row items-center gap-[1px] font-bold text-2xl text-primary">
+                            <span className="flex flex-row items-center gap-[1px] hover:animate-logoShake font-bold text-2xl text-primary">
                                 <SiDogecoin size={30} />
                                 <span className="mt-[3px]">UNDIE</span>
                             </span>
@@ -43,28 +45,28 @@ export default function Navbar() {
 
                     <div className="hidden lg:flex lg:flex-1 lg:justify-end">
                         <div className="flex flex-row items-center gap-11">
-                            <div className="hidden lg:flex lg:gap-x-14">
+                            <div className="hidden lg:flex lg:gap-x-11">
                                 <Link
                                     href="/"
-                                    className="text-sm font-semibold leading-6 text-text"
+                                    className="text-sm font-semibold transition-colors duration-300 leading-6 text-text hover:bg-background rounded-lg py-1 px-3"
                                 >
                                     HOME
                                 </Link>
                                 <Link
                                     href="/user/profile"
-                                    className="text-sm font-semibold leading-6 text-text"
+                                    className="text-sm font-semibold transition-colors duration-300 leading-6 text-text hover:bg-background rounded-lg py-1 px-3"
                                 >
                                     PROFILE
                                 </Link>
                                 <Link
                                     href="/donate"
-                                    className="text-sm font-semibold leading-6 text-text"
+                                    className="text-sm font-semibold transition-colors duration-300 leading-6 text-text hover:bg-background rounded-lg py-1 px-3"
                                 >
                                     DONATE
                                 </Link>
                                 <Link
                                     href="/Linkdmin"
-                                    className="text-sm font-semibold leading-6 text-text"
+                                    className="text-sm font-semibold transition-colors duration-300 leading-6 text-text hover:bg-background rounded-lg py-1 px-3"
                                 >
                                     ADMIN
                                 </Link>

@@ -3,10 +3,10 @@ export default function getTimeDeltaString(time: number) {
         return "now";
     // If time is less than 1 minute
     } else if (time < 60000) {
-        return `${Math.round(time / 1000)} sec ago`;
+        return `${Math.round(time / 1000)} s ago`;
     // If time is less than 1 hour
     } else if (time < 3600000) {
-        return `${Math.round(time / 60000)} min ago`;
+        return `${Math.round(time / 60000)} m ago`;
     // If time is less than 1 day
     } else if (time < 86400000) {
         return `${Math.round(time / 3600000)} h ago`;

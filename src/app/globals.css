@@ -37,3 +37,18 @@ input[type="number"]::-webkit-calendar-picker-indicator {
     margin: 0;
     display: none;
 }
+
+
+.fixtransition {
+    outline: 1px solid transparent;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    will-change: transform;
+    -webkit-perspective: 1000;
+    perspective: 1000;
+}
+
+.imagefilter {
+    filter: contrast(1.1) brightness(0.9);
+}

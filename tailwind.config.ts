@@ -20,7 +20,7 @@ const config: Config = {
                     light: "#8dd0e4",
                 },
                 background: {
-                    DEFAULT: "#eaeaea", //ededef //f8f9fa
+                    DEFAULT: "#e9e9ec", //ededef //f8f9fa
                     light: "#f1f1f1",
                 },
                 text: {

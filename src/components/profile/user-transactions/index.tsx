@@ -41,14 +41,14 @@ const TransactionItem = ({
     to,
     points,
     date,
+    id,
 }: {
     from: User;
     to: User;
     points: number;
     date: string;
+    id: number;
 }) => {
-    // console.log(typeof from, typeof to, typeof points, typeof date);
-
     const newDate = date.slice(0, 10);
     const time = date.slice(11, 16);
 
@@ -56,7 +56,7 @@ const TransactionItem = ({
         <div className="flex flex-row bg-background items-center justify-between py-1 px-4 rounded-lg border-border">
             <div className="flex flex-row gap-4 items-center">
                 <p className="text-text font-semibold text-nowrap max-w-48 w-48 text-center overflow-hidden">
-                    109923
+                    {id}
                 </p>
                 <a
                     href={`/user/${from.username}`}
@@ -119,10 +119,11 @@ const UserProfileTransactions = ({
                         Transactions
                     </h2>
                     <HeaderItem />
-                    <div className="overflow-auto noscrollbar flex flex-col gap-5">
+                    <div className="overflow-auto noscrollbar flex flex-col gap-3">
                         {transactions.map((trans: any) => (
                             <TransactionItem
                                 key={trans.id}
+                                id={trans.id}
                                 from={trans.from_user}
                                 points={trans.points}
                                 to={trans.to_user}

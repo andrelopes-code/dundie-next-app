@@ -3,6 +3,7 @@ import { FormEvent, useState } from "react";
 import { AlertError, AlertSuccess } from "@/components/alert";
 import Link from "next/link";
 import API_URL from "@/constants/apiRoute";
+import { VscLoading } from "react-icons/vsc";
 
 const inputClassname =
     "w-full bg-background transition-all ease duration-300 border text-text-inactive focus:text-text outline-gray-300 p-2 rounded-lg focus:outline-primary-light";
@@ -30,6 +31,7 @@ export default function ProfileDetails({
     isPublic = false,
 }: Readonly<{ user: User; isPublic?: boolean }>) {
     const [isEditing, setIsEditing] = useState<boolean>(false);
+    const [sendingPoints, setSendingPoints] = useState<boolean>(false);
     const [error, setError] = useState<string>("");
     const [success, setSuccess] = useState<string>("");
 
@@ -272,12 +274,24 @@ export default function ProfileDetails({
                 </div>
             )}
             {isPublic && (
-                <Link href={"/donate?target=" + user.username || "undefined"}>
+                <Link
+                    href={"/donate?target=" + user.username || "undefined"}
+                    className="flex flex-row justify-end"
+                >
                     <button
-                        className="w-32 text-text-invert font-medium bg-primary p-2 rounded-lg transition-all ease duration-300 hover:translate-x-1"
+                        className="w-32 text-text-invert font-medium bg-primary p-2 rounded-lg transition-all ease duration-500 hover:-translate-x-1"
                         id="edit_profile_btn"
+                        onClick={() => setSendingPoints(true)}
                     >
-                        Send Points
+                        {sendingPoints ? (
+                            <VscLoading
+                                size={25}
+                                color="white"
+                                className="animate-spin mx-auto"
+                            />
+                        ) : (
+                            "Send Points"
+                        )}
                     </button>
                 </Link>
             )}

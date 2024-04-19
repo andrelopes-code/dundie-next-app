@@ -53,13 +53,15 @@ const ChooseUser = ({
     // The status of the loading in the 'next' button
     const [loading, setLoading] = useState(false);
 
+    // Fills the input with the urlTarget username if it exists
     useEffect(() => {
         if (urlTarget != "undefined") {
             setTarget(urlTarget as string);
             const input: any = document?.getElementById("targetUsername");
             input.value = urlTarget;
+            input.focus();
         }
-    });
+    }, []);
 
     /**
      * Redirects the user to the `DonateAmount` component with the selected target.
@@ -144,5 +146,6 @@ const ChooseUser = ({
         </>
     );
 };
+
 
 export default ChooseUser;

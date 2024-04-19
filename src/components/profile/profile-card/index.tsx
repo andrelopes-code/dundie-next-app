@@ -5,7 +5,10 @@ import Image from "next/image";
 import { useState } from "react";
 import { EditAvatarForm } from "../profile-avatar";
 
-export default function ProfileCard({ user }: Readonly<{ user: User }>) {
+export default function ProfileCard({
+    user,
+    isPublic,
+}: Readonly<{ user: User; isPublic?: boolean }>) {
     const [editAvatar, setEditAvatar] = useState<boolean>(false);
     return (
         <>
@@ -13,22 +16,20 @@ export default function ProfileCard({ user }: Readonly<{ user: User }>) {
                 <EditAvatarForm user={user} setEditAvatar={setEditAvatar} />
             )}
             <div>
-                <div
-                    onClick={() => setEditAvatar(true)}
-                    className="cursor-pointer"
-                >
+                {!isPublic && (
                     <RiUpload2Fill
+                        onClick={() => setEditAvatar(true)}
                         size={28}
-                        className="transition-transform ease-in-out delay-200 duration-500 absolute z-10 bg-primary p-1 translate-x-24 translate-y-24 hover:translate-y-[5.8rem] text-text-invert rounded-full"
+                        className="transition-transform cursor-pointer ease-in-out delay-200 duration-500 absolute z-10 bg-primary p-1 translate-x-24 translate-y-24 hover:translate-y-[5.8rem] text-text-invert rounded-full"
                     />
-                </div>
+                )}
                 <div className="h-32 w-32 mx-auto rounded-full overflow-hidden drop-shadow-xl">
                     {!user.avatar && (
                         <NoAvatar className="transition-transform ease-in-out delay-100 duration-1000 hover:scale-105" />
                     )}
                     {user.avatar && (
                         <Image
-                            className="transition-transform ease-in-out delay-100 duration-1000 hover:scale-105"
+                            className="transition-transform ease-in-out h-full delay-100 duration-1000 hover:scale-105"
                             src={user.avatar}
                             alt="user avatar"
                             width={200}

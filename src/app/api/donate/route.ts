@@ -20,7 +20,8 @@ export async function POST(request: NextRequest) {
     const data = await request.json();
 
     const target = data?.target;
-    const amount = data?.amount;
+    const amount = data?.amount || 0;
+    const usepdm = data?.usepdm || false;
 
     if (!target) {
         return NextResponse.json(
@@ -34,7 +35,7 @@ export async function POST(request: NextRequest) {
     // Tenta realizar a requisição e retorna o resultado
     try {
         const res = await api.post(
-            `/transaction/${target}?points=${amount}`,
+            `/transaction/${target}?points=${amount}&usepdm=${usepdm}`,
             null,
             config
         );

@@ -1,7 +1,7 @@
 "use client";
 import { FormEvent, useState, useEffect } from "react";
 import API_URL from "@/constants/apiRoute";
-import { useRouter } from "next/navigation";
+import { VscLoading } from "react-icons/vsc";
 
 /**
  * Renders a login form component.
@@ -14,12 +14,15 @@ import { useRouter } from "next/navigation";
  * @returns {JSX.Element} The login form component.
  */
 export default function Login() {
+    const [msg, setMsg] = useState("Sign in to your account");
+    const [loading, setLoading] = useState(false);
+
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         const uname = (event.target as any)[0].value;
         const pass = (event.target as any)[1].value;
-
+        setLoading(true);
         fetch(`${API_URL}/login`, {
             method: "POST",
             headers: {
@@ -34,6 +37,7 @@ export default function Login() {
                 if (res?.ok) {
                     window.location.href = "/";
                 } else {
+                    setLoading(false);
                     setAlert();
                 }
             })
@@ -53,17 +57,15 @@ export default function Login() {
         }, 2000);
     };
 
-    const [msg, setMsg] = useState("Sign in to your account");
-
-    useEffect(() => {});
     return (
-        <div className="h-screen bg-gradient-to-r from-slate-50 via-sky-200 to-indigo-500">
+        <div className="h-screen bg-background">
             <div className="flex justify-center items-center h-screen">
-                <div className="w-1/3 p-4 bg-background-light rounded-md min-w-80 max-w-96 flex flex-col flex-nowrap justify-center">
+                <div className="w-1/3 p-4 bg-background-light shadow-lg rounded-md min-w-80 max-w-96 flex flex-col flex-nowrap justify-center">
                     <h1 className="font-bold text-2xl mb-6 text-center bg-gradient-to-r from-gray-400 to-indigo-500 bg-clip-text text-transparent">
                         {msg}
                     </h1>
                     <form
+                        id="loginForm"
                         className="flex flex-col gap-3 mb-5 justify-center"
                         onSubmit={handleSubmit}
                     >
@@ -86,16 +88,24 @@ export default function Login() {
                         />
                         <a
                             className="font-medium text-xs ml-1 text-secondary-dark mb-4"
-                            href="http://"
+                            href="/forgot-password"
                         >
                             Forgot Password?
                         </a>
-                        <input
-                            className="transition ease duration-300 border border-gray-300 text-text-invert p-2 rounded-md bg-primary font-bold hover:bg-primary-dark cursor-pointer"
+                        <button
+                            form="loginForm"
                             type="submit"
                             id="btn"
-                            value="Login"
-                        />
+                            className="transition font-semibold flex justify-center h-10 items-center ease duration-300 border border-gray-300 text-text-invert p-2 rounded-md bg-primary hover:bg-primary-dark cursor-pointer"
+                        >
+                            {loading && (
+                                <VscLoading
+                                    size={20}
+                                    className="animate-spin"
+                                />
+                            )}
+                            {!loading && "Sign In"}
+                        </button>
                     </form>
                 </div>
             </div>

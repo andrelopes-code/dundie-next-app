@@ -1,13 +1,14 @@
-export const validateUserToken = async (token: string): Promise<boolean> => {
+export const validateUserToken = async (token: string) => {
     return fetch("http://localhost:8000/token/validate", {
         method: "GET",
         headers: {
             "x-access-token": `${token}`,
         },
     })
-        .then((res) => {
+        .then(async (res) => {
             if (res.status == 200) {
-                return true;
+                const response = await res.json();
+                return response;
             } else {
                 return false;
             }

@@ -94,8 +94,9 @@ export default function ProfileDetails({
         })
             .then(async (res) => {
                 if (res.ok) {
-                    const data = await res.json();
-                    setSuccessWithTimeout(data?.detail);
+                    const resData = await res.json();
+
+                    setSuccessWithTimeout(resData?.detail);
                 } else {
                     const data = await res.json();
                     setErrorWithTimeout(data?.detail);
@@ -107,10 +108,9 @@ export default function ProfileDetails({
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         if (isPublic) return;
-
-        let name = (event.target as any)[0].value;
-        let username = (event.target as any)[2].value.slice(1);
-        let bio = (event.target as any)[5].value;
+        let name: string = (event.target as any)[0].value?.trim();
+        let username: string = (event.target as any)[2].value?.trim()?.slice(1);
+        let bio: string = (event.target as any)[5].value?.trim();
 
         const data: ProfileUpdateRequest = {
             name: name == user.name ? "" : name,
@@ -274,26 +274,27 @@ export default function ProfileDetails({
                 </div>
             )}
             {isPublic && (
-                <Link
-                    href={"/donate?target=" + user.username || "undefined"}
-                    className="flex flex-row justify-end"
-                >
-                    <button
-                        className="w-32 text-text-invert font-medium bg-primary p-2 rounded-lg transition-all ease duration-500 hover:-translate-x-1"
-                        id="edit_profile_btn"
-                        onClick={() => setSendingPoints(true)}
+                <div className="flex flex-row justify-end">
+                    <Link
+                        href={"/donate?target=" + user.username || "undefined"}
                     >
-                        {sendingPoints ? (
-                            <VscLoading
-                                size={25}
-                                color="white"
-                                className="animate-spin mx-auto"
-                            />
-                        ) : (
-                            "Send Points"
-                        )}
-                    </button>
-                </Link>
+                        <button
+                            className="w-32 text-text-invert font-medium bg-primary p-2 rounded-lg transition-all ease duration-500 hover:-translate-x-1"
+                            id="edit_profile_btn"
+                            onClick={() => setSendingPoints(true)}
+                        >
+                            {sendingPoints ? (
+                                <VscLoading
+                                    size={25}
+                                    color="white"
+                                    className="animate-spin mx-auto"
+                                />
+                            ) : (
+                                "Send Points"
+                            )}
+                        </button>
+                    </Link>
+                </div>
             )}
         </div>
     );

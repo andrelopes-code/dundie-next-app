@@ -15,8 +15,7 @@ export default function Navbar() {
                     <div className="flex lg:flex-1">
                         <Link href="/" className="-m-1.5 p-1.5">
                             <span className="flex flex-row items-center gap-[1px] hover:animate-logoShake font-bold text-2xl text-primary">
-                                <SiDogecoin size={30} />
-                                <span className="mt-[3px]">UNDIE</span>
+                                <span className="mt-[3px]">Dundie</span>
                             </span>
                         </Link>
                     </div>

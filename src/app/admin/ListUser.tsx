@@ -117,7 +117,7 @@ export default function ListUsers({
     useEffect(() => {
         isFirstRender.current && getPage(1);
         isFirstRender.current = false;
-    }, []);
+    }, [getPage]);
 
     return (
         <>

@@ -34,7 +34,7 @@ export default function DeleteDisableEnableUser({
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
-    }, []);
+    }, [setChangeThisUser]);
 
     const setErrorWithTimeout = (errorMessage: string) => {
         setError(errorMessage);
@@ -140,9 +140,10 @@ export default function DeleteDisableEnableUser({
                     user.is_active && (
                         <>
                             <p className="font-medium text-xl text-center">
-                                Are you sure you want to delete or disable '
+                                Are you sure you want to delete or disable
+                                &apos;
                                 {user.username}
-                                '?
+                                &apos;?
                             </p>
                             <input
                                 className="w-full bg-background text-text-inactive focus:text-text transition-all ease duration-300 border outline-gray-300 p-2 rounded-lg focus:outline-primary-light"
@@ -157,13 +158,13 @@ export default function DeleteDisableEnableUser({
                                     <input
                                         className="w-4 h-4"
                                         type="checkbox"
-                                        defaultChecked
                                         checked
+                                        readOnly
                                         id="onlyMakePrivate"
                                     />
                                     <label htmlFor="onlyMakePrivate">
                                         Just make the user inactive (delete
-                                        isn't working)
+                                        isn&apos;t working)
                                     </label>
                                 </div>
 
@@ -190,9 +191,9 @@ export default function DeleteDisableEnableUser({
                     !user.is_active && (
                         <>
                             <p className="font-medium text-xl text-center">
-                                Are you sure you want to activate '
+                                Are you sure you want to activate &apos;
                                 {user.username}
-                                '?
+                                &apos;?
                             </p>
                             <input
                                 className="w-full bg-background text-text-inactive focus:text-text transition-all ease duration-300 border outline-gray-300 p-2 rounded-lg focus:outline-primary-light"

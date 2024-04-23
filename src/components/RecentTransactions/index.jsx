@@ -38,7 +38,7 @@ const TransactionItem = ({ from, to, points, date }) => {
 
     const delta = getTimeDeltaString(difference);
 
-    const PDM = ["💸", "📦", "🌟", "⭐", "💜", "💫", "💌", "✨"];
+    const PDM = ["✨"];
 
     return (
         <div className="flex flex-row bg-background items-center justify-between py-1 px-4 rounded-lg border-border">

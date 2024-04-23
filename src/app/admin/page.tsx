@@ -5,8 +5,10 @@ import { useState, useEffect } from "react";
 import API_URL from "@/constants/apiRoute";
 import { UserPage } from "@/types/user";
 import { CreateUser } from "./CreateUser";
+import { EditUser } from "./EditUser";
 import { AlertError, AlertSuccess } from "@/components/alert";
 import ListUsers from "./ListUser";
+import { AdminDonate } from "./Donate";
 
 /**
  * The admin panel page displays two main components:
@@ -67,9 +69,10 @@ export default function AdminPanel() {
                             />
                         </div>
                         <div className="shadow-lg h-fit overflow-hidden p-5 bg-background-light m-[0.75rem_0.75rem_0_0] rounded-lg fixtransition transition-all duration-700 delay-200 hover:translate-x-2">
-                            <h1 className="text-center top-[45%] relative text-text select-none">
-                                There's nothing here, yet.
-                            </h1>
+                            <AdminDonate
+                                setError={setError}
+                                setSuccess={setSuccess}
+                            />
                         </div>
                     </div>
                 </div>

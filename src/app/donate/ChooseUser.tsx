@@ -61,7 +61,7 @@ const ChooseUser = ({
             input.value = urlTarget;
             input.focus();
         }
-    }, []);
+    }, [urlTarget, setTarget]);
 
     /**
      * Redirects the user to the `DonateAmount` component with the selected target.
@@ -113,6 +113,10 @@ const ChooseUser = ({
                     placeholder="username"
                     onChange={(e) => getUsernameList(e)}
                     spellCheck={false}
+                    required
+                    autoFocus
+                    pattern="[a-z]+"
+                    title="Only lowercase letters allowed"
                     autoComplete="off"
                 />
                 <div

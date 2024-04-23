@@ -52,7 +52,6 @@ const DonateAmount = ({
         // Make the donation API call
         fetch(API_URL + "/donate", config).then(async (res) => {
             await res.json().then((data) => {
-                console.log("data: ", data);
                 setDetails(data);
                 setStage(2);
             });
@@ -78,6 +77,7 @@ const DonateAmount = ({
                     spellCheck={false}
                     autoComplete="off"
                     min={10}
+                    autoFocus
                     required
                 />
                 <button

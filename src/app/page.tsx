@@ -14,7 +14,7 @@ export default function Home() {
                 {/* MAIN DIV */}
                 <div className="bg-background-light m-3 rounded-lg shadow-lg">
                     <h1 className="text-center top-[45%] relative text-text select-none">
-                        There's nothing here, yet.
+                        There&apos;s nothing here, yet.
                     </h1>
                 </div>
 

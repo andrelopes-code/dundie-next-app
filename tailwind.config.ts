@@ -22,6 +22,7 @@ const config: Config = {
                 background: {
                     DEFAULT: "#e9e9ec", //ededef //f8f9fa
                     light: "#f1f1f1",
+                    100: "#e3e3ea",
                 },
                 text: {
                     DEFAULT: "#2f2f2f",
@@ -58,6 +59,12 @@ const config: Config = {
             animation: {
                 fadeIn: "fadeIn 0.1s ease forwards",
                 scaleIn: "scaleIn 0.1s ease forwards",
+            },
+            fontFamily: {
+                mono: ["JetBrains Mono", "monospace"],
+            },
+            boxShadow: {
+                "1ppg": "0px 0px 20px 0px #505050aa",
             },
         },
     },

@@ -150,7 +150,7 @@ export default function ListUsers({
                 count={users?.pages}
                 shape="rounded"
                 onChange={handleChangePage}
-                className="flex justify-end mr-5 mb-5"
+                className="flex justify-end mr-5 mb-5 opacity-40"
             />
         </>
     );

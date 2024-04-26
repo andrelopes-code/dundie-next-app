@@ -8,15 +8,12 @@ const HeaderItem = () => {
     return (
         <div className="flex flex-row bg-primary items-center justify-between mb-3 py-1 px-4 rounded-lg border-border">
             <div className="flex flex-row gap-4 items-center">
-                <div className="flex justify-center w-24 overflow-hidden">
+                <div className="flex justify-center w-32 overflow-hidden">
                     <p className="text-text-invert flex font-semibold tracking-wide text-nowrap max-w-32 overflow-hidden">
                         FROM
                     </p>
                 </div>
-                <p>
-                    <CgArrowLongRight size={22} color="#00000000" />
-                </p>
-                <div className="flex justify-center w-24 overflow-hidden">
+                <div className="flex justify-center w-32 overflow-hidden">
                     <p className="text-text-invert tracking-wide font-semibold text-nowrap max-w-32 overflow-hidden">
                         TO
                     </p>
@@ -38,35 +35,29 @@ const TransactionItem = ({ from, to, points, date }) => {
 
     const delta = getTimeDeltaString(difference);
 
-    const PDM = ["✨"];
-
     return (
-        <div className="flex flex-row bg-background items-center justify-between py-1 px-4 rounded-lg border-border">
+        <div className="flex flex-row bg-background items-center justify-between py-1 transition-colors duration-200 hover:bg-background-100 px-4 rounded-lg border-border">
             <div className="flex flex-row gap-4 items-center">
                 <a
                     href={`/user/${from.username}`}
-                    className="flex justify-center w-24 overflow-hidden"
+                    className="flex justify-center w-32 overflow-hidden"
                 >
                     <p className="text-text font-semibold text-nowrap max-w-32 overflow-hidden">
                         {from.name == "Points Delivery Man"
-                            ? "PDM" +
-                              PDM[Math.floor(Math.random() * PDM.length)]
+                            ? "PointDelivery"
                             : from.username}
                     </p>
                 </a>
-                <p>
-                    <CgArrowLongRight size={22} color="#4344bc" />
-                </p>
                 <a
                     href={`/user/${to.username}`}
-                    className="flex justify-center w-24 overflow-hidden"
+                    className="flex justify-center w-32 overflow-hidden"
                 >
                     <p className="text-text font-semibold text-nowrap max-w-32 overflow-hidden">
                         {to.username}
                     </p>
                 </a>
             </div>
-            <p className="text-text font-bold text-center w-24">{points}</p>
+            <p className="text-text font-semibold text-center w-24">{points}</p>
             <p className="text-text font-semibold text-center w-24">{delta}</p>
         </div>
     );
@@ -93,7 +84,7 @@ const RecentTransactions = () => {
                 <Loading />
             ) : (
                 <div className="h-full m-4 flex justify-start flex-col">
-                    <h2 className="bg-background h-[3.5rem] mb-3 text-center w-full py-3 rounded-lg font-semibold text-primary text-2xl">
+                    <h2 className="bg-background transition-colors duration-200 hover:bg-background-100 h-[3.5rem] mb-3 text-center w-full py-3 rounded-lg font-semibold text-primary text-2xl">
                         Recent
                     </h2>
                     <HeaderItem />

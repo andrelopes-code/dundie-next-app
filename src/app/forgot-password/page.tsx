@@ -32,14 +32,19 @@ export function EnterYourEmail({ setStage }: any) {
             body: JSON.stringify({ email }),
         };
 
-        fetch(`${API_URL}/forgot-password`, config).then(async (res) => {
+        try {
+            const res = await fetch(`${API_URL}/forgot-password`, config);
             if (res.ok) {
                 setStage(1);
             } else {
                 setLoading(false);
-                setErrorWithTimeout("Something went wrong");
+                const data = await res.json();
+                setErrorWithTimeout(data?.detail);
             }
-        });
+        } catch (error) {
+            setLoading(false);
+            setErrorWithTimeout("Something went wrong");
+        }
     };
 
     return (

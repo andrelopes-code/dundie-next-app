@@ -7,9 +7,10 @@ export interface User {
     email: string;
     points: number;
     dept: string;
-    github: string|null;
-    linkedin: string|null;
-    instagram: string|null;
+    github: string | null;
+    linkedin: string | null;
+    instagram: string | null;
+    created_at: string;
 }
 
 export interface ProfileUpdateRequest  {

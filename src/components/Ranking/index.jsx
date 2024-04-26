@@ -40,7 +40,7 @@ const ItemRanking = ({ name, points, pos, username, avatar }) => {
     }, [points]);
 
     return (
-        <div className="flex flex-row bg-background items-center justify-between py-1 px-4 rounded-lg border-border">
+        <div className="flex flex-row bg-background transition-colors duration-200 hover:bg-background-100 items-center justify-between py-1 px-4 rounded-lg border-border">
             <div className="flex flex-row gap-4 items-center">
                 <div className="w-7">
                     <p className="text-text flex items-center justify-center font-semibold">
@@ -97,11 +97,11 @@ const Ranking = () => {
             {!users.length ? (
                 <Loading />
             ) : (
-                <div className="h-full m-4 flex justify-start flex-col">
-                    <h2 className="bg-background h-[3.5rem] mb-3 text-center w-full py-3 rounded-lg font-semibold text-primary text-2xl">
+                <>
+                    <h2 className="bg-background transition-colors duration-200 hover:bg-background-100 h-[3.5rem] mb-3 text-center w-full py-3 rounded-lg font-semibold text-primary text-2xl">
                         Ranking
                     </h2>
-                    <div className="h-[calc(100%-5.9rem)] overflow-auto noscrollbar flex flex-col gap-2">
+                    <div className="h-[calc(100%-4.0rem)] overflow-auto noscrollbar flex flex-col gap-2">
                         {users.map((user, pos) => (
                             <ItemRanking
                                 key={user.id}
@@ -113,7 +113,7 @@ const Ranking = () => {
                             />
                         ))}
                     </div>
-                </div>
+                </>
             )}
         </>
     );

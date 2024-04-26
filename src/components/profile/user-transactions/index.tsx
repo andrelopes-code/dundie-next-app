@@ -29,7 +29,7 @@ const HeaderItem = () => {
             <p className="text-text-invert font-semibold tracking-wide text-center w-24">
                 POINTS
             </p>
-            <p className="text-text-invert font-semibold tracking-wide text-center w-48">
+            <p className="text-text-invert font-semibold tracking-wide text-center w-56">
                 DATE
             </p>
         </div>
@@ -49,13 +49,14 @@ const TransactionItem = ({
     date: string;
     id: number;
 }) => {
-    const newDate = date.slice(0, 10);
-    const time = date.slice(11, 16);
+    const formattedDate = new Date(date).toDateString();
+    const hour = new Date(date).getHours();
+    const mins = new Date(date).getMinutes();
 
     return (
-        <div className="flex flex-row bg-background items-center justify-between py-1 px-4 rounded-lg border-border">
+        <div className="flex flex-row bg-background items-center font-mono text-sm justify-between py-1 px-4 rounded-lg border-border">
             <div className="flex flex-row gap-4 items-center">
-                <p className="text-text font-semibold text-nowrap max-w-48 w-48 text-center overflow-hidden">
+                <p className="text-text font-semibold font-mono text-nowrap max-w-48 w-48 text-center overflow-hidden">
                     {id}
                 </p>
                 <a
@@ -79,8 +80,9 @@ const TransactionItem = ({
                 </a>
             </div>
             <p className="text-text font-semibold text-center w-24">{points}</p>
-            <p className="text-text font-semibold text-center w-48">
-                {newDate}&nbsp;&nbsp;&nbsp;&nbsp;{time}
+            <p className="text-text font-semibold text-center w-56">
+                {formattedDate} ~ {hour.toString().padStart(2, "0")}h{" "}
+                {mins.toString().padStart(2, "0")}m
             </p>
         </div>
     );

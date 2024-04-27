@@ -105,7 +105,7 @@ export default function CreatePost({
     };
 
     return (
-        <div className="p-5 z-10">
+        <div className="p-5">
             <div className="text-text p-5 bg-background-light rounded-lg w-full">
                 <form id="postForm" onSubmit={handleSubmit}>
                     <header className="flex flex-row justify-between items-center mb-5">

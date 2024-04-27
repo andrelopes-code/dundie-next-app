@@ -12,5 +12,5 @@ export interface Post {
         dept: string;
     };
     new?: boolean;
-    liked?: boolean;
+    liked: boolean;
 }

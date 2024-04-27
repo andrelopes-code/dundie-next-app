@@ -94,7 +94,7 @@ async function UnlikePost(postId: number): Promise<boolean> {
 async function LikeButton(
     e: HTMLButtonElement,
     setPostLikes: any,
-    postId: number,
+    post: Post,
     setLikeButtonLocked: any
 ) {
     /**
@@ -118,15 +118,17 @@ async function LikeButton(
 
     // Check if the user has liked the post
     // If the user has liked the post, unlike it
-    if (e.classList.contains("text-primary")) {
+    if (post.liked) {
+        post.liked = false;
         unlike();
-        const result = await UnlikePost(postId);
+        const result = await UnlikePost(post.id);
         if (result !== true) {
             like();
         }
     } else {
+        post.liked = true;
         like();
-        const result = await LikePost(postId);
+        const result = await LikePost(post.id);
         if (result !== true) {
             unlike();
         }
@@ -173,11 +175,11 @@ async function DeletePost(postId: number): Promise<boolean> {
 export default function PostItem({
     user,
     post,
-    className,
+    setPosts,
 }: {
     user: User;
     post: Post;
-    className?: string;
+    setPosts: any;
 }) {
     const [postDate, setPostDate] = useState<string>("");
     const [rawDate, setRawDate] = useState<string>("");
@@ -200,29 +202,37 @@ export default function PostItem({
 
     /**
      * Function that handles the deletion of a post
-     * @param {number} postId The id of the post to delete
+     * @param {number} post The id of the post to delete
      */
-    async function handleDeletePost(postId: number) {
+    async function handleDeletePost(post: Post) {
         const element = document.getElementById(
-            "post" + postId
+            "post" + post.id
         ) as HTMLLIElement;
 
-        const isDeleted = await DeletePost(postId);
+        const isDeleted = await DeletePost(post.id);
 
         if (isDeleted) {
             element.classList.add("postRemove");
             setTimeout(() => {
-                element.remove();
+                setPosts((prev: Post[]) =>
+                    prev.filter((p: Post) => p.id !== post.id)
+                );
             }, 1000);
         }
+    }
+
+    function likedOrNot(isLiked: boolean) {
+        if (isLiked) {
+            return "text-primary";
+        }
+        return "text-text-inactive";
     }
 
     return (
         <li
             id={"post" + post.id}
             className={
-                className +
-                " w-full border-background pt-5 flex h-full first:border-none flex-col gap-3 mb-8 " +
+                "w-full border-background pt-5 flex h-full border-t-2 first:border-none flex-col gap-3 mb-8 " +
                 (post?.new ? "postAdd" : "")
             }
         >
@@ -255,20 +265,20 @@ export default function PostItem({
                     onBlur={() => setShowPostOptions(false)}
                     className="text-text-inactive transition-all duration-300 focus:text-primary"
                 >
-                    <div className="relative z-50">
+                    <div className="relative z-50 flex justify-center items-center">
                         <div
                             className={
-                                "absolute bg-background shadow-md right-8 -top-4 rounded-lg" +
+                                "absolute bg-background shadow-md bottom-2 rounded-lg" +
                                 (showPostOptions
-                                    ? " animate-scaleIn"
+                                    ? " animate-fadeIn"
                                     : " hidden")
                             }
                         >
                             <ul className="flex flex-col first:rounded-t-lg last:rounded-b-lg">
-                                {user.username === post.user.username && (
+                                {true && (
                                     <li
                                         onClick={() => {
-                                            handleDeletePost(post.id);
+                                            handleDeletePost(post);
                                             getById(
                                                 "postOptions" + post.id
                                             )?.blur();
@@ -305,20 +315,19 @@ export default function PostItem({
             <div className="flex flex-row items-center justify-between text-sm">
                 <div className="flex flex-row items-center gap-3">
                     <button
+                        id={"postLikeButton" + post.id}
                         onClick={(e) =>
                             LikeButton(
                                 e.currentTarget,
                                 setPostLikes,
-                                post.id,
+                                post,
                                 setLikeButtonLocked
                             )
                         }
                         disabled={likeButtonLocked}
                         className={
-                            "transition-all duration-300 cursor-pointer hover:scale-105 fixtransition" +
-                            (post?.liked
-                                ? " text-primary"
-                                : " text-text-inactive ")
+                            "transition-all duration-300 cursor-pointer hover:scale-105 fixtransition " +
+                            likedOrNot(post.liked)
                         }
                     >
                         <AiFillLike size={18} />

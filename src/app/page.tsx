@@ -14,7 +14,7 @@ export default function Home() {
             <div className="bg-background px-24 h-content grid grid-cols-[2fr_1fr]">
                 {/* MAIN DIV */}
 
-                <div className="m-[0.75rem_0.75rem_0.75rem_0] overflow-auto noscrollbar rounded-lg shadow-lg bg-background-light">
+                <div className="m-[0.75rem_0.75rem_0.75rem_0] overflow-auto overflow-x-hidden sb rounded-lg shadow-lg bg-background-light">
                     <MainSection />
                 </div>
 

@@ -73,16 +73,12 @@ export default function MainSection() {
                                 No posts yet.
                             </h1>
                         ) : (
-                            posts.map((post, index) => (
+                            posts.map((post) => (
                                 <PostItem
                                     key={post.id}
                                     user={user}
                                     post={post}
-                                    className={
-                                        index === 0
-                                            ? "border-none"
-                                            : "border-t-2"
-                                    }
+                                    setPosts={setPosts}
                                 />
                             ))
                         )}

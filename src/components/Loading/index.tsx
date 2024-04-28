@@ -13,4 +13,6 @@ const Loading = ({ color }: { color?: string }) => {
     );
 };
 
+export const loadingHTML = `<div id="loadingHtml" class="flex flex-col h-[60vh] items-center justify-center"><div class="lds-ellipsis text-primary"><div></div><div></div><div></div><div></div></div></div>`;
+
 export default Loading;

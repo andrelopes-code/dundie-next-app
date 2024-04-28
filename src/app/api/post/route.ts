@@ -46,6 +46,9 @@ export async function GET(request: NextRequest) {
         return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 
+    const page = request.nextUrl.searchParams.get("page") || 1;
+    const sort = request.nextUrl.searchParams.get("sort") || "date_desc";
+
     // Configura os headers da requisição
     const config = {
         headers: {
@@ -56,7 +59,10 @@ export async function GET(request: NextRequest) {
 
     // Tenta realizar a requisição e retorna o resultado
     try {
-        const res = await api.get("/post", config);
+        const res = await api.get(
+            `/post?page=${page}&size=25&sort=${sort}`,
+            config
+        );
         const response = NextResponse.json(res.data, { status: res.status });
         return response;
     } catch (error: any) {

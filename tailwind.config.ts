@@ -1,3 +1,4 @@
+import { Slide } from "@mui/material";
 import type { Config } from "tailwindcss";
 
 const config: Config = {
@@ -55,10 +56,15 @@ const config: Config = {
                     "0%": { transform: "scale(1)" },
                     "100%": { transform: "scale(.94)" },
                 },
+                SlideRL: {
+                    "0%": { transform: "translateX(10px)", opacity: "0" },
+                    "100%": { transform: "translateX(0px)", opacity: "1" },
+                },
             },
             animation: {
                 fadeIn: "fadeIn 0.1s ease forwards",
                 scaleIn: "scaleIn 0.1s ease forwards",
+                SlideRL: "SlideRL 0.3s ease forwards",
             },
             fontFamily: {
                 mono: ["JetBrains Mono", "monospace"],

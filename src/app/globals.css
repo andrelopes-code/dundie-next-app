@@ -86,7 +86,6 @@ input[type="number"]::-webkit-calendar-picker-indicator {
     animation: optionsOut ease forwards 0.3s;
 }
 
-
 @keyframes addPost {
     from {
         transform: translateX(-110%);

@@ -102,6 +102,7 @@ export default function CreatePost({
 
         // Reset the form
         e.target.reset();
+        setCountTextareaChars(0);
     };
 
     return (

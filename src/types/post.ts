@@ -14,3 +14,12 @@ export interface Post {
     new?: boolean;
     liked: boolean;
 }
+
+export interface PostPage {
+    items: Post[];
+    total: number;
+    page: number;
+    pages: number;
+    size: number;
+    sort: string;
+}

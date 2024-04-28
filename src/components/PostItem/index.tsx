@@ -1,13 +1,15 @@
 import { User } from "@/types/user";
 import { Post } from "@/types/post";
 import { AiFillLike } from "react-icons/ai";
+import { MdDeleteSweep } from "react-icons/md";
 import { SlOptions } from "react-icons/sl";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import getTimeDeltaString from "@/functions/get-time-delta";
 import API_URL from "@/constants/apiRoute";
 import Image from "next/image";
 import Link from "next/link";
 import getById from "@/functions/get-element-by-id";
+import { CgShare } from "react-icons/cg";
 
 /**
  * Function that handles the hover effect on the post date
@@ -268,14 +270,17 @@ export default function PostItem({
                     <div className="relative z-50 flex justify-center items-center">
                         <div
                             className={
-                                "absolute bg-background shadow-md bottom-2 rounded-lg" +
+                                "absolute bg-background shadow-md right-8 -top-2 rounded-lg" +
                                 (showPostOptions
-                                    ? " animate-fadeIn"
+                                    ? " animate-SlideRL"
                                     : " hidden")
                             }
                         >
-                            <ul className="flex flex-col first:rounded-t-lg last:rounded-b-lg">
-                                {true && (
+                            {/* POST OPTIONS LIST */}
+                            <ul className="flex flex-row items-center justify-center">
+                                {/* DELETE BUTTON OPTION */}
+                                {(user.username === post.user.username ||
+                                    user.dept === "management") && (
                                     <li
                                         onClick={() => {
                                             handleDeletePost(post);
@@ -284,11 +289,12 @@ export default function PostItem({
                                             )?.blur();
                                             setShowPostOptions(false);
                                         }}
-                                        className="py-1 px-6 text-text-inactive hover:text-red-500 hover:bg-background-100 first:rounded-t-lg last:rounded-b-lg font-normal text-sm transition-all duration-200"
+                                        className="py-1 px-3 text-text-inactive hover:text-red-500 hover:bg-background-100 first:rounded-l-lg last:rounded-r-lg font-normal text-sm transition-all duration-200"
                                     >
-                                        Delete
+                                        <MdDeleteSweep size={22} />
                                     </li>
                                 )}
+                                {/* SHARE BUTTON OPTION */}
                                 <li
                                     onClick={() => {
                                         setShowPostOptions(false);
@@ -296,9 +302,9 @@ export default function PostItem({
                                             "postOptions" + post.id
                                         )?.blur();
                                     }}
-                                    className="py-1 px-6 text-text-inactive hover:bg-background-100 first:rounded-t-lg last:rounded-b-lg font-normal text-sm transition-all duration-200"
+                                    className="py-1 px-3 text-text-inactive hover:bg-background-100 first:rounded-l-lg last:rounded-r-lg font-normal text-sm transition-all duration-200"
                                 >
-                                    Share
+                                    <CgShare size={20} />
                                 </li>
                             </ul>
                         </div>
@@ -349,8 +355,8 @@ export default function PostItem({
                         className="relative hidden origin-bottom"
                         id={"postDate" + post.id.toString()}
                     >
-                        <div className="absolute -top-10 right-0 bg-background rounded-lg px-3 py-1 shadow-lg opacity-50 z-50">
-                            <p className="text-text font-medium text-center text-nowrap">
+                        <div className="absolute -top-8 right-0 bg-background rounded-lg px-3 py-1 opacity-50 z-50">
+                            <p className="text-text font-medium text-center text-nowrap shadow-md text-sm">
                                 {rawDate}
                             </p>
                         </div>

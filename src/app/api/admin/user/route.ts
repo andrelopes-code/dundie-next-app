@@ -77,6 +77,10 @@ export async function POST(request: NextRequest) {
     }
 }
 
+/*
+ * ROTA PARA EDITAR A VISIBILIDADE DE UM USUÁRIO
+ */
+
 export async function PUT(request: NextRequest) {
     // Verifica o token de autenticação
     const access_token = cookies().get("access_token")?.value;
@@ -96,6 +100,43 @@ export async function PUT(request: NextRequest) {
     // Tenta realizar a requisição e retorna o resultado
     try {
         const res = await api.put("/admin/user/visibility", data, config);
+        const response = NextResponse.json(res.data, { status: res.status });
+        return response;
+    } catch (error: any) {
+        return NextResponse.json(
+            { detail: error?.response?.data?.detail },
+            {
+                status: error.response.status || 500,
+            }
+        );
+    }
+}
+
+
+/*
+ * ROTA PARA EDITAR UM USUÁRIO
+ */
+
+export async function PATCH(request: NextRequest) {
+    // Verifica o token de autenticação
+    const access_token = cookies().get("access_token")?.value;
+    if (!access_token) {
+        return NextResponse.json({ detail: "Unauthorized" }, { status: 401 });
+    }
+
+    const config = {
+        headers: {
+            accept: "application/json",
+            authorization: `Bearer ${access_token}`,
+        },
+    };
+
+    const data = await request.json();
+    const username = request.nextUrl.searchParams.get("username");
+
+    // Tenta realizar a requisição e retorna o resultado
+    try {
+        const res = await api.patch(`/admin/${username}`, data, config);
         const response = NextResponse.json(res.data, { status: res.status });
         return response;
     } catch (error: any) {

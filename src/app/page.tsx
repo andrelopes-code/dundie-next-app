@@ -7,13 +7,12 @@ import MainSection from "@/components/MainSection";
 
 export default function Home() {
     return (
-        <div className="h-screen bg-background">
-            <div className="drop-shadow-[0_0_10px_rgba(0,0,22,0.1)]">
+        <div className="h-screen">
+            <div>
                 <Navbar />
             </div>
-            <div className="bg-background px-24 h-content grid grid-cols-[2fr_1fr]">
+            <div className="px-24 h-content grid grid-cols-[2fr_1fr]">
                 {/* MAIN DIV */}
-
                 <div
                     id="mainSectionWrapper"
                     className="m-[0.75rem_0.75rem_0.75rem_0] overflow-auto overflow-x-hidden sb rounded-lg shadow-lg bg-background-light"

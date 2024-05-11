@@ -1,6 +1,6 @@
 @tailwind base;
 @tailwind components;
-@tailwind utilities; 
+@tailwind utilities;
 
 :root {
     --foreground-rgb: 0, 0, 0;
@@ -54,7 +54,6 @@ input[type="number"]::-webkit-calendar-picker-indicator {
     display: none;
 }
 
-
 .fixtransition {
     outline: 1px solid transparent;
     -webkit-backface-visibility: hidden;
@@ -67,6 +66,28 @@ input[type="number"]::-webkit-calendar-picker-indicator {
 
 .imagefilter {
     filter: contrast(1.1) brightness(0.9);
+}
+
+.chatPattern {
+    background: radial-gradient(
+            circle at bottom left,
+            transparent 25%,
+            #e6e6e6 25.5%,
+            #e6e6e6 36%,
+            transparent 37%,
+            transparent 100%
+        ),
+        radial-gradient(
+            circle at top right,
+            transparent 34%,
+            #e6e6e6 34.5%,
+            #e6e6e6 45.5%,
+            transparent 46%,
+            transparent 100%
+        );
+    background-size: 3em 3em;
+    background-color: #e9e9ec;
+    opacity: 1;
 }
 
 .postAdd {
@@ -104,7 +125,6 @@ input[type="number"]::-webkit-calendar-picker-indicator {
         opacity: 0;
     }
 }
-
 @keyframes optionsIn {
     from {
         transform: rotate(0deg);
@@ -113,7 +133,6 @@ input[type="number"]::-webkit-calendar-picker-indicator {
         transform: rotate(180deg);
     }
 }
-
 @keyframes optionsOut {
     from {
         transform: rotate(-180deg);
@@ -121,4 +140,66 @@ input[type="number"]::-webkit-calendar-picker-indicator {
     to {
         transform: rotate(0deg);
     }
+}
+
+.bdnone {
+    border: none !important;
+}
+
+.shopScroll {
+    overflow-x: auto;
+}
+/* Firefox (uncomment to work in Firefox, although other properties will not work!)  */
+/* .shopScroll {
+  scrollbar-width: thin;
+  scrollbar-color: #575757 #21ff3300;
+} */
+
+/* Chrome, Edge and Safari */
+.shopScroll::-webkit-scrollbar {
+    height: 14px;
+
+}
+.shopScroll::-webkit-scrollbar-track {
+    border-radius: 5px;
+    background-color: #0000;
+    margin-left: 2.5rem;
+    margin-right: 2.5rem;
+}
+
+.shopScroll::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: #00000010;
+}
+
+.shopScroll::-webkit-scrollbar-thumb:hover {
+    background-color: #00000018;
+}
+
+.shopScroll::-webkit-scrollbar-thumb:active {
+    background-color: #00000018;
+}
+
+.shopRightGradient::before {
+    content: "";
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    right: 0;
+    width: 2.5rem;
+    height: 100%;
+    background: linear-gradient(90deg, #f1f1f100 0%, #f1f1f1 100%);
+    pointer-events: none;
+}
+
+.shopLeftGradient::before {
+    content: "";
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    width: 2.5rem;
+    height: 100%;
+    background: linear-gradient(-90deg, #f1f1f100 0%, #f1f1f1 100%);
+    pointer-events: none;
 }

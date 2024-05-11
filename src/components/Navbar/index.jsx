@@ -1,12 +1,11 @@
 "use client";
 
 import useLogout from "@/hooks/useLogout";
-import { SiDogecoin } from "react-icons/si";
 import Link from "next/link";
 
 export default function Navbar() {
     return (
-        <div>
+        <div className="drop-shadow-[0_0_10px_rgba(0,0,22,0.1)]">
             <header className="bg-background-light">
                 <nav
                     className="mx-20 flex items-center justify-between p-4 lg:px-16 "
@@ -44,7 +43,7 @@ export default function Navbar() {
 
                     <div className="hidden lg:flex lg:flex-1 lg:justify-end">
                         <div className="flex flex-row items-center gap-11">
-                            <div className="hidden lg:flex lg:gap-x-11">
+                            <div className="hidden lg:flex lg:gap-x-6">
                                 <Link
                                     href="/"
                                     className="text-sm font-semibold transition-colors duration-300 leading-6 text-text hover:bg-background rounded-lg py-1 px-3"
@@ -58,10 +57,22 @@ export default function Navbar() {
                                     PROFILE
                                 </Link>
                                 <Link
+                                    href="/shop"
+                                    className="text-sm font-semibold transition-colors duration-300 leading-6 text-text hover:bg-background rounded-lg py-1 px-3"
+                                >
+                                    SHOP
+                                </Link>
+                                <Link
                                     href="/donate"
                                     className="text-sm font-semibold transition-colors duration-300 leading-6 text-text hover:bg-background rounded-lg py-1 px-3"
                                 >
                                     DONATE
+                                </Link>
+                                <Link
+                                    href="/about"
+                                    className="text-sm font-semibold transition-colors duration-300 leading-6 text-text hover:bg-background rounded-lg py-1 px-3"
+                                >
+                                    ABOUT
                                 </Link>
                                 <Link
                                     href="/admin"
@@ -79,71 +90,6 @@ export default function Navbar() {
                         </div>
                     </div>
                 </nav>
-                <div className="lg:hidden">
-                    <div className="fixed inset-0 z-10"></div>
-                    <div className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
-                        <div className="flex items-center justify-between">
-                            <Link href="/dashboard" className="-m-1.5 p-1.5">
-                                <span className="font-bold text-2xl text-primary">
-                                    DUNDIE
-                                </span>
-                            </Link>
-                            <button
-                                type="button"
-                                className="-m-2.5 rounded-md p-2.5 text-text-light"
-                            >
-                                <span className="sr-only">Close menu</span>
-                                <svg
-                                    className="h-6 w-6"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    strokeWidth="1.5"
-                                    stroke="currentColor"
-                                    aria-hidden="true"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        d="M6 18L18 6M6 6l12 12"
-                                    />
-                                </svg>
-                            </button>
-                        </div>
-                        <div className="mt-6 flow-root">
-                            <div className="-my-6 divide-y divide-gray-500/10">
-                                <div className="space-y-2 py-6">
-                                    <Link
-                                        href="/user/profile"
-                                        className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-text hover:bg-gray-50"
-                                    >
-                                        Profile
-                                    </Link>
-                                    <Link
-                                        href="/donate"
-                                        className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-text hover:bg-gray-50"
-                                    >
-                                        Donate
-                                    </Link>
-                                    <Link
-                                        href="/admin"
-                                        className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-text hover:bg-gray-50"
-                                    >
-                                        Administrative
-                                    </Link>
-                                </div>
-                                <div className="py-6">
-                                    <button
-                                        onClick={useLogout}
-                                        href="/logout"
-                                        className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-medium leading-7 text-text hover:bg-gray-50"
-                                    >
-                                        Log out
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </header>
         </div>
     );

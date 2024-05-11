@@ -34,6 +34,7 @@ export interface AdminUser {
     id: number;
     created_at: any;
     is_active: boolean;
+    private: boolean;
     name: string;
     avatar: string;
     bio: string;

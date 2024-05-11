@@ -17,10 +17,10 @@ let currentPage = 1;
 let totalPages = 0;
 
 export default function MainSection() {
-    const isFirstRender = useRef(true);
     const [user, setUser] = useState<User>();
     const [posts, setPosts] = useState<Post[]>([]);
     const [loading, setLoading] = useState(false);
+    let isFirstRender = true;
     let isFetchingNewPosts = false;
 
     // Function to get the specific posts page
@@ -72,9 +72,9 @@ export default function MainSection() {
                 setPosts(data?.items || []);
             }
         };
-        isFirstRender.current && getProfile();
-        isFirstRender.current && getPosts();
-        isFirstRender.current = false;
+        isFirstRender && getProfile();
+        isFirstRender && getPosts();
+        isFirstRender = false;
     }, []);
 
     // Function to handle scroll event and fetch new posts
@@ -150,7 +150,7 @@ export default function MainSection() {
                     {/* POST FORM */}
                     <CreatePost user={user} posts={posts} setPosts={setPosts} />
                     {/* POSTS */}
-                    <div className="w-full text-text flex justify-end pr-10">
+                    <div className="w-full text-text flex justify-end pr-10 mb-10">
                         <div className="px-1 bg-background rounded-lg">
                             <select
                                 className="w-32 bg-background focus:outline-none"
@@ -190,19 +190,20 @@ export default function MainSection() {
                     </div>
                     <ul
                         id="postsList"
-                        className="flex flex-col gap-10 mx-10 items-center transition-all duration-300"
+                        className="flex flex-col mx-10 items-center transition-all duration-300"
                     >
                         {posts.length === 0 ? (
                             <h1 className="text-text-inactive my-40">
                                 No posts yet.
                             </h1>
                         ) : (
-                            posts.map((post) => (
+                            posts.map((post, index) => (
                                 <PostItem
                                     key={post.id}
                                     user={user}
                                     post={post}
                                     setPosts={setPosts}
+                                    index={index}
                                 />
                             ))
                         )}

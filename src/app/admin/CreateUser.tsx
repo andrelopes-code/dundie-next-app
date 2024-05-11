@@ -94,12 +94,12 @@ export function CreateUser({
     return (
         <>
             <form id="create_user_form" onSubmit={handleSubmit}>
-                <h1 className="text-text font-medium text-xl pb-6">
+                <h1 className="text-text font-medium text-lg pb-2">
                     Create User
                 </h1>
-                <section className="flex flex-col gap-5">
+                <section className="flex flex-col text-sm gap-2">
                     <div className="flex w-full flex-row justify-between">
-                        <div className="w-[48%]">
+                        <div className="w-[49%]">
                             <input
                                 className="w-full bg-background text-text-inactive focus:text-text transition-all ease duration-300 border outline-gray-300 p-2 rounded-lg focus:outline-primary-light"
                                 type="text"
@@ -113,7 +113,7 @@ export function CreateUser({
                                 required
                             />
                         </div>
-                        <div className="w-[48%]">
+                        <div className="w-[49%]">
                             <input
                                 className="w-full bg-background text-text-inactive focus:text-text transition-all ease duration-300 border outline-gray-300 p-2 rounded-lg focus:outline-primary-light"
                                 type="text"
@@ -129,7 +129,7 @@ export function CreateUser({
                         </div>
                     </div>
                     <div className="flex w-full flex-row justify-between">
-                        <div className="w-[48%]">
+                        <div className="w-[49%]">
                             <input
                                 className="w-full bg-background text-text-inactive focus:text-text transition-all ease duration-300 border outline-gray-300 p-2 rounded-lg focus:outline-primary-light"
                                 type="email"
@@ -140,23 +140,64 @@ export function CreateUser({
                                 required
                             />
                         </div>
-                        <div className="w-[48%]">
-                            <input
-                                className="w-full bg-background text-text-inactive focus:text-text transition-all ease duration-300 border outline-gray-300 p-2 rounded-lg focus:outline-primary-light"
-                                type="text"
-                                name="create_dept"
-                                spellCheck="false"
-                                placeholder="department"
-                                id="create_dept"
-                                pattern="[a-z]+"
-                                minLength={3}
-                                maxLength={50}
+                        <div className="w-[49%]">
+                            <select
+                                id="create_department"
+                                name="create_department"
+                                defaultValue={""}
+                                className="w-full appearance-none bg-background text-text-inactive focus:text-text transition-all ease duration-300 border outline-gray-300 p-2 rounded-lg focus:outline-primary-light"
                                 required
-                            />
+                            >
+                                <option value="" disabled hidden>
+                                    department
+                                </option>
+                                <option
+                                    className="bg-background"
+                                    value="finance"
+                                >
+                                    finance
+                                </option>
+                                <option
+                                    className="bg-background"
+                                    value="humanresources"
+                                >
+                                    humanresources
+                                </option>
+                                <option className="bg-background" value="it">
+                                    it
+                                </option>
+                                <option
+                                    className="bg-background"
+                                    value="logistics"
+                                >
+                                    logistics
+                                </option>
+                                <option
+                                    className="bg-background"
+                                    value="management"
+                                >
+                                    management
+                                </option>
+                                <option
+                                    className="bg-background"
+                                    value="marketing"
+                                >
+                                    marketing
+                                </option>
+                                <option
+                                    className="bg-background"
+                                    value="operations"
+                                >
+                                    operations
+                                </option>
+                                <option className="bg-background" value="sales">
+                                    sales
+                                </option>
+                            </select>
                         </div>
                     </div>
                     <div className="flex w-full flex-row justify-between">
-                        <div className="w-[48%]">
+                        <div className="w-[49%]">
                             <input
                                 className="w-full bg-background text-text-inactive focus:text-text transition-all ease duration-300 border outline-gray-300 p-2 rounded-lg focus:outline-primary-light"
                                 type="password"
@@ -171,7 +212,7 @@ export function CreateUser({
                                 required
                             />
                         </div>
-                        <div className="w-[48%]">
+                        <div className="w-[49%]">
                             <input
                                 className="w-full bg-background text-text-inactive focus:text-text transition-all ease duration-300 border outline-gray-300 p-2 rounded-lg focus:outline-primary-light"
                                 type="password"
@@ -189,7 +230,7 @@ export function CreateUser({
                     </div>
                 </section>
                 {/* CREATE BUTTON */}
-                <div className="flex flex-row justify-end mt-8">
+                <div className="flex flex-row justify-end mt-5">
                     <button
                         className="w-28 text-text-invert font-medium bg-primary p-1 rounded-lg"
                         form="create_user_form"

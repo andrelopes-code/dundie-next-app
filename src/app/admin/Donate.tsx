@@ -87,10 +87,10 @@ export function AdminDonate({
     return (
         <>
             <form id="donate_user_form" onSubmit={handleSubmit}>
-                <h1 className="text-text font-medium text-xl pb-6">
+                <h1 className="text-text font-medium text-lg pb-2">
                     Give Points
                 </h1>
-                <section className="flex flex-col gap-5">
+                <section className="flex flex-col text-sm gap-2">
                     <div className="flex w-full flex-row justify-between">
                         {/* TARGET USERNAMEs */}
                         <div className="w-full">
@@ -125,7 +125,7 @@ export function AdminDonate({
                     </div>
                 </section>
                 {/* CREATE BUTTON */}
-                <div className="flex flex-row justify-end mt-8">
+                <div className="flex flex-row justify-end mt-5">
                     <button
                         className="w-28 text-text-invert font-medium bg-primary p-1 rounded-lg"
                         form="donate_user_form"

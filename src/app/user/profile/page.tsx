@@ -12,6 +12,8 @@ import API_URL from "@/constants/apiRoute";
 export default function Profile() {
     const isFirstRender = useRef(true);
     const [user, setUser] = useState<User>();
+
+    // Get user profile
     useEffect(() => {
         const getProfile = () => {
             fetch(`${API_URL}/user/profile`)
@@ -32,6 +34,7 @@ export default function Profile() {
         isFirstRender.current = false;
     }, []);
 
+    // Set page title
     useEffect(() => {
         if (user) {
             document.title = `Dundie - ${user.username}`;
@@ -39,11 +42,11 @@ export default function Profile() {
     }, [user]);
 
     return (
-        <div className="h-screen bg-background">
+        <div className="h-screen">
             <div>
                 <Navbar />
             </div>
-            <div className="bg-background px-24 h-content grid grid-cols-[1fr_2fr]">
+            <div className="px-24 h-content grid grid-cols-[1fr_2fr]">
                 <div className="grid grid-rows-[65%_35%] min-h-[650px] h-content">
                     {/* PROFILE CARD */}
                     <div className="shadow-lg flex flex-col gap-3 min-w-80 p-5 items-center justify-center overflow-hidden bg-background-light m-[0.75rem_0.75rem_0_0] rounded-lg">

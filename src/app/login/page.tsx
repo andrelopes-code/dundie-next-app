@@ -1,7 +1,7 @@
 "use client";
 import { FormEvent, useState, useEffect } from "react";
 import API_URL from "@/constants/apiRoute";
-import { VscLoading } from "react-icons/vsc";
+import Loading from "@/components/Loading";
 
 /**
  * Renders a login form component.
@@ -99,10 +99,9 @@ export default function Login() {
                             className="transition font-semibold flex justify-center h-10 items-center ease duration-300 border border-gray-300 text-text-invert p-2 rounded-md bg-primary hover:bg-primary-dark cursor-pointer"
                         >
                             {loading && (
-                                <VscLoading
-                                    size={20}
-                                    className="animate-spin"
-                                />
+                                <div className="scale-75">
+                                    <Loading color="white" />
+                                </div>
                             )}
                             {!loading && "Sign In"}
                         </button>

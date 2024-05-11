@@ -3,20 +3,10 @@ import { validateUserToken } from "./functions/validate-user-token";
 import { tryRefreshToken } from "./functions/try-refresh-token";
 import { setResponseAuthCookies } from "./functions/set-response-auth-cookies";
 
-const allowedOrigins = ["http://localhost:3000/", "http://localhost:3000"];
-
-/**
- * Middleware function for handling authentication and authorization.
- * 
- * @param request - The NextRequest object representing the incoming request.
- * @param res - The NextResponse object representing the outgoing response.
- * @returns A NextResponse object or a Promise that resolves to a NextResponse object.
- */
-export async function middleware(request: NextRequest) {
-    const accessToken = request.cookies.get("access_token")?.value;
-    const refreshToken = request.cookies.get("refresh_token")?.value;
-    const LoginPage = NextResponse.redirect(new URL("/login", request.url));
-
+async function verifyAdminRoute(
+    request: NextRequest,
+    accessToken: string | undefined
+) {
     // * Verifica se o usário tem permissão para acessar a rota admin
     if (
         request.nextUrl.pathname.startsWith("/admin") ||
@@ -28,6 +18,21 @@ export async function middleware(request: NextRequest) {
             return NextResponse.redirect(new URL("/unauthorized", request.url));
         }
     }
+}
+
+const allowedOrigins = ["http://localhost:3000/", "http://localhost:3000"];
+
+/**
+ * Middleware function for handling authentication and authorization.
+ *
+ * @param request - The NextRequest object representing the incoming request.
+ * @param res - The NextResponse object representing the outgoing response.
+ * @returns A NextResponse object or a Promise that resolves to a NextResponse object.
+ */
+export async function middleware(request: NextRequest) {
+    const accessToken = request.cookies.get("access_token")?.value;
+    const refreshToken = request.cookies.get("refresh_token")?.value;
+    const LoginPage = NextResponse.redirect(new URL("/login", request.url));
 
     // * Caso não existam os tokens, redireciona para a rota de login
     if (!accessToken && !refreshToken) {
@@ -40,12 +45,17 @@ export async function middleware(request: NextRequest) {
             const newTokens = await tryRefreshToken(refreshToken);
             setResponseAuthCookies(response, newTokens);
 
+            // * Verifica se o usário tem permissão para acessar a rota admin
+            verifyAdminRoute(request, newTokens.access_token);
+
             return response;
         } catch (error) {
             return LoginPage;
         }
     }
 
+    // * Verifica se o usário tem permissão para acessar a rota admin
+    verifyAdminRoute(request, accessToken);
     // Continua com a requisição
     const response = NextResponse.next();
     return response;

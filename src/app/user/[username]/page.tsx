@@ -48,7 +48,7 @@ export default function PublicProfile({
     }, [user]);
 
     return (
-        <div className="h-screen bg-background">
+        <div className="h-screen">
             <div>
                 <Navbar />
             </div>
@@ -73,7 +73,7 @@ export default function PublicProfile({
             )}
             {/* IF USER FOUND */}
             {!noUser && (
-                <div className="bg-background px-24 h-content grid grid-cols-[1fr_2fr]">
+                <div className="px-24 h-content grid grid-cols-[1fr_2fr]">
                     <div className="grid grid-rows-[65%_35%] min-h-[650px] h-content">
                         {/* PROFILE CARD */}
                         <div className="shadow-lg flex flex-col gap-3 min-w-80 p-5 items-center justify-center overflow-hidden bg-background-light m-[0.75rem_0.75rem_0_0] rounded-lg">

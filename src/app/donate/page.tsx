@@ -28,7 +28,7 @@ export default function Donate(req: any) {
     const urlTarget = decodeURI(req.searchParams.target);
 
     return (
-        <section className="bg-background">
+        <section>
             <Navbar />
             <div className="h-content py-8 px-[6.75rem]">
                 <div className="bg-background-light w-full h-full justify-center shadow-lg flex flex-col text-text items-center gap-5 rounded-lg">

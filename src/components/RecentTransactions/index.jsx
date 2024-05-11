@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 import Loading from "@/components/Loading";
-import { CgArrowLongRight } from "react-icons/cg";
 import getTimeDeltaString from "@/functions/get-time-delta";
 import API_URL from "@/constants/apiRoute";
 
@@ -66,13 +65,19 @@ const TransactionItem = ({ from, to, points, date }) => {
 const RecentTransactions = () => {
     const isFirstRender = useRef(true);
     const [transactions, setTransactions] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const getRecentTransactions = () => {
-            fetch(`${API_URL}/transaction/recent`)
-                .then(async (res) => await res.json())
-                .then((data) => setTransactions(data))
-                .catch((err) => console.log(err));
+        const getRecentTransactions = async () => {
+            try {
+                const res = await fetch(`${API_URL}/transaction/recent`);
+                const data = await res.json();
+                setTransactions(data);
+            } catch (err) {
+                console.log(err);
+            } finally {
+                setLoading(false);
+            }
         };
         isFirstRender.current && getRecentTransactions();
         isFirstRender.current = false;
@@ -80,7 +85,7 @@ const RecentTransactions = () => {
 
     return (
         <>
-            {!transactions.length ? (
+            {loading ? (
                 <Loading />
             ) : (
                 <div className="h-full m-4 flex justify-start flex-col">
@@ -98,6 +103,11 @@ const RecentTransactions = () => {
                                 date={trans.date}
                             />
                         ))}
+                        {transactions.length == 0 && (
+                            <div className="flex items-center justify-center h-24 text-text font-semibold">
+                                <p>No recent transactions</p>
+                            </div>
+                        )}
                     </div>
                 </div>
             )}

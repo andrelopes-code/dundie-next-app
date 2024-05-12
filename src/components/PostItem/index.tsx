@@ -193,7 +193,6 @@ export default function PostItem({
     const [postLikes, setPostLikes] = useState<number>(post.likes);
     const [likeButtonLocked, setLikeButtonLocked] = useState<boolean>(false);
     const [showPostOptions, setShowPostOptions] = useState<boolean>(false);
-    const [showComments, setShowComments] = useState<boolean>(false);
     const borderClass = index === 0 ? " border-none" : " border-t-2";
 
     // Get the date of the post and format it
@@ -381,8 +380,8 @@ export default function PostItem({
                             className="relative hidden origin-bottom"
                             id={"postDate" + post.id.toString()}
                         >
-                            <div className="absolute -top-8 right-0 bg-background rounded-lg px-3 py-1 opacity-50 z-50">
-                                <p className="text-text font-medium text-center text-nowrap shadow-md text-sm">
+                            <div className="absolute -top-8 shadow-md right-0 bg-background rounded-lg px-3 py-1 opacity-50 z-50">
+                                <p className="text-text font-medium text-center text-nowrap text-sm">
                                     {rawDate}
                                 </p>
                             </div>

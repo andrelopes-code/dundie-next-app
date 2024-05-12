@@ -12,7 +12,10 @@ export default function Navbar() {
                     aria-label="Global"
                 >
                     <div className="flex lg:flex-1">
-                        <Link href="/" className="-m-1.5 p-1.5">
+                        <Link
+                            href="/"
+                            className="-m-1.5 p-1.5 transition-all duration-500  hover:drop-shadow-[0_0_22px_#9495ee99]"
+                        >
                             <span className="flex flex-row items-center gap-[1px] hover:animate-logoShake font-bold text-2xl text-primary">
                                 <span className="mt-[3px]">Dundie</span>
                             </span>
@@ -83,7 +86,7 @@ export default function Navbar() {
                             </div>
                             <button
                                 onClick={useLogout}
-                                className="bg-primary py-1 px-2 rounded-lg text-sm font-medium leading-6 text-text-invert"
+                                className="bg-primary py-1 px-2 rounded-lg text-sm font-medium leading-6 transition-all duration-500  hover:shadow-[#9495ee99] hover:shadow-[0_0_22px_-1px] text-text-invert"
                             >
                                 Log out
                             </button>

@@ -45,7 +45,7 @@ export async function middleware(request: NextRequest) {
             const newTokens = await tryRefreshToken(refreshToken);
             setResponseAuthCookies(response, newTokens);
 
-            // * Verifica se o usário tem permissão para acessar a rota admin
+            // * Verifica se o usuário tem permissão para acessar a rota admin
             verifyAdminRoute(request, newTokens.access_token);
 
             return response;
@@ -55,7 +55,11 @@ export async function middleware(request: NextRequest) {
     }
 
     // * Verifica se o usário tem permissão para acessar a rota admin
-    verifyAdminRoute(request, accessToken);
+    const unauthorized = await verifyAdminRoute(request, accessToken);
+    if (unauthorized) {
+        return unauthorized;
+    }
+    
     // Continua com a requisição
     const response = NextResponse.next();
     return response;

@@ -6,13 +6,14 @@ import { useState, useEffect } from "react";
 import ContactAndFeedback from "./ContactAndFeedback";
 import API_URL from "@/constants/apiRoute";
 import Loading from "@/components/Loading";
-import { AlertError } from "@/components/alert";
+import { AlertError, AlertSuccess } from "@/components/alert";
 import { SiDogecoin } from "react-icons/si";
 
 let isFirstRender = true;
 
 export default function Shop() {
     const [error, setError] = useState<string>("");
+    const [success, setSuccess] = useState<string>("");
     const [products, setProducts] = useState([]);
     const [user, setUser] = useState<any>();
     // Fetch products when the component mounts
@@ -47,6 +48,7 @@ export default function Shop() {
 
     return (
         <div>
+            {}
             <div className="sticky top-0 z-50">
                 <Navbar />
             </div>
@@ -54,16 +56,16 @@ export default function Shop() {
             <div className="bg-background-light shadow-lg rounded-lg mx-24 my-3 mb-24 h-full overflow-hidden">
                 <div className="bg-gradient-to-r from-background-light flex flex-row justify-between via-indigo-100 to-primary h-[300px]">
                     <div className="text-7xl ml-24 flex select-none flex-col items-start justify-center h-full">
-                        <p className="font-bold text-center bg-gradient-to-r from-primary to-indigo-400 bg-clip-text text-transparent text-text-invert">
+                        <p className="font-bold text-center bg-gradient-to-r from-primary to-violet-400 bg-clip-text text-transparent text-text-invert">
                             DUNDIE
                         </p>
-                        <p className="font-bold text-center bg-gradient-to-r from-primary to-indigo-400 bg-clip-text text-transparent text-text-invert">
+                        <p className="font-bold text-center bg-gradient-to-r from-primary to-violet-400 bg-clip-text text-transparent text-text-invert">
                             SHOP
                         </p>
                     </div>
                 </div>
                 <div className="flex flex-row justify-end mt-5 mr-5">
-                    <div className="flex flex-row items-center justify-center bg-gradient-to-r max-w-32 w-auto from-primary to-indigo-500 rounded-lg text-text-invert font-semibold px-3 py-1">
+                    <div className="flex flex-row items-center justify-center bg-gradient-to-r max-w-32 w-auto from-primary to-violet-400 rounded-lg text-text-invert font-semibold px-3 py-1">
                         <p>{user?.points || 0}</p>
                         <SiDogecoin className="ml-1 mb-[3px]" />
                     </div>
@@ -94,9 +96,10 @@ export default function Shop() {
                 </div>
             </div>
             {error && <AlertError msg={error} />}
+            {success && <AlertSuccess msg={success} />}
 
             {/* Contact and Feedback */}
-            <ContactAndFeedback />
+            <ContactAndFeedback setError={setError} setSuccess={setSuccess} />
         </div>
     );
 }

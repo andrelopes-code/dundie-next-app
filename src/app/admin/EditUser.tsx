@@ -41,20 +41,21 @@ export function EditUser({
      * Handles the form submit event.
      * @param event Form event
      */
-    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: any) => {
         // Prevent the form from submitting
-        event.preventDefault();
+        e.preventDefault();
 
         // Get form data
-        const name = (getById("edit_name") as any).value;
-        const username = (getById("edit_username") as any).value;
-        const email = (getById("edit_email") as any).value;
-        const dept = (getById("edit_department") as any).value;
-        const password = (getById("edit_pass") as any).value;
-        const confirmPassword = (getById("edit_confirm_pass") as any).value;
-        const isActive = (getById("edit_active") as any).checked;
-        const isPrivate = (getById("edit_private") as any).checked;
-        const adminPassword = (getById("edit_admin_password") as any).value;
+        const form = e.target;
+        const name = form.edit_name.value;
+        const username = form.edit_username.value;
+        const email = form.edit_email.value;
+        const dept = form.edit_department.value;
+        const password = form.edit_pass.value;
+        const confirmPassword = form.edit_confirm_pass.value;
+        const isActive = form.edit_active.checked;
+        const isPrivate = form.edit_private.checked;
+        const adminPassword = form.edit_admin_password.value;
 
         const originalData = {
             name: user.name,
@@ -138,19 +139,13 @@ export function EditUser({
 
     // Set initial form values when user changes
     useEffect(() => {
-        const name: any = getById("edit_name");
-        name && (name.value = user.name);
-        name && name.focus();
-        const username: any = getById("edit_username");
-        username && (username.value = user.username);
-        const email: any = getById("edit_email");
-        email && (email.value = user.email);
-        const dept: any = getById("edit_department");
-        dept && (dept.value = user.dept);
-        const isActive: any = getById("edit_active");
-        isActive && (isActive.checked = user.is_active);
-        const isPrivate: any = getById("edit_private");
-        isPrivate && (isPrivate.checked = user.private);
+        const form = getById("edit_user_form") as any;
+        form.edit_name.value = user.name;
+        form.edit_username.value = user.username;
+        form.edit_email.value = user.email;
+        form.edit_department.value = user.dept;
+        form.edit_active.checked = user.is_active;
+        form.edit_private.checked = user.private;
     }, [user]);
 
     return (

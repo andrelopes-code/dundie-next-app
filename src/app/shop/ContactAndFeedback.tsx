@@ -1,6 +1,55 @@
 import { MdFeedback } from "react-icons/md";
+import API_URL from "@/constants/apiRoute";
+import {
+    setErrorWithTimeout,
+    setSuccessWithTimeout,
+} from "@/functions/set-error-and-success";
 
-export default function ContactAndFeedback() {
+export default function ContactAndFeedback({
+    setError,
+    setSuccess,
+}: {
+    setError: any;
+    setSuccess: any;
+}) {
+    // Handles the form submit event
+    async function handleSubmit(e: any) {
+        e.preventDefault();
+
+        const form = e.target;
+        const email = form.email.value;
+        const feedback = form.feedback.value;
+
+        const data = {
+            email: email,
+            feedback: feedback,
+        };
+
+        const config = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        };
+
+        try {
+            const res = await fetch(`${API_URL}/feedbacks`, config);
+            if (res.ok) {
+                setSuccessWithTimeout(
+                    "Thank you for your feedback!",
+                    setSuccess
+                );
+                form.reset();
+            } else {
+                throw res;
+            }
+        } catch (error) {
+            console.log(error);
+            setErrorWithTimeout("Something went wrong", setError);
+        }
+    }
+
     return (
         <div className="text-text bg-background-light shadow-[0_-4px_20px_0_rgba(10,0,20,0.1)]  p-5">
             <div className="w-full h-full justify-center gap-10 items-center flex flex-row">
@@ -14,17 +63,8 @@ export default function ContactAndFeedback() {
                     </p>
                 </div>
 
-                <form>
+                <form onSubmit={handleSubmit}>
                     <div className="w-full flex flex-row gap-3">
-                        <input
-                            className="w-full mb-3 bg-background resize-none text-text-inactive focus:text-text transition-all ease duration-300 border outline-gray-300 p-2 rounded-lg focus:outline-primary-light"
-                            type="text"
-                            id="name"
-                            name="name"
-                            placeholder="Name"
-                            spellCheck={false}
-                            required
-                        />
                         <input
                             className="w-full mb-3 bg-background resize-none text-text-inactive focus:text-text transition-all ease duration-300 border outline-gray-300 p-2 rounded-lg focus:outline-primary-light"
                             type="email"

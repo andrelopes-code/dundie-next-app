@@ -48,8 +48,10 @@ export function AdminDonate({
         event.preventDefault();
 
         // Get form data
-        const target = (event.target as any)[0].value;
-        const amount = (event.target as any)[1].value;
+        const form = event.target as HTMLFormElement;
+
+        const target = form.target_username.value;
+        const amount = form.donation_amount.value;
         const usepdm = true;
 
         const data = {

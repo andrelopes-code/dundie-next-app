@@ -48,12 +48,13 @@ export function CreateUser({
         event.preventDefault();
 
         // Get form data
-        const name = (event.target as any)[0].value;
-        const username = (event.target as any)[1].value;
-        const email = (event.target as any)[2].value;
-        const dept = (event.target as any)[3].value;
-        const password = (event.target as any)[4].value;
-        const confirmPassword = (event.target as any)[5].value;
+        const form = event.target as HTMLFormElement;
+        const name = form.create_name.value;
+        const username = form.create_username.value;
+        const email = form.create_email.value;
+        const dept = form.create_department.value;
+        const password = form.create_pass.value;
+        const confirmPassword = form.create_confirm_pass.value;
 
         const data = {
             name,

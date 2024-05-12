@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import "@/../public/css/loader.css";
 import React from "react";
+import FeedbackSideButton from "@/components/FeedbackSideButton";
 
 export const metadata: Metadata = {
     title: "Dundie",
@@ -27,7 +28,10 @@ export default function RootLayout({
                     rel="stylesheet"
                 />
             </head>
-            <body>{children}</body>
+            <body>
+                <FeedbackSideButton />
+                {children}
+            </body>
         </html>
     );
 }

@@ -61,7 +61,7 @@ export default function Login() {
         <div className="h-screen bg-background">
             <div className="flex justify-center items-center h-screen">
                 <div className="w-1/3 p-4 bg-background-light shadow-lg rounded-md min-w-80 max-w-96 flex flex-col flex-nowrap justify-center">
-                    <h1 className="font-bold text-2xl mb-6 text-center bg-gradient-to-r from-gray-400 to-indigo-500 bg-clip-text text-transparent">
+                    <h1 className="font-bold text-2xl mb-6 text-center bg-gradient-to-r from-gray-400 to-violet-400 bg-clip-text text-transparent">
                         {msg}
                     </h1>
                     <form
@@ -96,7 +96,7 @@ export default function Login() {
                             form="loginForm"
                             type="submit"
                             id="btn"
-                            className="transition font-semibold flex justify-center h-10 items-center ease duration-300 border border-gray-300 text-text-invert p-2 rounded-md bg-primary hover:bg-primary-dark cursor-pointer"
+                            className="transition font-semibold flex justify-center h-10 items-center ease duration-300 border border-gray-300 text-text-invert p-2 rounded-md bg-primary hover:bg-violet-400 cursor-pointer"
                         >
                             {loading && (
                                 <div className="scale-75">

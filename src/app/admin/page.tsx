@@ -14,6 +14,8 @@ import ListOrders from "./ListOrders";
 import { OrderPage } from "@/types/shop";
 import Loading from "@/components/Loading";
 import { setErrorWithTimeout } from "@/functions/set-error-and-success";
+import { FeedbackPage, Feedback } from "@/types/feedback";
+import ListFeedbacks from "./ListFeedbacks";
 
 /**
  * The admin panel page displays two main components:
@@ -28,7 +30,10 @@ export default function AdminPanel() {
     const [loading, setLoading] = useState(true);
     // The current page of users to display in the list
     const [users, setUsers] = useState<UserPage>();
+    // The current page of feedbacks to display in the list
     const [orders, setOrders] = useState<OrderPage>();
+    // The current page of feedbacks to display in the list
+    const [feedbacks, setFeedbacks] = useState<FeedbackPage>();
     const [editUserData, setEditUserData] = useState();
     const [activeSection, setActiveSection] = useState("users");
 
@@ -49,10 +54,28 @@ export default function AdminPanel() {
             .catch((err) => console.log(err));
     }
     /**
+     * Get the next page of feedbacks from the backend.
+     * @param page The page number to get
+     */
+    function getFeedbackPage(page: number) {
+        setLoading(true);
+        fetch(`${API_URL}/feedbacks?page=${page}`)
+            .then(async (res) => await res.json())
+            .then((data) => {
+                if (data?.detail) {
+                    setErrorWithTimeout(data?.detail, setError, 5000);
+                }
+                setFeedbacks(data);
+                setLoading(false);
+            })
+            .catch((err) => console.log(err));
+    }
+    /**
      * Get the next page of orders from the backend.
      * @param page The page number to get
      */
     function getOrdersPage(page: number) {
+        setLoading(true);
         fetch(`${API_URL}/admin/orders?page=${page}`)
             .then(async (res) => await res.json())
             .then((data) => {
@@ -100,7 +123,7 @@ export default function AdminPanel() {
                                     setEditUserData={setEditUserData}
                                 />
                             )}
-                            {activeSection === "orders" && (
+                            {!loading && activeSection === "orders" && (
                                 <ListOrders
                                     getPage={getOrdersPage}
                                     orders={orders}
@@ -108,37 +131,13 @@ export default function AdminPanel() {
                                     setSuccess={setSuccess}
                                 />
                             )}
-                            {users?.items && activeSection === "feedbacks" && (
-                                <>
-                                    <div>
-                                        <div className="py-3 border-b text-text mx-5 mt-5">
-                                            <div className="px-3 mb-3 text-sm flex flex-row">
-                                                <p className="font-semibold">
-                                                    André Lopes&nbsp;&nbsp;
-                                                </p>
-                                                <p className="text-text-inactive">
-                                                    &nbsp;&nbsp;~&nbsp;&nbsp;email@example.com
-                                                </p>
-                                            </div>
-                                            <p className="px-5 text-pretty">
-                                                Feedbacks will be added here.
-                                            </p>
-                                        </div>
-                                        <div className="py-3 border-b text-text mx-5 mt-5">
-                                            <div className="px-3 mb-3 text-sm flex flex-row">
-                                                <p className="font-semibold">
-                                                    André Lopes&nbsp;&nbsp;
-                                                </p>
-                                                <p className="text-text-inactive">
-                                                    &nbsp;&nbsp;~&nbsp;&nbsp;email@example.com
-                                                </p>
-                                            </div>
-                                            <p className="px-5 text-pretty">
-                                                Feedbacks will be added here.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </>
+                            {!loading && activeSection === "feedbacks" && (
+                                <ListFeedbacks
+                                    feedbacks={feedbacks}
+                                    getPage={getFeedbackPage}
+                                    setError={setError}
+                                    setSuccess={setSuccess}
+                                />
                             )}
                         </div>
                     </div>

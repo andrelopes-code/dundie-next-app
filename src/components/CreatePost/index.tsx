@@ -133,7 +133,7 @@ export default function CreatePost({
                         </div>
                         <button
                             type="submit"
-                            className="text-text-invert transition-all duration-500 ease font-medium px-3 py-1 w-16 h-8 flex justify-center items-center rounded-lg hover:shadow-[#9495ee99] hover:shadow-[0_0_22px_-1px] bg-primary"
+                            className="text-text-invert font-medium px-3 py-1 w-16 h-8 flex justify-center items-center rounded-lg transition-all duration-500  hover:shadow-[#9495ee99] hover:shadow-[0_0_22px_-1px] bg-primary"
                         >
                             {loading ? (
                                 <div className="scale-50">

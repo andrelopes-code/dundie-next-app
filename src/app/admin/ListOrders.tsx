@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Pagination } from "@mui/material";
 import { Order, OrderPage } from "@/types/shop";
 import { MdChangeCircle } from "react-icons/md";
-import Image from "next/image";
+import Loading from "@/components/Loading";
 import debounce from "@/functions/debounce";
 
 /**
@@ -53,46 +53,54 @@ export default function ListOrders({
 
     return (
         <>
+            {!orders && <Loading />}
+            {orders?.total === 0 && <p>No orders found</p>}
             {/* LIST OF ALL ORDERS */}
-            <div className="relative overflow-hidden rounded-lg my-5 mx-5">
-                <table className="table-auto w-full text-left text-sm">
-                    <thead className="uppercase bg-primary text-[#e5e7eb]">
-                        <tr>
-                            <td className="py-2 text-center font-bold p-4">
-                                id
-                            </td>
-                            <td className="py-2 text-center font-bold p-4">
-                                name
-                            </td>
-                            <td className="py-2 text-center font-bold p-4">
-                                product
-                            </td>
-                            <td className="py-2 text-center font-bold p-4">
-                                date
-                            </td>
-                            <td className="py-2 text-center font-bold p-4">
-                                status
-                            </td>
-                        </tr>
-                    </thead>
-                    <tbody className="text-gray-500">
-                        {orders &&
-                            orders.items.map((order: Order) => (
-                                <OrderItem key={order.id} order={order} />
-                            ))}
-                    </tbody>
-                </table>
-                {orders?.items.length === 0 && (
-                    <p className="text-center my-12">No orders</p>
-                )}
-            </div>
-
-            <Pagination
-                count={orders?.pages}
-                shape="rounded"
-                onChange={handleChangePage}
-                className="flex justify-end mr-5 mb-5 opacity-40"
-            />
+            {orders && orders.total > 0 && (
+                <>
+                    <div className="relative overflow-hidden rounded-lg my-5 mx-5">
+                        <table className="table-auto w-full text-left text-sm">
+                            <thead className="uppercase bg-primary text-[#e5e7eb]">
+                                <tr>
+                                    <td className="py-2 text-center font-bold p-4">
+                                        id
+                                    </td>
+                                    <td className="py-2 text-center font-bold p-4">
+                                        name
+                                    </td>
+                                    <td className="py-2 text-center font-bold p-4">
+                                        product
+                                    </td>
+                                    <td className="py-2 text-center font-bold p-4">
+                                        date
+                                    </td>
+                                    <td className="py-2 text-center font-bold p-4">
+                                        status
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody className="text-gray-500">
+                                {orders &&
+                                    orders.items.map((order: Order) => (
+                                        <OrderItem
+                                            key={order.id}
+                                            order={order}
+                                        />
+                                    ))}
+                            </tbody>
+                        </table>
+                        {orders?.items.length === 0 && (
+                            <p className="text-center my-12">No orders</p>
+                        )}
+                    </div>
+                    <Pagination
+                        count={orders?.pages}
+                        shape="rounded"
+                        onChange={handleChangePage}
+                        className="flex justify-end mr-5 mb-5 opacity-40"
+                    />
+                </>
+            )}
         </>
     );
 }

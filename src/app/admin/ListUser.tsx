@@ -7,6 +7,7 @@ import { AdminUser, UserPage } from "@/types/user";
 import { MdEdit, MdDelete } from "react-icons/md";
 import { Pagination } from "@mui/material";
 import { FaRegEyeSlash } from "react-icons/fa";
+import Loading from "@/components/Loading";
 
 let isFirstRender = true;
 
@@ -139,7 +140,7 @@ export default function ListUsers({
     setSuccess,
     setEditUserData,
 }: {
-    users: UserPage;
+    users: UserPage | undefined;
     getPage: any;
     setError: any;
     setSuccess: any;
@@ -164,34 +165,41 @@ export default function ListUsers({
 
     return (
         <>
-            {/* DELETE DISABLE AND ENABLE USER MODAL */}
-            {changeThisUser && (
-                <DeleteDisableEnableUser
-                    user={changeThisUser}
-                    setChangeThisUser={setChangeThisUser}
-                    setError={setError}
-                    setSuccess={setSuccess}
-                />
-            )}
-            {/* LIST OF ALL USERS */}
-            <div>
-                <ul className="m-5">
-                    {users.items.map((user) => (
-                        <ListUsersItem
-                            key={user.id}
-                            user={user}
+            {!users && <Loading />}
+            {users?.total === 0 && <p>No users found</p>}
+            {/* LIST OF ALL ORDERS */}
+            {users && users.total > 0 && (
+                <>
+                    {/* DELETE DISABLE AND ENABLE USER MODAL */}
+                    {changeThisUser && (
+                        <DeleteDisableEnableUser
+                            user={changeThisUser}
                             setChangeThisUser={setChangeThisUser}
-                            setEditUserData={setEditUserData}
+                            setError={setError}
+                            setSuccess={setSuccess}
                         />
-                    ))}
-                </ul>
-            </div>
-            <Pagination
-                count={users?.pages}
-                shape="rounded"
-                onChange={handleChangePage}
-                className="flex justify-end mr-5 mb-5 opacity-40"
-            />
+                    )}
+                    {/* LIST OF ALL USERS */}
+                    <div>
+                        <ul className="m-5">
+                            {users.items.map((user) => (
+                                <ListUsersItem
+                                    key={user.id}
+                                    user={user}
+                                    setChangeThisUser={setChangeThisUser}
+                                    setEditUserData={setEditUserData}
+                                />
+                            ))}
+                        </ul>
+                    </div>
+                    <Pagination
+                        count={users?.pages}
+                        shape="rounded"
+                        onChange={handleChangePage}
+                        className="flex justify-end mr-5 mb-5 opacity-40"
+                    />
+                </>
+            )}
         </>
     );
 }

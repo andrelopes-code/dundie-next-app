@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Pagination } from "@mui/material";
 import { Feedback, FeedbackPage } from "@/types/feedback";
 import debounce from "@/functions/debounce";
+import Loading from "@/components/Loading";
 
 /**
  * A list of feedback component that displays all feedbacks.
@@ -49,31 +50,40 @@ export default function ListFeedbacks({
 
     return (
         <>
-            {/* LIST OF ALL FEEDBACKS */}
-            <div className="relative mt-5">
-                <div className="TopGradient"></div>
-                <div className="BottomGradient"></div>
-                <ul className="h-[70vh] overflow-y-auto noscrollbar">
-                    {feedbacks &&
-                        feedbacks.items.map((feedback: Feedback) => (
-                            <FeedbackItem
-                                key={feedback.id}
-                                feedback={feedback}
-                            />
-                        ))}
+            {!feedbacks && <Loading />}
+            {feedbacks?.total === 0 && <p>No orders found</p>}
+            {/* LIST OF ALL ORDERS */}
+            {feedbacks && feedbacks.total > 0 && (
+                <>
+                    {/* LIST OF ALL FEEDBACKS */}
+                    <div className="relative mt-5">
+                        <div className="TopGradient"></div>
+                        <div className="BottomGradient"></div>
+                        <ul className="h-[70vh] overflow-y-auto noscrollbar">
+                            {feedbacks &&
+                                feedbacks.items.map((feedback: Feedback) => (
+                                    <FeedbackItem
+                                        key={feedback.id}
+                                        feedback={feedback}
+                                    />
+                                ))}
 
-                    {feedbacks?.items.length === 0 && (
-                        <p className="text-center mt-[35vh]">No feedbacks</p>
-                    )}
-                </ul>
-            </div>
+                            {feedbacks?.items.length === 0 && (
+                                <p className="text-center mt-[35vh]">
+                                    No feedbacks
+                                </p>
+                            )}
+                        </ul>
+                    </div>
 
-            <Pagination
-                count={feedbacks?.pages}
-                shape="rounded"
-                onChange={handleChangePage}
-                className="flex justify-end mr-5 mb-5 opacity-40"
-            />
+                    <Pagination
+                        count={feedbacks?.pages}
+                        shape="rounded"
+                        onChange={handleChangePage}
+                        className="flex justify-end mr-5 mb-5 opacity-40"
+                    />
+                </>
+            )}
         </>
     );
 }

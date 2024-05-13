@@ -5,6 +5,8 @@ import { Product } from "@/types/shop";
 import Image from "next/image";
 import { MdEdit } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
+import Loading from "@/components/Loading";
+
 /**
  * A list of products component that displays all products.
  *
@@ -21,7 +23,7 @@ export default function ListProducts({
     setError,
     setSuccess,
 }: {
-    products: Product[];
+    products: Product[] | undefined;
     getProducts: any;
     setError: any;
     setSuccess: any;
@@ -33,19 +35,29 @@ export default function ListProducts({
     }, []);
 
     return (
-        <div className="relative mt-5">
-            <div className="TopGradient"></div>
-            <div className="BottomGradient"></div>
-            <div className="h-[80vh] mx-5 overflow-y-auto noscrollbar">
-                <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                    <tbody>
-                        {products.map((product: Product) => (
-                            <ProductItem key={product.id} product={product} />
-                        ))}
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        <>
+            {!products && <Loading />}
+            {products?.length === 0 && <p>No orders found</p>}
+            {/* LIST OF ALL ORDERS */}
+            {products && products.length > 0 && (
+                <div className="relative mt-5">
+                    <div className="TopGradient"></div>
+                    <div className="BottomGradient"></div>
+                    <div className="h-[80vh] mx-5 overflow-y-auto noscrollbar">
+                        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                            <tbody>
+                                {products.map((product: Product) => (
+                                    <ProductItem
+                                        key={product.id}
+                                        product={product}
+                                    />
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            )}
+        </>
     );
 }
 

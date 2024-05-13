@@ -34,7 +34,7 @@ export default function AdminPanel() {
     // The current page of feedbacks to display in the list
     const [feedbacks, setFeedbacks] = useState<FeedbackPage>();
     // The current array of products to display in the list
-    const [products, setProducts] = useState<Product[]>([]);
+    const [products, setProducts] = useState<Product[]>();
 
     const [editUserData, setEditUserData] = useState();
     const [activeSection, setActiveSection] = useState("users");
@@ -127,7 +127,7 @@ export default function AdminPanel() {
                         />
                         <div className="flex flex-col h-[90%] justify-between">
                             {/* LIST OF USERS */}
-                            {users?.items && activeSection === "users" && (
+                            {activeSection === "users" && (
                                 <ListUsers
                                     getPage={getuserPage}
                                     users={users}

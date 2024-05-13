@@ -22,4 +22,6 @@ export interface Product {
     price: number;
     image: string;
     description: string;
+    created_at: string;
+    updated_at: string;
 }

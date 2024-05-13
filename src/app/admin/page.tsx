@@ -113,7 +113,7 @@ export default function AdminPanel() {
                         />
                         <div className="flex flex-col h-[90%] justify-between">
                             {loading && <Loading />}
-
+                            {/* LIST OF USERS */}
                             {users?.items && activeSection === "users" && (
                                 <ListUsers
                                     getPage={getuserPage}
@@ -123,6 +123,7 @@ export default function AdminPanel() {
                                     setEditUserData={setEditUserData}
                                 />
                             )}
+                            {/* LIST OF ORDERS */}
                             {!loading && activeSection === "orders" && (
                                 <ListOrders
                                     getPage={getOrdersPage}
@@ -131,7 +132,17 @@ export default function AdminPanel() {
                                     setSuccess={setSuccess}
                                 />
                             )}
+                            {/* LIST OF FEEDBACKS */}
                             {!loading && activeSection === "feedbacks" && (
+                                <ListFeedbacks
+                                    feedbacks={feedbacks}
+                                    getPage={getFeedbackPage}
+                                    setError={setError}
+                                    setSuccess={setSuccess}
+                                />
+                            )}
+                            {/* LIST OF PRODUCTS */}
+                            {!loading && activeSection === "products" && (
                                 <ListFeedbacks
                                     feedbacks={feedbacks}
                                     getPage={getFeedbackPage}

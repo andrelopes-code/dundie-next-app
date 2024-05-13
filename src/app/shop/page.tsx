@@ -8,17 +8,19 @@ import API_URL from "@/constants/apiRoute";
 import Loading from "@/components/Loading";
 import { AlertError, AlertSuccess } from "@/components/alert";
 import { SiDogecoin } from "react-icons/si";
-
-let isFirstRender = true;
+import debounce from "@/functions/debounce";
 
 export default function Shop() {
     const [error, setError] = useState<string>("");
     const [success, setSuccess] = useState<string>("");
-    const [products, setProducts] = useState([]);
+    const [products, setProducts] = useState<any>();
     const [user, setUser] = useState<any>();
+
+    let isFirstRender = true;
+
     // Fetch products when the component mounts
     useEffect(() => {
-        const fetchProducts = async () => {
+        const getProducts = async () => {
             try {
                 const response = await fetch(`${API_URL}/products`);
                 const data = await response.json();
@@ -35,11 +37,12 @@ export default function Shop() {
             } catch (error) {
                 console.error("Ocorreu um erro ao buscar o usuário:", error);
             }
-        };
+        }
 
         const fetchAll = async () => {
             isFirstRender = false;
-            await fetchProducts();
+            console.log("isFirstRender", isFirstRender);
+            await getProducts();
             await getProfile();
         };
 
@@ -72,7 +75,7 @@ export default function Shop() {
                     <div className="shopLeftGradient"></div>
                     <div className="flex flex-row flex-nowrap shopScroll px-10 mb-14 justify-start gap-12 py-5">
                         {/* Loading products */}
-                        {products.length === 0 && (
+                        {!products && (
                             <div className="h-[400px] m-auto">
                                 <Loading />
                             </div>

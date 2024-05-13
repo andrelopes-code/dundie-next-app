@@ -27,8 +27,6 @@ export default function AdminPanel() {
     // The error and success messages to display on the page
     const [error, setError] = useState<string>("");
     const [success, setSuccess] = useState<string>("");
-    // The loading state of the page
-    const [loading, setLoading] = useState(true);
     // The current page of users to display in the list
     const [users, setUsers] = useState<UserPage>();
     // The current page of feedbacks to display in the list
@@ -53,7 +51,6 @@ export default function AdminPanel() {
                     setErrorWithTimeout(data?.detail, setError, 5000);
                 }
                 setUsers(data);
-                setLoading(false);
             })
             .catch((err) => console.log(err));
     }
@@ -62,7 +59,6 @@ export default function AdminPanel() {
      * @param page The page number to get
      */
     function getFeedbackPage(page: number) {
-        setLoading(true);
         fetch(`${API_URL}/feedbacks?page=${page}`)
             .then(async (res) => await res.json())
             .then((data) => {
@@ -70,7 +66,6 @@ export default function AdminPanel() {
                     setErrorWithTimeout(data?.detail, setError, 5000);
                 }
                 setFeedbacks(data);
-                setLoading(false);
             })
             .catch((err) => console.log(err));
     }
@@ -79,7 +74,6 @@ export default function AdminPanel() {
      * @param page The page number to get
      */
     function getOrdersPage(page: number) {
-        setLoading(true);
         fetch(`${API_URL}/admin/orders?page=${page}`)
             .then(async (res) => await res.json())
             .then((data) => {
@@ -87,22 +81,17 @@ export default function AdminPanel() {
                     setErrorWithTimeout(data?.detail, setError, 5000);
                 }
                 setOrders(data);
-                setLoading(false);
             })
             .catch((err) => console.log(err));
     }
 
     async function getProducts() {
-        setLoading(true);
-
         try {
             // Make the API call
             const response = await fetch(`${API_URL}/products`);
             const data = await response.json();
-            console.log("data");
             if (response.ok) {
                 // If the response is successful, return the data
-                setLoading(false);
                 setProducts(data);
             } else {
                 // If the response is not successful, throw the data
@@ -111,8 +100,6 @@ export default function AdminPanel() {
         } catch (error) {
             setErrorWithTimeout("Error while fetching products", setError);
         }
-
-        setLoading(false);
     }
 
     /**
@@ -139,7 +126,6 @@ export default function AdminPanel() {
                             setActiveSection={setActiveSection}
                         />
                         <div className="flex flex-col h-[90%] justify-between">
-                            {loading && <Loading />}
                             {/* LIST OF USERS */}
                             {users?.items && activeSection === "users" && (
                                 <ListUsers
@@ -151,7 +137,7 @@ export default function AdminPanel() {
                                 />
                             )}
                             {/* LIST OF ORDERS */}
-                            {!loading && activeSection === "orders" && (
+                            {activeSection === "orders" && (
                                 <ListOrders
                                     getPage={getOrdersPage}
                                     orders={orders}
@@ -160,7 +146,7 @@ export default function AdminPanel() {
                                 />
                             )}
                             {/* LIST OF FEEDBACKS */}
-                            {!loading && activeSection === "feedbacks" && (
+                            {activeSection === "feedbacks" && (
                                 <ListFeedbacks
                                     feedbacks={feedbacks}
                                     getPage={getFeedbackPage}
@@ -169,7 +155,7 @@ export default function AdminPanel() {
                                 />
                             )}
                             {/* LIST OF PRODUCTS */}
-                            {!loading && activeSection === "products" && (
+                            {activeSection === "products" && (
                                 <ListProducts
                                     products={products}
                                     getProducts={getProducts}

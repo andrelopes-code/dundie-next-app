@@ -36,6 +36,15 @@ export default function ListHeader({
             >
                 Feedbacks
             </button>
+            <button
+                className={
+                    "hover:bg-background px-3 py-1 transition-all duration-300 rounded-lg" +
+                    (activeSection === "products" ? " bg-background" : "")
+                }
+                onClick={() => setActiveSection("products")}
+            >
+                Products
+            </button>
         </div>
     );
 }

@@ -49,9 +49,7 @@ export default function PublicProfile({
 
     return (
         <div className="h-screen">
-            <div>
-                <Navbar />
-            </div>
+            <Navbar />
             {/* IF USER NOT FOUND */}
             {noUser && (
                 <div className="flex flex-col items-center text-text justify-center h-[85%]">

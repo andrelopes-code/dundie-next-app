@@ -43,9 +43,7 @@ export default function Profile() {
 
     return (
         <div className="h-screen">
-            <div>
-                <Navbar />
-            </div>
+            <Navbar />
             <div className="px-24 h-content grid grid-cols-[1fr_2fr]">
                 <div className="grid grid-rows-[65%_35%] min-h-[650px] h-content">
                     {/* PROFILE CARD */}

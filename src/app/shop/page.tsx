@@ -48,9 +48,7 @@ export default function Shop() {
 
     return (
         <div>
-            <div className="sticky top-0 z-50">
-                <Navbar />
-            </div>
+            <Navbar />
 
             <div className="bg-background-light shadow-lg rounded-lg mx-24 my-3 mb-24 h-full overflow-hidden">
                 <div className="bg-gradient-to-r from-background-light flex flex-row justify-between via-indigo-100 to-primary h-[300px]">

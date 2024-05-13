@@ -8,9 +8,7 @@ import MainSection from "@/components/MainSection";
 export default function Home() {
     return (
         <div className="h-screen">
-            <div>
-                <Navbar />
-            </div>
+            <Navbar />
             <div className="px-24 h-content grid grid-cols-[2fr_1fr]">
                 {/* MAIN DIV */}
                 <div

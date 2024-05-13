@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function Navbar() {
     return (
-        <div className="drop-shadow-[0_0_10px_rgba(0,0,22,0.1)]">
+        <div className="drop-shadow-[0_0_10px_rgba(0,0,22,0.1)] sticky top-0 z-[51]">
             <header className="bg-background-light">
                 <nav
                     className="mx-20 flex items-center justify-between p-4 lg:px-16 "

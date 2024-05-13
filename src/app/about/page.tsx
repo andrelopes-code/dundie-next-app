@@ -2,9 +2,7 @@ import Navbar from "@/components/Navbar";
 export default function About() {
     return (
         <div className="bg-background-light text-lg">
-            <div className="sticky top-0">
-                <Navbar />
-            </div>
+            <Navbar />
             <div className="flex flex-col items-center py-24 mx-44 text-text">
                 <div className="flex flex-col gap-4 mb-24">
                     <h1 className="font-bold text-3xl text-primary">

@@ -11,11 +11,12 @@ import ListUsers from "./ListUser";
 import { AdminDonate } from "./Donate";
 import ListHeader from "./ListHeader";
 import ListOrders from "./ListOrders";
-import { OrderPage } from "@/types/shop";
+import { OrderPage, Product } from "@/types/shop";
 import Loading from "@/components/Loading";
 import { setErrorWithTimeout } from "@/functions/set-error-and-success";
-import { FeedbackPage, Feedback } from "@/types/feedback";
+import { FeedbackPage } from "@/types/feedback";
 import ListFeedbacks from "./ListFeedbacks";
+import ListProducts from "./ListProducts";
 
 /**
  * The admin panel page displays two main components:
@@ -34,6 +35,9 @@ export default function AdminPanel() {
     const [orders, setOrders] = useState<OrderPage>();
     // The current page of feedbacks to display in the list
     const [feedbacks, setFeedbacks] = useState<FeedbackPage>();
+    // The current array of products to display in the list
+    const [products, setProducts] = useState<Product[]>([]);
+
     const [editUserData, setEditUserData] = useState();
     const [activeSection, setActiveSection] = useState("users");
 
@@ -86,6 +90,29 @@ export default function AdminPanel() {
                 setLoading(false);
             })
             .catch((err) => console.log(err));
+    }
+
+    async function getProducts() {
+        setLoading(true);
+
+        try {
+            // Make the API call
+            const response = await fetch(`${API_URL}/products`);
+            const data = await response.json();
+            console.log("data");
+            if (response.ok) {
+                // If the response is successful, return the data
+                setLoading(false);
+                setProducts(data);
+            } else {
+                // If the response is not successful, throw the data
+                throw data;
+            }
+        } catch (error) {
+            setErrorWithTimeout("Error while fetching products", setError);
+        }
+
+        setLoading(false);
     }
 
     /**
@@ -143,9 +170,9 @@ export default function AdminPanel() {
                             )}
                             {/* LIST OF PRODUCTS */}
                             {!loading && activeSection === "products" && (
-                                <ListFeedbacks
-                                    feedbacks={feedbacks}
-                                    getPage={getFeedbackPage}
+                                <ListProducts
+                                    products={products}
+                                    getProducts={getProducts}
                                     setError={setError}
                                     setSuccess={setSuccess}
                                 />

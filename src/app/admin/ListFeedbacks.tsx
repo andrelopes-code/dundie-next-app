@@ -3,8 +3,6 @@
 import { useEffect, useState } from "react";
 import { Pagination } from "@mui/material";
 import { Feedback, FeedbackPage } from "@/types/feedback";
-import { MdChangeCircle } from "react-icons/md";
-import Image from "next/image";
 import debounce from "@/functions/debounce";
 
 /**

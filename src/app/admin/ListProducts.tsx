@@ -1,18 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Pagination } from "@mui/material";
 import { Product } from "@/types/shop";
-import { Feedback, FeedbackPage } from "@/types/feedback";
-import { MdChangeCircle } from "react-icons/md";
 import Image from "next/image";
-import debounce from "@/functions/debounce";
-
+import { MdEdit } from "react-icons/md";
+import { MdDelete } from "react-icons/md";
 /**
  * A list of products component that displays all products.
  *
- * @prop {FeedbackPage | undefined} feedbacks - The list of feedbacks from the backend.
- * @prop {Function} getPage - A function to get a new page of feedbacks from the backend.
  * @prop {Function} setError - A function to set an error message in the parent component.
  * @prop {Function} setSuccess - A function to set a success message in the parent component.
  *
@@ -21,87 +16,72 @@ import debounce from "@/functions/debounce";
 let isFirstRender = true;
 
 export default function ListProducts({
-    feedbacks,
-    getPage,
+    products,
+    getProducts,
     setError,
     setSuccess,
 }: {
-    feedbacks: FeedbackPage | undefined;
-    getPage: any;
+    products: Product[];
+    getProducts: any;
     setError: any;
     setSuccess: any;
 }) {
-    const debounceGetPage: (page: number) => void = debounce(getPage, 500);
-    /**
-     * Function to handle a page change.
-     *
-     * @param {React.ChangeEvent<unknown>} e - The event object
-     * @param {number} value - The new page number
-     */
-    function handleChangePage(e: any, value: number) {
-        getPage(value);
-    }
-
+    // Fetch products when the component mounts
     useEffect(() => {
-        // Fetch the first page of feedbacks on first render
-        if (isFirstRender && !feedbacks) {
-            isFirstRender = false;
-            debounceGetPage(1);
-        }
+        isFirstRender && getProducts();
+        isFirstRender = false;
     }, []);
 
     return (
-        <>
-            {/* LIST OF ALL FEEDBACKS */}
-            <div className="relative mt-5">
-                <div className="TopGradient"></div>
-                <div className="BottomGradient"></div>
-                <ul className="h-[70vh] overflow-y-auto noscrollbar">
-                    {feedbacks &&
-                        feedbacks.items.map((feedback: Feedback) => (
-                            <FeedbackItem
-                                key={feedback.id}
-                                feedback={feedback}
-                            />
+        <div className="relative mt-5">
+            <div className="TopGradient"></div>
+            <div className="BottomGradient"></div>
+            <div className="h-[80vh] mx-5 overflow-y-auto noscrollbar">
+                <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                    <tbody>
+                        {products.map((product: Product) => (
+                            <ProductItem key={product.id} product={product} />
                         ))}
-
-                    {feedbacks?.items.length === 0 && (
-                        <p className="text-center mt-[35vh]">No feedbacks</p>
-                    )}
-                </ul>
+                    </tbody>
+                </table>
             </div>
-
-            <Pagination
-                count={feedbacks?.pages}
-                shape="rounded"
-                onChange={handleChangePage}
-                className="flex justify-end mr-5 mb-5 opacity-40"
-            />
-        </>
+        </div>
     );
 }
 
-/**
- * A component that displays a single feedback in a table row.
- *
- * @prop {Feedback} feedback - The feedback object.
- *
- * @return {JSX.Element} The FeedbackItem component.
- */
-function FeedbackItem({ feedback }: { feedback: Feedback }) {
+function ProductItem({ product }: { product: Product }) {
     return (
-        <li className="py-3 border-b text-text mx-5 hover:bg-background transition-colors duration-150">
-            <div className="px-3 mb-3 mt-5 text-sm flex flex-row">
-                <p className="font-semibold">{feedback.name}</p>
-                <p className="text-text-inactive">
-                    &nbsp;&nbsp;~&nbsp;&nbsp;{feedback.email}
-                </p>
-                <p className="text-text-inactive">
-                    &nbsp;&nbsp;~&nbsp;&nbsp;
-                    {new Date(feedback.created_at).toDateString()}
-                </p>
-            </div>
-            <p className="px-5 text-pretty">{feedback.feedback}</p>
-        </li>
+        <tr className=" hover:bg-background transition-colors duration-150">
+            <td className="px-3 pt-5 pb-3 border-b">{product.id}</td>
+
+            <th
+                scope="row"
+                className="px-3 pt-5 pb-3 border-b font-medium whitespace-nowrap"
+            >
+                <Image
+                    src={product.image}
+                    alt={product.name}
+                    width={50}
+                    height={50}
+                    className="rounded-full h-10 w-10 aspect-square object-cover"
+                />
+            </th>
+            <td className="px-3 pt-5 pb-3 border-b">{product.name}</td>
+            <td className="px-3 pt-5 pb-3 border-b">{product.price}</td>
+            <td className="px-3 pt-5 pb-3 border-b">
+                {new Date(product.created_at).toDateString()}
+            </td>
+            <td className="px-3 pt-5 pb-3 border-b">
+                <div className="flex flex-row gap-2 items-center">
+                    <button className="hover:bg-background rounded-lg text-primary p-1">
+                        <MdEdit />
+                    </button>
+
+                    <button className="hover:bg-background rounded-lg text-primary p-1">
+                        <MdDelete />
+                    </button>
+                </div>
+            </td>
+        </tr>
     );
 }

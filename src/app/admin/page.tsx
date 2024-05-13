@@ -3,7 +3,7 @@
 import Navbar from "@/components/Navbar";
 import { useState, useEffect } from "react";
 import API_URL from "@/constants/apiRoute";
-import { UserPage } from "@/types/user";
+import { AdminUser, UserPage } from "@/types/user";
 import { CreateUser } from "./CreateUser";
 import { EditUser } from "./EditUser";
 import { AlertError, AlertSuccess } from "@/components/alert";
@@ -17,6 +17,7 @@ import { setErrorWithTimeout } from "@/functions/set-error-and-success";
 import { FeedbackPage } from "@/types/feedback";
 import ListFeedbacks from "./ListFeedbacks";
 import ListProducts from "./ListProducts";
+import { EditProduct } from "./EditProduct";
 
 /**
  * The admin panel page displays two main components:
@@ -36,7 +37,8 @@ export default function AdminPanel() {
     // The current array of products to display in the list
     const [products, setProducts] = useState<Product[]>();
 
-    const [editUserData, setEditUserData] = useState();
+    const [editUserData, setEditUserData] = useState<AdminUser>();
+    const [editProductData, setEditProductData] = useState<Product>();
     const [activeSection, setActiveSection] = useState("users");
 
     /**
@@ -159,12 +161,16 @@ export default function AdminPanel() {
                                     getProducts={getProducts}
                                     setError={setError}
                                     setSuccess={setSuccess}
+                                    setEditProductData={setEditProductData}
                                 />
                             )}
                         </div>
                     </div>
                     <div>
-                        <div className="max-h-[calc(100vh_-_99px)] drop-shadow-lg mt-3 overflow-auto noscrollbar">
+                        <div
+                            id="AdminControllers"
+                            className="max-h-[calc(100vh_-_99px)] scroll-p-12 drop-shadow-lg mt-3 overflow-auto noscrollbar"
+                        >
                             {/* CREATE NEW USER SECTION */}
                             <div className=" h-fit overflow-hidden p-5 bg-background-light m-[0_0.75rem_0_0] rounded-lg fixtransition transition-all duration-700 delay-200 hover:translate-x-2">
                                 {editUserData ? (
@@ -187,11 +193,20 @@ export default function AdminPanel() {
                                     setSuccess={setSuccess}
                                 />
                             </div>
-                            <div className=" h-fit overflow-hidden p-5 bg-background-light m-[0.75rem_0.75rem_0_0] rounded-lg fixtransition transition-all duration-700 delay-200 hover:translate-x-2">
-                                <CreateProduct
-                                    setError={setError}
-                                    setSuccess={setSuccess}
-                                />
+                            <div className="h-fit overflow-hidden p-5 bg-background-light m-[0.75rem_0.75rem_0_0] rounded-lg fixtransition transition-all duration-700 delay-200 hover:translate-x-2">
+                                {editProductData ? (
+                                    <EditProduct
+                                        product={editProductData}
+                                        setError={setError}
+                                        setSuccess={setSuccess}
+                                        setEditProductData={setEditProductData}
+                                    />
+                                ) : (
+                                    <CreateProduct
+                                        setError={setError}
+                                        setSuccess={setSuccess}
+                                    />
+                                )}
                             </div>
                         </div>
                     </div>

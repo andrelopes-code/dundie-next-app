@@ -22,11 +22,13 @@ export default function ListProducts({
     getProducts,
     setError,
     setSuccess,
+    setEditProductData,
 }: {
     products: Product[] | undefined;
     getProducts: any;
     setError: any;
     setSuccess: any;
+    setEditProductData: any;
 }) {
     // Fetch products when the component mounts
     useEffect(() => {
@@ -50,6 +52,7 @@ export default function ListProducts({
                                     <ProductItem
                                         key={product.id}
                                         product={product}
+                                        setEditProductData={setEditProductData}
                                     />
                                 ))}
                             </tbody>
@@ -61,7 +64,13 @@ export default function ListProducts({
     );
 }
 
-function ProductItem({ product }: { product: Product }) {
+function ProductItem({
+    product,
+    setEditProductData,
+}: {
+    product: Product;
+    setEditProductData: any;
+}) {
     return (
         <tr className=" hover:bg-background transition-colors duration-150">
             <td className="px-3 pt-5 pb-3 border-b">{product.id}</td>
@@ -85,11 +94,14 @@ function ProductItem({ product }: { product: Product }) {
             </td>
             <td className="px-3 pt-5 pb-3 border-b">
                 <div className="flex flex-row gap-2 items-center">
-                    <button className="hover:bg-background rounded-lg text-primary p-1">
+                    <button
+                        onClick={() => setEditProductData(product)}
+                        className="hover:bg-background-100 rounded-lg text-primary p-1"
+                    >
                         <MdEdit />
                     </button>
 
-                    <button className="hover:bg-background rounded-lg text-primary p-1">
+                    <button className="hover:bg-background-100 rounded-lg text-primary p-1">
                         <MdDelete />
                     </button>
                 </div>

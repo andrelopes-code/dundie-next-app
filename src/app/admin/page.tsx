@@ -12,7 +12,7 @@ import { AdminDonate } from "./Donate";
 import ListHeader from "./ListHeader";
 import ListOrders from "./ListOrders";
 import { OrderPage, Product } from "@/types/shop";
-import Loading from "@/components/Loading";
+import { CreateProduct } from "./CreateProduct";
 import { setErrorWithTimeout } from "@/functions/set-error-and-success";
 import { FeedbackPage } from "@/types/feedback";
 import ListFeedbacks from "./ListFeedbacks";
@@ -115,9 +115,7 @@ export default function AdminPanel() {
             {error && <AlertError msg={error} />}
             {success && <AlertSuccess msg={success} />}
             <div className="h-screen">
-                <div>
-                    <Navbar />
-                </div>
+                <Navbar />
                 <div className="px-24 h-content grid grid-cols-[2fr_1fr]">
                     {/* LIST SECTION */}
                     <div className="m-3 rounded-lg bg-background-light shadow-lg">
@@ -165,29 +163,36 @@ export default function AdminPanel() {
                             )}
                         </div>
                     </div>
-
-                    <div className=" flex flex-col">
-                        {/* CREATE NEW USER SECTION */}
-                        <div className="shadow-lg h-fit overflow-hidden p-5 bg-background-light m-[0.75rem_0.75rem_0_0] rounded-lg fixtransition transition-all duration-700 delay-200 hover:translate-x-2">
-                            {editUserData ? (
-                                <EditUser
-                                    user={editUserData}
+                    <div>
+                        <div className="max-h-[calc(100vh_-_99px)] drop-shadow-lg mt-3 overflow-auto noscrollbar">
+                            {/* CREATE NEW USER SECTION */}
+                            <div className=" h-fit overflow-hidden p-5 bg-background-light m-[0_0.75rem_0_0] rounded-lg fixtransition transition-all duration-700 delay-200 hover:translate-x-2">
+                                {editUserData ? (
+                                    <EditUser
+                                        user={editUserData}
+                                        setError={setError}
+                                        setSuccess={setSuccess}
+                                        setEditUserData={setEditUserData}
+                                    />
+                                ) : (
+                                    <CreateUser
+                                        setError={setError}
+                                        setSuccess={setSuccess}
+                                    />
+                                )}
+                            </div>
+                            <div className=" h-fit overflow-hidden p-5 bg-background-light m-[0.75rem_0.75rem_0_0] rounded-lg fixtransition transition-all duration-700 delay-200 hover:translate-x-2">
+                                <AdminDonate
                                     setError={setError}
                                     setSuccess={setSuccess}
-                                    setEditUserData={setEditUserData}
                                 />
-                            ) : (
-                                <CreateUser
-                                    showError={setError}
-                                    showSuccess={setSuccess}
+                            </div>
+                            <div className=" h-fit overflow-hidden p-5 bg-background-light m-[0.75rem_0.75rem_0_0] rounded-lg fixtransition transition-all duration-700 delay-200 hover:translate-x-2">
+                                <CreateProduct
+                                    setError={setError}
+                                    setSuccess={setSuccess}
                                 />
-                            )}
-                        </div>
-                        <div className="shadow-lg h-fit overflow-hidden p-5 bg-background-light m-[0.75rem_0.75rem_0_0] rounded-lg fixtransition transition-all duration-700 delay-200 hover:translate-x-2">
-                            <AdminDonate
-                                setError={setError}
-                                setSuccess={setSuccess}
-                            />
+                            </div>
                         </div>
                     </div>
                 </div>

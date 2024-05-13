@@ -7,25 +7,25 @@ import API_URL from "@/constants/apiRoute";
  * Create User form component.
  */
 export function CreateUser({
-    showError,
-    showSuccess,
+    setError,
+    setSuccess,
 }: {
     /**
      * Function to show error message.
      */
-    showError: (errorMessage: string) => void;
+    setError: (errorMessage: string) => void;
     /**
      * Function to show success message.
      */
-    showSuccess: (successMessage: string) => void;
+    setSuccess: (successMessage: string) => void;
 }) {
     /**
      * Function to show error message with timeout.
      */
     const setErrorWithTimeout = (errorMessage: string) => {
-        showError(errorMessage);
+        setError(errorMessage);
         setTimeout(() => {
-            showError("");
+            setError("");
         }, 2000);
     };
 
@@ -33,9 +33,9 @@ export function CreateUser({
      * Function to show success message with timeout.
      */
     const setSuccessWithTimeout = (successMessage: string) => {
-        showSuccess(successMessage);
+        setSuccess(successMessage);
         setTimeout(() => {
-            showSuccess("");
+            setSuccess("");
         }, 2000);
     };
 

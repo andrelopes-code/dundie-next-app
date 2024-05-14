@@ -65,6 +65,7 @@ export default function DeleteProduct({
                         id="admin_password_product_input"
                         minLength={8}
                         maxLength={50}
+                        autoFocus
                         required
                     />
                     <div className="text-sm">

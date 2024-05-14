@@ -14,7 +14,7 @@ export default function DeleteProduct({
             <div className="TopGradient"></div>
             <div className="BottomGradient"></div>
             <div className="w-auto p-5 h-auto flex flex-col gap-5 bg-background-light animate-scaleIn rounded-lg shadow-lg">
-                <p className="font-medium text-xl text-center">
+                <p className="font-medium text-lg text-center">
                     Are you sure you want to delete this product?
                 </p>
                 {/* PRODUCT */}

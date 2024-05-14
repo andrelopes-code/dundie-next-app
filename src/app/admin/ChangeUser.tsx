@@ -5,6 +5,10 @@
 import { useEffect } from "react";
 import API_URL from "@/constants/apiRoute";
 import { AdminUser } from "@/types/user";
+import {
+    setErrorWithTimeout,
+    setSuccessWithTimeout,
+} from "@/functions/set-error-and-success";
 
 export default function DeleteDisableEnableUser({
     setChangeThisUser,
@@ -35,19 +39,6 @@ export default function DeleteDisableEnableUser({
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, [setChangeThisUser]);
-
-    const setErrorWithTimeout = (errorMessage: string) => {
-        setError(errorMessage);
-        setTimeout(() => {
-            setError("");
-        }, 2000);
-    };
-    const setSuccessWithTimeout = (successMessage: string) => {
-        setSuccess(successMessage);
-        setTimeout(() => {
-            setSuccess("");
-        }, 2000);
-    };
 
     const handleClickDisable = () => {
         /**
@@ -81,12 +72,12 @@ export default function DeleteDisableEnableUser({
             .then(async (res) => {
                 if (res.ok) {
                     const data = await res.json();
-                    setSuccessWithTimeout(data?.detail);
+                    setSuccessWithTimeout(data?.detail, setSuccess);
                     user.is_active = false;
                     setChangeThisUser("");
                 } else {
                     const data = await res.json();
-                    setErrorWithTimeout(data.detail);
+                    setErrorWithTimeout(data.detail, setError);
                 }
             })
             .catch((err) => console.log(err));
@@ -118,12 +109,15 @@ export default function DeleteDisableEnableUser({
         })
             .then(async (res) => {
                 if (res.ok) {
-                    setSuccessWithTimeout("User enabled successfully");
+                    setSuccessWithTimeout(
+                        "User enabled successfully",
+                        setSuccess
+                    );
                     user.is_active = true;
                     setChangeThisUser("");
                 } else {
                     const data = await res.json();
-                    setErrorWithTimeout(data.detail);
+                    setErrorWithTimeout(data.detail, setError);
                 }
             })
             .catch((err) => console.log(err));
@@ -132,29 +126,39 @@ export default function DeleteDisableEnableUser({
     return (
         <div
             id="delete_background_div"
-            className="absolute z-20 w-full flex justify-center items-center h-full top-0 left-0 transition-all duration-200 bg-[rgba(0,0,0,0.1)] animate-fadeIn flex-col backdrop-blur-sm"
+            className="absolute z-20 w-full flex justify-center items-center h-full top-0 left-0 transition-all duration-200 bg-[rgba(0,0,0,0.03)] animate-fadeIn flex-col backdrop-blur-sm"
         >
+            <div className="TopGradient"></div>
+            <div className="BottomGradient"></div>
             <div className="w-auto p-5 h-auto flex flex-col gap-5 bg-background-light animate-scaleIn rounded-lg shadow-lg">
                 {
                     // MODAL IF USER IS ENABLED
                     user.is_active && (
                         <>
-                            <p className="font-medium text-xl text-center">
+                            <p className="font-medium text-lg text-center">
                                 Are you sure you want to delete or disable
                                 &apos;
                                 {user.username}
                                 &apos;?
                             </p>
-                            <input
-                                className="w-full bg-background text-text-inactive focus:text-text transition-all ease duration-300 border outline-gray-300 p-2 rounded-lg focus:outline-primary-light"
-                                type="password"
-                                name="password"
-                                id="password"
-                                placeholder="your password"
-                                required
-                            />
-                            <div className="items-end flex flex-row justify-between">
-                                <div className="flex flex-row gap-3 items-center font-medium text-sm">
+                            <form
+                                onSubmit={(e) => {
+                                    e.preventDefault();
+                                    handleClickDisable();
+                                }}
+                            >
+                                <input
+                                    className="w-full text-sm bg-background text-text-inactive focus:text-text transition-all ease duration-300 border outline-gray-300 p-2 rounded-lg focus:outline-primary-light"
+                                    type="password"
+                                    name="password"
+                                    id="password"
+                                    placeholder="your admin password"
+                                    minLength={8}
+                                    required
+                                />
+                            </form>
+                            <div className="items-center flex flex-row justify-between">
+                                <div className="flex flex-row gap-3 items-center font-medium text-xs">
                                     <input
                                         className="w-4 h-4"
                                         type="checkbox"
@@ -168,7 +172,7 @@ export default function DeleteDisableEnableUser({
                                     </label>
                                 </div>
 
-                                <div>
+                                <div className="text-sm">
                                     <button
                                         onClick={handleClickDisable}
                                         className="px-4 py-1 rounded-lg font-medium ml-14 bg-red-500 text-text-invert"
@@ -190,21 +194,28 @@ export default function DeleteDisableEnableUser({
                     // MODAL IF USER IS DISABLED AND NOT DELETED
                     !user.is_active && (
                         <>
-                            <p className="font-medium text-xl text-center">
+                            <p className="font-medium text-lg text-center">
                                 Are you sure you want to activate &apos;
                                 {user.username}
                                 &apos;?
                             </p>
-                            <input
-                                className="w-full bg-background text-text-inactive focus:text-text transition-all ease duration-300 border outline-gray-300 p-2 rounded-lg focus:outline-primary-light"
-                                type="password"
-                                name="passwordEnable"
-                                id="passwordEnable"
-                                placeholder="your password"
-                                required
-                            />
+                            <form
+                                onSubmit={(e) => {
+                                    e.preventDefault();
+                                    handleClickEnable();
+                                }}
+                            >
+                                <input
+                                    className="w-full text-sm bg-background text-text-inactive focus:text-text transition-all ease duration-300 border outline-gray-300 p-2 rounded-lg focus:outline-primary-light"
+                                    type="password"
+                                    name="passwordEnable"
+                                    id="passwordEnable"
+                                    placeholder="your admin password"
+                                    required
+                                />
+                            </form>
                             <div className="items-end flex flex-row justify-end">
-                                <div>
+                                <div className="text-sm">
                                     <button
                                         onClick={() => handleClickEnable()}
                                         className="px-4 py-1 rounded-lg font-medium ml-14 bg-green-500 text-text-invert"

@@ -170,26 +170,31 @@ export default function ListUsers({
             {users && users.total > 0 && (
                 <>
                     {/* DELETE DISABLE AND ENABLE USER MODAL */}
-                    {changeThisUser && (
-                        <DeleteDisableEnableUser
-                            user={changeThisUser}
-                            setChangeThisUser={setChangeThisUser}
-                            setError={setError}
-                            setSuccess={setSuccess}
-                        />
-                    )}
+
                     {/* LIST OF ALL USERS */}
-                    <div>
-                        <ul className="m-5">
-                            {users.items.map((user) => (
-                                <ListUsersItem
-                                    key={user.id}
-                                    user={user}
+                    <div className="relative">
+                        <div className="TopGradient"></div>
+                        <div className="BottomGradient"></div>
+                        <div className="h-[78vh] mx-5 overflow-y-auto noscrollbar">
+                            {changeThisUser && (
+                                <DeleteDisableEnableUser
+                                    user={changeThisUser}
                                     setChangeThisUser={setChangeThisUser}
-                                    setEditUserData={setEditUserData}
+                                    setError={setError}
+                                    setSuccess={setSuccess}
                                 />
-                            ))}
-                        </ul>
+                            )}
+                            <ul className="m-5">
+                                {users.items.map((user) => (
+                                    <ListUsersItem
+                                        key={user.id}
+                                        user={user}
+                                        setChangeThisUser={setChangeThisUser}
+                                        setEditUserData={setEditUserData}
+                                    />
+                                ))}
+                            </ul>
+                        </div>
                     </div>
                     <Pagination
                         count={users?.pages}

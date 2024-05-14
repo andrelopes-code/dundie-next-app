@@ -188,14 +188,6 @@ export function EditProduct({
                         </div>
                     </div>
                     <div className="flex w-full items-center flex-row gap-2">
-                        <div className=" rounded-full aspect-square overflow-hidden">
-                            <ImgFallback
-                                elem={productImage}
-                                falbackImg={defaultProductImage}
-                                src={product.image}
-                                className="w-10 h-10 object-cover aspect-square"
-                            />
-                        </div>
                         <input
                             onChange={(e) => {
                                 productImage.current!.src = e.target.value;
@@ -208,6 +200,14 @@ export function EditProduct({
                             id="product_image"
                             required
                         />
+                        <div className=" rounded-full aspect-square overflow-hidden">
+                            <ImgFallback
+                                elem={productImage}
+                                falbackImg={defaultProductImage}
+                                src={product.image}
+                                className="w-10 h-10 object-cover aspect-square"
+                            />
+                        </div>
                     </div>
                     <div>
                         <textarea

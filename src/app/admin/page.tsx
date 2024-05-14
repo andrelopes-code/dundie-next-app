@@ -167,10 +167,7 @@ export default function AdminPanel() {
                         </div>
                     </div>
                     <div>
-                        <div
-                            id="AdminControllers"
-                            className="max-h-[calc(100vh_-_99px)] scroll-p-12 drop-shadow-lg mt-3 overflow-auto noscrollbar"
-                        >
+                        <div className="max-h-[calc(100vh_-_99px)] scroll-p-12 drop-shadow-lg mt-3 overflow-auto noscrollbar">
                             {/* CREATE NEW USER SECTION */}
                             <div className=" h-fit overflow-hidden p-5 bg-background-light m-[0_0.75rem_0_0] rounded-lg fixtransition transition-all duration-700 delay-200 hover:translate-x-2">
                                 {editUserData ? (
@@ -205,6 +202,7 @@ export default function AdminPanel() {
                                     <CreateProduct
                                         setError={setError}
                                         setSuccess={setSuccess}
+                                        getProducts={getProducts}
                                     />
                                 )}
                             </div>

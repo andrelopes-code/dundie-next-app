@@ -16,6 +16,7 @@ const defaultProductImage =
 export function CreateProduct({
     setError,
     setSuccess,
+    getProducts,
 }: {
     /**
      * Function to show error message.
@@ -25,6 +26,10 @@ export function CreateProduct({
      * Function to show success message.
      */
     setSuccess: (successMessage: string) => void;
+    /**
+     * Function to get products.
+     */
+    getProducts: () => void;
 }) {
     const productImage = useRef<HTMLImageElement>(null);
     /**
@@ -64,6 +69,7 @@ export function CreateProduct({
                     "Product created successfully",
                     setSuccess
                 );
+                getProducts();
             } else {
                 throw await res.json();
             }

@@ -14,6 +14,7 @@ export async function POST(request: NextRequest) {
         headers: {
             accept: "application/json",
             authorization: `Bearer ${access_token}`,
+            "X-Admin-Password": request.headers.get("X-Admin-Password") || "",
         },
     };
 
@@ -50,6 +51,7 @@ export async function PATCH(request: NextRequest) {
         headers: {
             accept: "application/json",
             authorization: `Bearer ${access_token}`,
+            "X-Admin-Password": request.headers.get("X-Admin-Password") || "",
         },
     };
 
@@ -86,7 +88,7 @@ export async function DELETE(request: NextRequest) {
         headers: {
             accept: "application/json",
             authorization: `Bearer ${access_token}`,
-            "x-admin-password": request.headers.get("x-admin-password") || "",
+            "X-Admin-Password": request.headers.get("X-Admin-Password") || "",
         },
     };
 

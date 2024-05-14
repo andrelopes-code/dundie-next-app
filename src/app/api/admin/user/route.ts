@@ -57,6 +57,7 @@ export async function POST(request: NextRequest) {
         headers: {
             accept: "application/json",
             authorization: `Bearer ${access_token}`,
+            "X-Admin-Password": request.headers.get("X-Admin-Password") || "",
         },
     };
 

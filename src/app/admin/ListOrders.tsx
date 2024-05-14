@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Pagination } from "@mui/material";
 import { Order, OrderPage } from "@/types/shop";
 import { MdChangeCircle } from "react-icons/md";
 import Loading from "@/components/Loading";
-import debounce from "@/functions/debounce";
+import { debounce } from "underscore";
 
 /**
  * A list of orders component that displays all orders in a table format.
@@ -17,7 +17,6 @@ import debounce from "@/functions/debounce";
  *
  * @return {JSX.Element} The ListOrders component.
  */
-let isFirstRender = true;
 
 export default function ListOrders({
     orders,
@@ -30,9 +29,9 @@ export default function ListOrders({
     setError: any;
     setSuccess: any;
 }) {
-    const [changeThisOrder, setChangeThisOrder] = useState();
-
     const debounceGetPage: (page: number) => void = debounce(getPage, 500);
+    let isFirstRender = true;
+
     /**
      * Function to handle a page change.
      *
@@ -45,11 +44,9 @@ export default function ListOrders({
 
     useEffect(() => {
         // Fetch the first page of orders on first render
-        if (isFirstRender && !orders) {
-            isFirstRender = false;
-            debounceGetPage(1);
-        }
-    }, []);
+        isFirstRender && !orders && getPage(1);
+        isFirstRender = false;
+    }, [isFirstRender]);
 
     return (
         <>

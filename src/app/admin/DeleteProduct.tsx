@@ -1,4 +1,5 @@
 import { ProductItem } from "./ListProducts";
+import { useEffect } from "react";
 
 export default function DeleteProduct({
     productToDelete,
@@ -6,6 +7,20 @@ export default function DeleteProduct({
     setProductToDelete,
     deleteThisProduct,
 }: any) {
+    useEffect(() => {
+        const handleClickOutside = (event: any) => {
+            if (event.target.id === "delete_product_div") {
+                setProductToDelete("");
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [setProductToDelete]);
+
     return (
         <div
             id="delete_product_div"

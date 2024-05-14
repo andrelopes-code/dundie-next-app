@@ -21,7 +21,6 @@ import {
  *
  * @return {JSX.Element} The ListFeedbacks component.
  */
-let isFirstRender = true;
 
 export default function ListProducts({
     products,
@@ -37,12 +36,13 @@ export default function ListProducts({
     setEditProductData: any;
 }) {
     const [productToDelete, setProductToDelete] = useState<Product>();
+    let isFirstRender = true;
 
     // Fetch products when the component mounts
     useEffect(() => {
-        isFirstRender && getProducts();
+        isFirstRender && !products && getProducts();
         isFirstRender = false;
-    }, []);
+    }, [isFirstRender]);
 
     async function deleteThisProduct(id: number, adminPassword: string) {
         try {

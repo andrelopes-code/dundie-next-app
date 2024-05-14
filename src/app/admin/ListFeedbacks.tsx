@@ -51,8 +51,11 @@ export default function ListFeedbacks({
     return (
         <>
             {!feedbacks && <Loading />}
-            {feedbacks?.total === 0 && <p>No orders found</p>}
-            {/* LIST OF ALL ORDERS */}
+            {feedbacks?.total === 0 && (
+                <p className="text-center flex items-center justify-center text-text-inactive h-full">
+                    No feedbacks found
+                </p>
+            )}
             {feedbacks && feedbacks.total > 0 && (
                 <>
                     {/* LIST OF ALL FEEDBACKS */}

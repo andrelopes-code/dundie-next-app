@@ -155,6 +155,7 @@ export default function DeleteDisableEnableUser({
                                     placeholder="your admin password"
                                     minLength={8}
                                     required
+                                    autoFocus
                                 />
                             </form>
                             <div className="items-center flex flex-row justify-between">
@@ -212,6 +213,7 @@ export default function DeleteDisableEnableUser({
                                     id="passwordEnable"
                                     placeholder="your admin password"
                                     required
+                                    autoFocus
                                 />
                             </form>
                             <div className="items-end flex flex-row justify-end">

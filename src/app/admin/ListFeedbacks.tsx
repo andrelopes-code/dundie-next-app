@@ -1,9 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Pagination } from "@mui/material";
 import { Feedback, FeedbackPage } from "@/types/feedback";
-import debounce from "@/functions/debounce";
 import Loading from "@/components/Loading";
 
 /**
@@ -16,7 +15,6 @@ import Loading from "@/components/Loading";
  *
  * @return {JSX.Element} The ListFeedbacks component.
  */
-let isFirstRender = true;
 
 export default function ListFeedbacks({
     feedbacks,
@@ -29,7 +27,8 @@ export default function ListFeedbacks({
     setError: any;
     setSuccess: any;
 }) {
-    const debounceGetPage: (page: number) => void = debounce(getPage, 500);
+    let isFirstRender = true;
+
     /**
      * Function to handle a page change.
      *
@@ -42,10 +41,8 @@ export default function ListFeedbacks({
 
     useEffect(() => {
         // Fetch the first page of feedbacks on first render
-        if (isFirstRender && !feedbacks) {
-            isFirstRender = false;
-            debounceGetPage(1);
-        }
+        isFirstRender && !feedbacks && getPage(1);
+        isFirstRender = false;
     }, []);
 
     return (

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef, SyntheticEvent } from "react";
+import { useEffect, useState, useRef } from "react";
 import DeleteDisableEnableUser from "./ChangeUser";
 import { NoAvatar } from "@/components/NoAvatar";
 import { AdminUser, UserPage } from "@/types/user";
@@ -8,8 +8,6 @@ import { MdEdit, MdDelete } from "react-icons/md";
 import { Pagination } from "@mui/material";
 import { FaRegEyeSlash } from "react-icons/fa";
 import Loading from "@/components/Loading";
-
-let isFirstRender = true;
 
 /**
  * Component to display a single item in the list of users.
@@ -30,7 +28,6 @@ function ListUsersItem({
     setEditUserData: any;
 }) {
     const floatingMenu = useRef<HTMLDivElement>(null);
-    let floatingMenuOpen = false;
 
     async function showFloatingMenu(e: any) {
         e.preventDefault();
@@ -147,6 +144,7 @@ export default function ListUsers({
     setEditUserData: any;
 }) {
     const [changeThisUser, setChangeThisUser] = useState();
+    let isFirstRender = true;
 
     /**
      * Function to handle a page change.
@@ -158,10 +156,11 @@ export default function ListUsers({
         getPage(value);
     }
 
+    // Fetch users when the component mount
     useEffect(() => {
         isFirstRender && getPage(1);
         isFirstRender = false;
-    }, [getPage]);
+    }, [isFirstRender]);
 
     return (
         <>

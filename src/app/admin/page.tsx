@@ -104,13 +104,6 @@ export default function AdminPanel() {
         }
     }
 
-    /**
-     * When the component mounts, get the first page of users
-     */
-    useEffect(() => {
-        getuserPage(1);
-    }, []);
-
     return (
         <>
             {/* Display any error or success messages */}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import API_URL from "@/constants/apiRoute";
 import {
     setErrorWithTimeout,
@@ -12,6 +12,7 @@ import getById from "@/functions/get-element-by-id";
 import { IoMdClose } from "react-icons/io";
 import { Product } from "@/types/shop";
 import anime from "animejs";
+import RequestAdminPassword from "@/components/requestAdminPassword";
 
 const defaultProductImage =
     "https://www.svgrepo.com/show/508699/landscape-placeholder.svg";
@@ -43,22 +44,19 @@ export function EditProduct({
     setEditProductData: (data: any) => void;
 }) {
     const productImage = useRef<HTMLImageElement>(null);
-
+    const [adminPassword, setAdminPassword] = useState("");
+    const [passwordModal, setPasswordModal] = useState(false);
+    const EditProductForm = useRef<HTMLFormElement>(null);
     /**
      * Handles the form submit event.
      * @param event Form event
      */
-    const handleSubmit = async (e: any) => {
-        // Prevent the form from submitting
-        e.preventDefault();
-
+    const handleSubmit = async (form: HTMLFormElement) => {
         // Get form data
-        const form = e.target;
         const name = form.product_name.value;
         const description = form.product_description.value;
         const price = parseInt(form.product_price.value);
         const image = form.product_image.value;
-        const adminPassword = form.admin_password.value;
 
         const originalData = {
             id: product.id,
@@ -66,7 +64,6 @@ export function EditProduct({
             description: product.description,
             price: product.price,
             image: product.image,
-            admin_password: adminPassword,
         };
 
         const editData = {
@@ -75,7 +72,6 @@ export function EditProduct({
             description: description,
             price: price,
             image: image,
-            admin_password: adminPassword,
         };
 
         // Check if there are any changes
@@ -88,6 +84,7 @@ export function EditProduct({
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
+                "X-Admin-Password": adminPassword,
             },
             body: JSON.stringify(editData),
         };
@@ -126,11 +123,19 @@ export function EditProduct({
         }
 
         updateProduct();
+        setAdminPassword("");
     };
+
+    useEffect(() => {
+        // Submit the form if the admin password is set
+        if (adminPassword && EditProductForm.current) {
+            handleSubmit(EditProductForm.current);
+        }
+    }, [adminPassword]);
 
     // Set initial form values when product changes
     useEffect(() => {
-        const form = getById("edit_product_form") as any;
+        const form = EditProductForm.current as HTMLFormElement;
 
         form.product_name.value = product.name;
         form.product_description.value = product.description;
@@ -151,7 +156,21 @@ export function EditProduct({
 
     return (
         <>
-            <form id="edit_product_form" onSubmit={handleSubmit}>
+            {/* Request password modal */}
+            {passwordModal && (
+                <RequestAdminPassword
+                    setAdminPassword={setAdminPassword}
+                    setPasswordModal={setPasswordModal}
+                />
+            )}
+            {/* Edit Product form */}
+            <form
+                ref={EditProductForm}
+                onSubmit={(e) => {
+                    e.preventDefault();
+                    setPasswordModal(true);
+                }}
+            >
                 <div className="pb-5 text-text text-lg font-medium flex flex-row items-center justify-between">
                     <h1>Edit Product</h1>
                     <button
@@ -223,25 +242,10 @@ export function EditProduct({
                     </div>
                 </section>
                 {/* CREATE BUTTON */}
-                <div className="flex flex-row justify-between gap-5 mt-10">
-                    <div className="w-[49%] text-sm">
-                        <input
-                            className="w-full bg-background text-text-inactive focus:text-text transition-all ease duration-300 border outline-gray-300 p-2 rounded-lg focus:outline-primary-light"
-                            type="password"
-                            name="admin_password"
-                            spellCheck="false"
-                            placeholder="admin password"
-                            id="admin_password"
-                            minLength={8}
-                            maxLength={50}
-                            required
-                        />
-                    </div>
-
+                <div className="flex flex-row justify-end gap-5 mt-10">
                     <button
                         className="w-28 text-text-invert font-medium bg-primary p-1 rounded-lg"
                         type="submit"
-                        form="edit_product_form"
                     >
                         Edit
                     </button>

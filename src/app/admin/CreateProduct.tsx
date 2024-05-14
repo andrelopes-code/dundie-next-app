@@ -1,12 +1,13 @@
 "use client";
 
-import { FormEvent, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import ImgFallback from "@/components/ImgFalback";
 import API_URL from "@/constants/apiRoute";
 import {
     setErrorWithTimeout,
     setSuccessWithTimeout,
 } from "@/functions/set-error-and-success";
+import RequestAdminPassword from "@/components/requestAdminPassword";
 const defaultProductImage =
     "https://www.svgrepo.com/show/508699/landscape-placeholder.svg";
 
@@ -32,16 +33,15 @@ export function CreateProduct({
     getProducts: () => void;
 }) {
     const productImage = useRef<HTMLImageElement>(null);
+    const [adminPassword, setAdminPassword] = useState("");
+    const [passwordModal, setPasswordModal] = useState(false);
+    const CreateProductform = useRef<HTMLFormElement>(null);
     /**
      * Handles the form submit event.
      * @param event Form event
      */
-    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-        // Prevent the form from submitting
-        event.preventDefault();
-
+    const handleSubmit = async (form: HTMLFormElement) => {
         // Get form data
-        const form = event.target as HTMLFormElement;
         const name = form.product_name.value;
         const price = form.product_price.value;
         const description = form.product_description.value;
@@ -58,6 +58,7 @@ export function CreateProduct({
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                "X-Admin-Password": adminPassword,
             },
             body: JSON.stringify(data),
         };
@@ -70,6 +71,7 @@ export function CreateProduct({
                     setSuccess
                 );
                 getProducts();
+                form.reset();
             } else {
                 throw await res.json();
             }
@@ -80,14 +82,35 @@ export function CreateProduct({
             );
         }
 
-        // Reset the form
-        (event.target as HTMLFormElement).reset();
+        setAdminPassword("");
         productImage.current!.src = defaultProductImage;
     };
 
+    useEffect(() => {
+        // Submit the form if the admin password is set
+        if (adminPassword && CreateProductform.current) {
+            console.log("submitting form");
+            handleSubmit(CreateProductform.current);
+        }
+    }, [adminPassword]);
+
     return (
         <>
-            <form id="create_product_form" onSubmit={handleSubmit}>
+            {/* Request password modal */}
+            {passwordModal && (
+                <RequestAdminPassword
+                    setAdminPassword={setAdminPassword}
+                    setPasswordModal={setPasswordModal}
+                />
+            )}
+            {/* Create Product form */}
+            <form
+                ref={CreateProductform}
+                onSubmit={(e) => {
+                    e.preventDefault();
+                    setPasswordModal(true);
+                }}
+            >
                 <h1 className="text-text font-medium text-lg pb-2">
                     Create Product
                 </h1>
@@ -153,10 +176,7 @@ export function CreateProduct({
                 </section>
                 {/* CREATE BUTTON */}
                 <div className="flex flex-row justify-end mt-5">
-                    <button
-                        className="w-28 text-text-invert font-medium bg-primary p-1 rounded-lg"
-                        form="create_product_form"
-                    >
+                    <button className="w-28 text-text-invert font-medium bg-primary p-1 rounded-lg">
                         Create
                     </button>
                 </div>

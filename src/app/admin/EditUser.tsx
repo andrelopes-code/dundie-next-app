@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useEffect } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import API_URL from "@/constants/apiRoute";
 import {
     setErrorWithTimeout,
@@ -10,6 +10,7 @@ import { AdminUser } from "@/types/user";
 import { isEqual } from "underscore";
 import getById from "@/functions/get-element-by-id";
 import { IoMdClose } from "react-icons/io";
+import RequestAdminPassword from "@/components/requestAdminPassword";
 
 /**
  * Create User form component.
@@ -37,16 +38,15 @@ export function EditUser({
      */
     setEditUserData: (data: any) => void;
 }) {
+    const [adminPassword, setAdminPassword] = useState("");
+    const [passwordModal, setPasswordModal] = useState(false);
+    const EditUserForm = useRef<HTMLFormElement>(null);
     /**
      * Handles the form submit event.
      * @param event Form event
      */
-    const handleSubmit = async (e: any) => {
-        // Prevent the form from submitting
-        e.preventDefault();
-
+    const handleSubmit = async (form: HTMLFormElement) => {
         // Get form data
-        const form = e.target;
         const name = form.edit_name.value;
         const username = form.edit_username.value;
         const email = form.edit_email.value;
@@ -55,7 +55,6 @@ export function EditUser({
         const confirmPassword = form.edit_confirm_pass.value;
         const isActive = form.edit_active.checked;
         const isPrivate = form.edit_private.checked;
-        const adminPassword = form.edit_admin_password.value;
 
         const originalData = {
             name: user.name,
@@ -135,11 +134,19 @@ export function EditUser({
         }
 
         updateUser();
+        setAdminPassword("");
     };
+
+    useEffect(() => {
+        // Submit the form if the admin password is set
+        if (adminPassword && EditUserForm.current) {
+            handleSubmit(EditUserForm.current);
+        }
+    }, [adminPassword]);
 
     // Set initial form values when user changes
     useEffect(() => {
-        const form = getById("edit_user_form") as any;
+        const form = EditUserForm.current as HTMLFormElement;
         form.edit_name.value = user.name;
         form.edit_username.value = user.username;
         form.edit_email.value = user.email;
@@ -150,7 +157,21 @@ export function EditUser({
 
     return (
         <>
-            <form id="edit_user_form" onSubmit={handleSubmit}>
+            {/* Request password modal */}
+            {passwordModal && (
+                <RequestAdminPassword
+                    setAdminPassword={setAdminPassword}
+                    setPasswordModal={setPasswordModal}
+                />
+            )}
+            {/* Edit User form */}
+            <form
+                ref={EditUserForm}
+                onSubmit={(e) => {
+                    e.preventDefault();
+                    setPasswordModal(true);
+                }}
+            >
                 <div className="pb-5 text-text text-lg font-medium flex flex-row items-center justify-between">
                     <h1>Edit User</h1>
                     <button
@@ -315,25 +336,10 @@ export function EditUser({
                     </div>
                 </section>
                 {/* CREATE BUTTON */}
-                <div className="flex flex-row justify-between gap-5 mt-10">
-                    <div className="w-[49%] text-sm">
-                        <input
-                            className="w-full bg-background text-text-inactive focus:text-text transition-all ease duration-300 border outline-gray-300 p-2 rounded-lg focus:outline-primary-light"
-                            type="password"
-                            name="edit_admin_password"
-                            spellCheck="false"
-                            placeholder="admin password"
-                            id="edit_admin_password"
-                            minLength={8}
-                            maxLength={50}
-                            required
-                        />
-                    </div>
-
+                <div className="flex flex-row justify-end gap-5 mt-10">
                     <button
                         className="w-28 text-text-invert font-medium bg-primary p-1 rounded-lg"
                         type="submit"
-                        form="edit_user_form"
                     >
                         Edit
                     </button>

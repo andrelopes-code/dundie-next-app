@@ -50,7 +50,7 @@ export default function ListProducts({
             const response = await fetch(`${API_URL}/admin/products?id=${id}`, {
                 method: "DELETE",
                 headers: {
-                    "x-admin-password": adminPassword,
+                    "X-Admin-Password": adminPassword,
                 },
             });
             if (response.ok) {

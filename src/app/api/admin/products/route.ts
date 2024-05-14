@@ -86,6 +86,7 @@ export async function DELETE(request: NextRequest) {
         headers: {
             accept: "application/json",
             authorization: `Bearer ${access_token}`,
+            "x-admin-password": request.headers.get("x-admin-password") || "",
         },
     };
 

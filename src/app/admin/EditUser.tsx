@@ -322,7 +322,7 @@ export function EditUser({
                             type="password"
                             name="edit_admin_password"
                             spellCheck="false"
-                            placeholder="your admin password here"
+                            placeholder="admin password"
                             id="edit_admin_password"
                             minLength={8}
                             maxLength={50}

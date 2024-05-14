@@ -99,7 +99,7 @@ export function CreateProduct({
                                 type="text"
                                 name="product_name"
                                 spellCheck="false"
-                                placeholder="product name"
+                                placeholder="name"
                                 id="product_name"
                                 maxLength={30}
                                 required
@@ -110,7 +110,7 @@ export function CreateProduct({
                                 className="w-full bg-background text-text-inactive focus:text-text transition-all ease duration-300 border outline-gray-300 p-2 rounded-lg focus:outline-primary-light"
                                 type="number"
                                 name="product_price"
-                                placeholder="product price"
+                                placeholder="price"
                                 id="product_price"
                                 required
                             />
@@ -134,7 +134,7 @@ export function CreateProduct({
                             type="url"
                             name="product_image"
                             spellCheck="false"
-                            placeholder="product image url"
+                            placeholder="image url"
                             id="product_image"
                             required
                         />
@@ -144,7 +144,7 @@ export function CreateProduct({
                         className="w-full resize-none bg-background text-text-inactive focus:text-text transition-all ease duration-300 border outline-gray-300 p-2 rounded-lg focus:outline-primary-light"
                         name="product_description"
                         spellCheck="false"
-                        placeholder="product description"
+                        placeholder="description"
                         id="product_description"
                         maxLength={120}
                         cols={30}

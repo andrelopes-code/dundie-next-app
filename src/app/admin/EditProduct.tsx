@@ -230,7 +230,7 @@ export function EditProduct({
                             type="password"
                             name="admin_password"
                             spellCheck="false"
-                            placeholder="your admin password here"
+                            placeholder="admin password"
                             id="admin_password"
                             minLength={8}
                             maxLength={50}

@@ -1,7 +1,19 @@
 "use client";
 
-import useLogout from "@/hooks/useLogout";
 import Link from "next/link";
+import API_URL from "@/constants/apiRoute";
+
+async function useLogout() {
+    try {
+        const response = await fetch(`${API_URL}/logout`);
+        if (response.ok) {
+            window.location.href = "/login";
+        }
+    } catch (error) {
+        console.error("Error while logging out:", error);
+    }
+}
+
 
 export default function Navbar() {
     return (

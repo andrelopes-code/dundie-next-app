@@ -25,26 +25,16 @@ import { EditProduct } from "./EditProduct";
  * The admin panel is only accessible to users with admin rights.
  */
 export default function AdminPanel() {
-    // The error and success messages to display on the page
     const [error, setError] = useState<string>("");
     const [success, setSuccess] = useState<string>("");
-    // The current page of users to display in the list
     const [users, setUsers] = useState<UserPage>();
-    // The current page of feedbacks to display in the list
     const [orders, setOrders] = useState<OrderPage>();
-    // The current page of feedbacks to display in the list
     const [feedbacks, setFeedbacks] = useState<FeedbackPage>();
-    // The current array of products to display in the list
     const [products, setProducts] = useState<Product[]>();
-
     const [editUserData, setEditUserData] = useState<AdminUser>();
     const [editProductData, setEditProductData] = useState<Product>();
     const [activeSection, setActiveSection] = useState("users");
 
-    /**
-     * Get the next page of users from the backend.
-     * @param page The page number to get
-     */
     function getuserPage(page: number) {
         fetch(`${API_URL}/admin/user?page=${page}`)
             .then(async (res) => await res.json())
@@ -56,10 +46,6 @@ export default function AdminPanel() {
             })
             .catch((err) => console.log(err));
     }
-    /**
-     * Get the next page of feedbacks from the backend.
-     * @param page The page number to get
-     */
     function getFeedbackPage(page: number) {
         fetch(`${API_URL}/feedbacks?page=${page}`)
             .then(async (res) => await res.json())
@@ -71,10 +57,6 @@ export default function AdminPanel() {
             })
             .catch((err) => console.log(err));
     }
-    /**
-     * Get the next page of orders from the backend.
-     * @param page The page number to get
-     */
     function getOrdersPage(page: number) {
         fetch(`${API_URL}/admin/orders?page=${page}`)
             .then(async (res) => await res.json())
@@ -86,7 +68,6 @@ export default function AdminPanel() {
             })
             .catch((err) => console.log(err));
     }
-
     async function getProducts() {
         try {
             // Make the API call

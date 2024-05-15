@@ -22,10 +22,6 @@ export default function DeleteDisableEnableUser({
     setSuccess: any;
 }) {
     // handle click to close the modal
-    /**
-     * Add an event listener to close the modal when the user clicks outside
-     * of it.
-     */
     useEffect(() => {
         const handleClickOutside = (event: any) => {
             if (event.target.id === "delete_background_div") {

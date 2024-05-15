@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import API_URL from "@/constants/apiRoute";
 import {
     setErrorWithTimeout,
@@ -8,43 +8,24 @@ import {
 } from "@/functions/set-error-and-success";
 import { AdminUser } from "@/types/user";
 import { isEqual } from "underscore";
-import getById from "@/functions/get-element-by-id";
 import { IoMdClose } from "react-icons/io";
 import RequestAdminPassword from "@/components/requestAdminPassword";
 
-/**
- * Create User form component.
- */
 export function EditUser({
     user,
     setError,
     setSuccess,
     setEditUserData,
 }: {
-    /**
-     * User to edit.
-     */
     user: AdminUser;
-    /**
-     * Function to show error message.
-     */
     setError: (errorMessage: string) => void;
-    /**
-     * Function to show success message.
-     */
     setSuccess: (successMessage: string) => void;
-    /**
-     * Function to set edit user data
-     */
     setEditUserData: (data: any) => void;
 }) {
     const [adminPassword, setAdminPassword] = useState("");
     const [passwordModal, setPasswordModal] = useState(false);
     const EditUserForm = useRef<HTMLFormElement>(null);
-    /**
-     * Handles the form submit event.
-     * @param event Form event
-     */
+
     const handleSubmit = async (form: HTMLFormElement) => {
         // Get form data
         const name = form.edit_name.value;
@@ -78,14 +59,14 @@ export function EditUser({
             admin_password: adminPassword,
         };
 
-        // Check if there are any changes
-        if (isEqual(editData, originalData)) {
+        const hasNoChanges = isEqual(editData, originalData);
+        if (hasNoChanges) {
             setSuccessWithTimeout("No changes", setSuccess);
             return;
         }
 
-        // Check if the passwords match
-        if (password !== confirmPassword) {
+        const passwordMatch = password === confirmPassword;
+        if (!passwordMatch) {
             setErrorWithTimeout("Passwords do not match", setError);
             return;
         }
@@ -107,7 +88,7 @@ export function EditUser({
             user.is_active = data.is_active;
         }
 
-        async function updateUser() {
+        async function updateUserApiCall() {
             try {
                 const response = await fetch(
                     `${API_URL}/admin/user/?username=${user.username}`,
@@ -133,13 +114,13 @@ export function EditUser({
             }
         }
 
-        updateUser();
+        updateUserApiCall();
         setAdminPassword("");
     };
 
     useEffect(() => {
-        // Submit the form if the admin password is set
-        if (adminPassword && EditUserForm.current) {
+        const canSubmit = adminPassword && EditUserForm.current;
+        if (canSubmit) {
             handleSubmit(EditUserForm.current);
         }
     }, [adminPassword]);

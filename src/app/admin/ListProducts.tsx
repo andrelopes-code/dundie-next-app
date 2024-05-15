@@ -13,15 +13,6 @@ import {
     setSuccessWithTimeout,
 } from "@/functions/set-error-and-success";
 
-/**
- * A list of products component that displays all products.
- *
- * @prop {Function} setError - A function to set an error message in the parent component.
- * @prop {Function} setSuccess - A function to set a success message in the parent component.
- *
- * @return {JSX.Element} The ListFeedbacks component.
- */
-
 export default function ListProducts({
     products,
     getProducts,

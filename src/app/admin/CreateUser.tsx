@@ -1,6 +1,5 @@
 "use client";
 
-import { FormEvent } from "react";
 import API_URL from "@/constants/apiRoute";
 import {
     setErrorWithTimeout,
@@ -9,30 +8,17 @@ import {
 import { useRef, useState, useEffect } from "react";
 import RequestAdminPassword from "@/components/requestAdminPassword";
 
-/**
- * Create User form component.
- */
 export function CreateUser({
     setError,
     setSuccess,
 }: {
-    /**
-     * Function to show error message.
-     */
     setError: (errorMessage: string) => void;
-    /**
-     * Function to show success message.
-     */
     setSuccess: (successMessage: string) => void;
 }) {
     const [adminPassword, setAdminPassword] = useState("");
     const [passwordModal, setPasswordModal] = useState(false);
     const createUserForm = useRef<HTMLFormElement>(null);
 
-    /**
-     * Handles the form submit event.
-     * @param event Form event
-     */
     const handleSubmit = async (form: HTMLFormElement) => {
         // Get form data
         const name = form.create_name.value;
@@ -50,8 +36,8 @@ export function CreateUser({
             password,
         };
 
-        // Check if the passwords match
-        if (password !== confirmPassword) {
+        const passwordMatch = password === confirmPassword;
+        if (!passwordMatch) {
             setErrorWithTimeout("Passwords do not match", setError);
             return;
         }
@@ -83,8 +69,8 @@ export function CreateUser({
     };
 
     useEffect(() => {
-        // Submit the form if the admin password is set
-        if (adminPassword && createUserForm.current) {
+        const canSubmitForm = adminPassword && createUserForm.current;
+        if (canSubmitForm) {
             handleSubmit(createUserForm.current);
         }
     }, [adminPassword]);

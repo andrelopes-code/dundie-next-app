@@ -8,7 +8,6 @@ import {
 } from "@/functions/set-error-and-success";
 import ImgFallback from "@/components/ImgFalback";
 import { isEqual } from "underscore";
-import getById from "@/functions/get-element-by-id";
 import { IoMdClose } from "react-icons/io";
 import { Product } from "@/types/shop";
 import anime from "animejs";
@@ -17,40 +16,22 @@ import RequestAdminPassword from "@/components/requestAdminPassword";
 const defaultProductImage =
     "https://www.svgrepo.com/show/508699/landscape-placeholder.svg";
 
-/**
- * Edit Product form component.
- */
 export function EditProduct({
     product,
     setError,
     setSuccess,
     setEditProductData,
 }: {
-    /**
-     * Product to edit.
-     */
     product: Product;
-    /**
-     * Function to show error message.
-     */
     setError: (errorMessage: string) => void;
-    /**
-     * Function to show success message.
-     */
     setSuccess: (successMessage: string) => void;
-    /**
-     * Function to set edit product data
-     */
     setEditProductData: (data: any) => void;
 }) {
     const productImage = useRef<HTMLImageElement>(null);
     const [adminPassword, setAdminPassword] = useState("");
     const [passwordModal, setPasswordModal] = useState(false);
     const EditProductForm = useRef<HTMLFormElement>(null);
-    /**
-     * Handles the form submit event.
-     * @param event Form event
-     */
+
     const handleSubmit = async (form: HTMLFormElement) => {
         // Get form data
         const name = form.product_name.value;
@@ -74,8 +55,8 @@ export function EditProduct({
             image: image,
         };
 
-        // Check if there are any changes
-        if (isEqual(editData, originalData)) {
+        const hasNoChanges = isEqual(editData, originalData);
+        if (hasNoChanges) {
             setSuccessWithTimeout("No changes", setSuccess);
             return;
         }
@@ -96,7 +77,7 @@ export function EditProduct({
             product.image = data.image;
         }
 
-        async function updateProduct() {
+        async function updateProductApiCall() {
             try {
                 const response = await fetch(
                     `${API_URL}/admin/products/?product_id=${product.id}`,
@@ -122,13 +103,13 @@ export function EditProduct({
             }
         }
 
-        updateProduct();
+        updateProductApiCall();
         setAdminPassword("");
     };
 
     useEffect(() => {
-        // Submit the form if the admin password is set
-        if (adminPassword && EditProductForm.current) {
+        const canSubmit = adminPassword && EditProductForm.current;
+        if (canSubmit) {
             handleSubmit(EditProductForm.current);
         }
     }, [adminPassword]);

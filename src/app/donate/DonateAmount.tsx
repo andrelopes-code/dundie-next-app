@@ -3,14 +3,7 @@ import { VscLoading } from "react-icons/vsc";
 import { IoMdArrowBack } from "react-icons/io";
 import API_URL from "@/constants/apiRoute";
 
-/**
- * Component to handle donation amount input.
- *
- * @param {Object} props - The component props.
- * @param {string} props.target - The target user to which the donation is made.
- * @param {Function} props.setStage - Function to update the stage of the donation process.
- * @param {Function} props.setDetails - Function to set donation details after the donation.
- */
+
 const DonateAmount = ({
     target,
     setStage,
@@ -20,14 +13,8 @@ const DonateAmount = ({
     setStage: (stage: 0 | 1 | 2) => void;
     setDetails: (details: any) => void;
 }) => {
-    // The status of the loading in the 'send' button
     const [loading, setLoading] = useState(false);
 
-    /**
-     * Handle the donation submission.
-     *
-     * @param {Event} e - The form submission event.
-     */
     const doTheDonate = (e: any) => {
         e.preventDefault();
         setLoading(true);
@@ -37,7 +24,6 @@ const DonateAmount = ({
             return;
         }
 
-        // The config for the POST request
         const config = {
             method: "POST",
             headers: {

@@ -5,17 +5,6 @@ import { Pagination } from "@mui/material";
 import { Feedback, FeedbackPage } from "@/types/feedback";
 import Loading from "@/components/Loading";
 
-/**
- * A list of feedback component that displays all feedbacks.
- *
- * @prop {FeedbackPage | undefined} feedbacks - The list of feedbacks from the backend.
- * @prop {Function} getPage - A function to get a new page of feedbacks from the backend.
- * @prop {Function} setError - A function to set an error message in the parent component.
- * @prop {Function} setSuccess - A function to set a success message in the parent component.
- *
- * @return {JSX.Element} The ListFeedbacks component.
- */
-
 export default function ListFeedbacks({
     feedbacks,
     getPage,
@@ -29,13 +18,7 @@ export default function ListFeedbacks({
 }) {
     let isFirstRender = true;
 
-    /**
-     * Function to handle a page change.
-     *
-     * @param {React.ChangeEvent<unknown>} e - The event object
-     * @param {number} value - The new page number
-     */
-    function handleChangePage(e: any, value: number) {
+    function handlePageChange(_: any, value: number) {
         getPage(value);
     }
 
@@ -79,7 +62,7 @@ export default function ListFeedbacks({
                     <Pagination
                         count={feedbacks?.pages}
                         shape="rounded"
-                        onChange={handleChangePage}
+                        onChange={handlePageChange}
                         className="flex justify-end mr-5 mb-5 opacity-40"
                     />
                 </>
@@ -88,13 +71,6 @@ export default function ListFeedbacks({
     );
 }
 
-/**
- * A component that displays a single feedback in a table row.
- *
- * @prop {Feedback} feedback - The feedback object.
- *
- * @return {JSX.Element} The FeedbackItem component.
- */
 function FeedbackItem({ feedback }: { feedback: Feedback }) {
     return (
         <li className="py-3 border-b text-text mx-5 hover:bg-background transition-colors duration-150">

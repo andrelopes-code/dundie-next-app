@@ -1,11 +1,5 @@
 import { IoMdArrowBack } from "react-icons/io";
 
-/**
- * Component to display the result of the donation.
- *
- * @param {Object} props - The component props.
- * @param {Object} props.details - The details of the donation.
- */
 const DonateDetails = ({ details }: { details: any }) => {
     return (
         <>

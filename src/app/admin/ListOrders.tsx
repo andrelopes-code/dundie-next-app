@@ -7,17 +7,6 @@ import { MdChangeCircle } from "react-icons/md";
 import Loading from "@/components/Loading";
 import { debounce } from "underscore";
 
-/**
- * A list of orders component that displays all orders in a table format.
- *
- * @prop {OrderPage | undefined} orders - The list of orders from the backend.
- * @prop {Function} getPage - A function to get a new page of orders from the backend.
- * @prop {Function} setError - A function to set an error message in the parent component.
- * @prop {Function} setSuccess - A function to set a success message in the parent component.
- *
- * @return {JSX.Element} The ListOrders component.
- */
-
 export default function ListOrders({
     orders,
     getPage,
@@ -29,16 +18,9 @@ export default function ListOrders({
     setError: any;
     setSuccess: any;
 }) {
-    const debounceGetPage: (page: number) => void = debounce(getPage, 500);
     let isFirstRender = true;
 
-    /**
-     * Function to handle a page change.
-     *
-     * @param {React.ChangeEvent<unknown>} e - The event object
-     * @param {number} value - The new page number
-     */
-    function handleChangePage(e: any, value: number) {
+    function handleChangePage(_: any, value: number) {
         getPage(value);
     }
 
@@ -102,13 +84,6 @@ export default function ListOrders({
     );
 }
 
-/**
- * A component that displays a single order in a table row.
- *
- * @prop {Order} order - The order object.
- *
- * @return {JSX.Element} The OrderItem component.
- */
 function OrderItem({ order }: { order: Order }) {
     return (
         <tr className="pt-3 pb-5 border-b hover:bg-background transition-colors duration-300">

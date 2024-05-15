@@ -1,15 +1,6 @@
 import { useEffect, useState } from "react";
 import { VscLoading } from "react-icons/vsc";
-import API_URL from "@/constants/apiRoute";
 
-/**
- * Component to display a single search result.
- *
- * @param {Object} props - The component props.
- * @param {string} props.name - The name of the user to display.
- * @param {string} props.username - The username of the user to display.
- * @param {Function} props.onClick - Function to call when the user clicks the search result.
- */
 const SearchItems = ({
     name,
     username,
@@ -48,9 +39,7 @@ const ChooseUser = ({
     setTarget: (target: string) => void;
     urlTarget?: string;
 }) => {
-    // The results of the search
-    const [results, setResults] = useState([]);
-    // The status of the loading in the 'next' button
+    const [searchResults, setSearchResults] = useState([]);
     const [loading, setLoading] = useState(false);
 
     // Fills the input with the urlTarget username if it exists
@@ -63,9 +52,6 @@ const ChooseUser = ({
         }
     }, [urlTarget, setTarget]);
 
-    /**
-     * Redirects the user to the `DonateAmount` component with the selected target.
-     */
     const changeToNextStage = () => {
         const input: any = document?.getElementById("targetUsername");
         const target = input?.value;
@@ -77,27 +63,18 @@ const ChooseUser = ({
         setStage(1);
     };
 
-    /**
-     * Handles a click on a search result item.
-     * Updates the target and search input field.
-     * @param {string} clickedUsername - The username of the user that was clicked.
-     */
     const handleSearchItemClick = (clickedUsername: string) => {
         const input: any = document?.getElementById("targetUsername");
         input.value = clickedUsername;
         input.focus();
     };
 
-    /**
-     * Searches for users based on the search query in the input field.
-     * @param {Object} e - The event object of the input change event.
-     * TODO: Add a timeout to the search to avoid too many requests
-     * ! REMOVE THE API CALL TO THE BACKEND SERVER localhost:8000
-     */
+    // TODO: Add a timeout to the search to avoid too many requests
+    // ! REMOVE THE API CALL TO THE BACKEND SERVER localhost:8000
     const getUsernameList = async (e: any) => {
         fetch("http://localhost:8000/user/names?query=" + e.target.value)
             .then(async (res) => await res.json())
-            .then((data) => setResults(data));
+            .then((data) => setSearchResults(data));
     };
 
     return (
@@ -136,7 +113,7 @@ const ChooseUser = ({
             </div>
 
             <div className="overflow-auto w-1/4 max-h-60 noscrollbar">
-                {results.map((user: any) => {
+                {searchResults.map((user: any) => {
                     return (
                         <SearchItems
                             key={user.username}

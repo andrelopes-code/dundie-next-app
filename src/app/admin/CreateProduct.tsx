@@ -11,35 +11,20 @@ import RequestAdminPassword from "@/components/requestAdminPassword";
 const defaultProductImage =
     "https://www.svgrepo.com/show/508699/landscape-placeholder.svg";
 
-/**
- * Create User form component.
- */
 export function CreateProduct({
     setError,
     setSuccess,
     getProducts,
 }: {
-    /**
-     * Function to show error message.
-     */
     setError: (errorMessage: string) => void;
-    /**
-     * Function to show success message.
-     */
     setSuccess: (successMessage: string) => void;
-    /**
-     * Function to get products.
-     */
     getProducts: () => void;
 }) {
     const productImage = useRef<HTMLImageElement>(null);
     const [adminPassword, setAdminPassword] = useState("");
     const [passwordModal, setPasswordModal] = useState(false);
     const CreateProductform = useRef<HTMLFormElement>(null);
-    /**
-     * Handles the form submit event.
-     * @param event Form event
-     */
+
     const handleSubmit = async (form: HTMLFormElement) => {
         // Get form data
         const name = form.product_name.value;
@@ -88,8 +73,8 @@ export function CreateProduct({
 
     useEffect(() => {
         // Submit the form if the admin password is set
-        if (adminPassword && CreateProductform.current) {
-            console.log("submitting form");
+        const canSubmitForm = adminPassword && CreateProductform.current;
+        if (canSubmitForm) {
             handleSubmit(CreateProductform.current);
         }
     }, [adminPassword]);

@@ -9,15 +9,6 @@ import { Pagination } from "@mui/material";
 import { FaRegEyeSlash } from "react-icons/fa";
 import Loading from "@/components/Loading";
 
-/**
- * Component to display a single item in the list of users.
- *
- * @prop {AdminUser} user - The user to display
- * @prop {Function} setChangeThisUser - Function to call when the delete or
- *     disable/enable button is clicked
- *
- * @returns {JSX.Element}
- */
 function ListUsersItem({
     user,
     setChangeThisUser,
@@ -36,11 +27,15 @@ function ListUsersItem({
         menu.hidden = false;
 
         if (e.clientY > 650) {
-            menu.style.top = e.clientY - menu.offsetHeight + "px";
-            menu.style.left = e.clientX + "px";
+            const alignBottom = e.clientY - menu.offsetHeight + "px";
+            const alignLeft = e.clientX + "px";
+            menu.style.top = alignBottom;
+            menu.style.left = alignLeft;
         } else {
-            menu.style.top = e.clientY + "px";
-            menu.style.left = e.clientX + "px";
+            const alignTop = e.clientY + "px";
+            const alignLeft = e.clientX + "px";
+            menu.style.top = alignTop;
+            menu.style.left = alignLeft;
         }
         menu.focus();
     }
@@ -120,16 +115,6 @@ function ListUsersItem({
     );
 }
 
-/**
- * Component to display a list of users.
- *
- * @prop {UserPage | undefined} users - The list of users to display
- * @prop {Function} getPage - Function to call to get a new page of users
- * @prop {Function} setError - Function to call to set the error state
- * @prop {Function} setSuccess - Function to call to set the success state
- *
- * @returns {JSX.Element}
- */
 export default function ListUsers({
     users,
     getPage,
@@ -146,13 +131,7 @@ export default function ListUsers({
     const [changeThisUser, setChangeThisUser] = useState();
     let isFirstRender = true;
 
-    /**
-     * Function to handle a page change.
-     *
-     * @param {React.ChangeEvent<unknown>} e - The event object
-     * @param {number} value - The new page number
-     */
-    function handleChangePage(e: any, value: number) {
+    function handleChangePage(_: any, value: number) {
         getPage(value);
     }
 
@@ -169,8 +148,6 @@ export default function ListUsers({
             {/* LIST OF ALL ORDERS */}
             {users && users.total > 0 && (
                 <>
-                    {/* DELETE DISABLE AND ENABLE USER MODAL */}
-
                     {/* LIST OF ALL USERS */}
                     <div className="relative">
                         <div className="TopGradient"></div>

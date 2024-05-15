@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import API_URL from "@/constants/apiRoute";
 import RequestAdminPassword from "@/components/requestAdminPassword";
 import {
@@ -9,29 +9,17 @@ import {
 } from "@/functions/set-error-and-success";
 import { useState } from "react";
 
-/**
- * Create User form component.
- */
 export function AdminDonate({
     setError,
     setSuccess,
 }: {
-    /**
-     * Function to show error message.
-     */
     setError: (errorMessage: string) => void;
-    /**
-     * Function to show success message.
-     */
     setSuccess: (successMessage: string) => void;
 }) {
     const [adminPassword, setAdminPassword] = useState("");
     const [passwordModal, setPasswordModal] = useState(false);
-    const donateForm = useRef(null);
-    /**
-     * Handles the form submit event.
-     * @param event Form event
-     */
+    const donateForm = useRef<HTMLFormElement>(null);
+
     const handleSubmit = async (form: HTMLFormElement) => {
         // Get form data
         const target = form.target_username.value;
@@ -77,8 +65,8 @@ export function AdminDonate({
     };
 
     useEffect(() => {
-        // Submit the form if the admin password is set
-        if (adminPassword && donateForm.current) {
+        const canSubmitForm = adminPassword && donateForm.current;
+        if (canSubmitForm) {
             handleSubmit(donateForm.current);
         }
     }, [adminPassword]);
@@ -105,7 +93,7 @@ export function AdminDonate({
                 </h1>
                 <section className="flex flex-col text-sm gap-2">
                     <div className="flex w-full flex-row justify-between">
-                        {/* TARGET USERNAMEs */}
+                        {/* TARGET USERNAME */}
                         <div className="w-full">
                             <input
                                 className="w-full bg-background text-text-inactive focus:text-text transition-all ease duration-300 border outline-gray-300 p-2 rounded-lg focus:outline-primary-light"

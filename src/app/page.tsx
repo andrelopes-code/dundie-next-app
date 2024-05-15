@@ -7,24 +7,23 @@ import MainSection from "@/components/MainSection";
 
 export default function Home() {
     return (
-        <div className="h-screen">
+        <div className="h-screen flex flex-col justify-start">
             <Navbar />
-            <div className="px-24 h-content grid grid-cols-[2fr_1fr]">
-                {/* MAIN DIV */}
+            <div className="px-24 max-h-full h-full overflow-hidden flex flex-row">
                 <div
                     id="mainSectionWrapper"
-                    className="m-[0.75rem_0.75rem_0.75rem_0] overflow-auto overflow-x-hidden sb rounded-lg shadow-lg bg-background-light"
+                    className="w-2/3 m-3 overflow-y-auto overflow-x-hidden sb rounded-lg shadow-lg bg-background-light"
                 >
                     <MainSection />
                 </div>
 
-                <div className="h-content">
-                    {/* RANKING DIV */}
-                    <div className="shadow-lg p-4 text-sm overflow-hidden h-1/2 bg-background-light m-[0.75rem_0.75rem_0_0] rounded-lg fixtransition transition-all duration-700 delay-200 hover:translate-x-2">
+                <div className="w-1/3 max-h-full pr-3 my-3 overflow-auto overflow-x-visible noscrollbar drop-shadow-lg">
+                    {/* Ranking DIV */}
+                    <div className="p-4 text-xs h-1/2 overflow-hidden bg-background-light rounded-lg fixtransition transition-all duration-700 delay-200 hover:translate-x-2">
                         <Ranking />
                     </div>
-                    {/* RECENT TRANSACTIONS DIV */}
-                    <div className="shadow-lg overflow-hidden text-sm bg-background-light m-[0.75rem_0.75rem_0.75rem_0] z-10 rounded-lg fixtransition transition-all duration-700 delay-200 hover:translate-x-2">
+                    {/* RecentTransactions DIV */}
+                    <div className="p-4 text-xs mt-3 h-fit overflow-hidden bg-background-light rounded-lg fixtransition transition-all duration-700 delay-200 hover:translate-x-2">
                         <RecentTransactions />
                     </div>
                 </div>
@@ -32,3 +31,4 @@ export default function Home() {
         </div>
     );
 }
+

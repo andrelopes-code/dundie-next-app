@@ -88,7 +88,7 @@ const RecentTransactions = () => {
             {loading ? (
                 <Loading />
             ) : (
-                <div className="h-full m-4 flex justify-start flex-col">
+                <div className="h-full flex justify-start flex-col">
                     <h2 className="bg-background transition-colors duration-200 hover:bg-background-100 h-[3.5rem] mb-3 text-center w-full py-3 rounded-lg font-semibold text-primary text-2xl">
                         Recent
                     </h2>

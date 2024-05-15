@@ -137,16 +137,16 @@ export default function MainSection() {
     return (
         <section
             id="mainSection"
-            className="flex w-full bg-background-light justify-start flex-col"
+            className="flex w-full h-full bg-background-light justify-start flex-col"
         >
             {/* LOADING */}
             {!user && (
-                <div className="w-full h-[90vh] flex justify-center items-center">
+                <div className="w-full h-full flex justify-center items-center">
                     <Loading />
                 </div>
             )}
             {user && (
-                <main className="flex flex-col">
+                <main className="flex flex-col w-full">
                     {/* POST FORM */}
                     <CreatePost user={user} posts={posts} setPosts={setPosts} />
                     {/* POSTS */}
@@ -190,7 +190,7 @@ export default function MainSection() {
                     </div>
                     <ul
                         id="postsList"
-                        className="flex flex-col mx-10 items-center transition-all duration-300"
+                        className="mx-10 h-56 items-center transition-all duration-300"
                     >
                         {posts.length === 0 ? (
                             <h1 className="text-text-inactive my-40">

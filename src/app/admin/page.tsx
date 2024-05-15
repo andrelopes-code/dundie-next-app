@@ -109,11 +109,11 @@ export default function AdminPanel() {
             {/* Display any error or success messages */}
             {error && <AlertError msg={error} />}
             {success && <AlertSuccess msg={success} />}
-            <div className="h-screen">
+            <div className="h-screen flex flex-col">
                 <Navbar />
-                <div className="px-24 h-content grid grid-cols-[2fr_1fr]">
+                <div className="px-24 max-h-full h-full overflow-hidden flex flex-row">
                     {/* LIST SECTION */}
-                    <div className="m-3 rounded-lg bg-background-light shadow-lg">
+                    <div className="w-2/3 rounded-lg m-3 overflow-y-hidden sb bg-background-light shadow-lg">
                         <ListHeader
                             activeSection={activeSection}
                             setActiveSection={setActiveSection}
@@ -159,46 +159,46 @@ export default function AdminPanel() {
                             )}
                         </div>
                     </div>
-                    <div>
-                        <div className="max-h-[calc(100vh_-_99px)] scroll-p-12 drop-shadow-lg mt-3 overflow-auto noscrollbar">
-                            {/* CREATE NEW USER SECTION */}
-                            <div className=" h-fit overflow-hidden p-5 bg-background-light m-[0_0.75rem_0_0] rounded-lg fixtransition transition-all duration-700 delay-200 hover:translate-x-2">
-                                {editUserData ? (
-                                    <EditUser
-                                        user={editUserData}
-                                        setError={setError}
-                                        setSuccess={setSuccess}
-                                        setEditUserData={setEditUserData}
-                                    />
-                                ) : (
-                                    <CreateUser
-                                        setError={setError}
-                                        setSuccess={setSuccess}
-                                    />
-                                )}
-                            </div>
-                            <div className=" h-fit overflow-hidden p-5 bg-background-light m-[0.75rem_0.75rem_0_0] rounded-lg fixtransition transition-all duration-700 delay-200 hover:translate-x-2">
-                                <AdminDonate
+                    <div className="w-1/3 max-h-full pr-3 my-3 overflow-auto overflow-x-visible noscrollbar drop-shadow-lg">
+                        {/* CREATE AND EDIT USER SECTION */}
+                        <div className="h-fit overflow-hidden p-5 bg-background-light rounded-lg fixtransition transition-all duration-700 delay-200 hover:translate-x-2">
+                            {editUserData ? (
+                                <EditUser
+                                    user={editUserData}
+                                    setError={setError}
+                                    setSuccess={setSuccess}
+                                    setEditUserData={setEditUserData}
+                                />
+                            ) : (
+                                <CreateUser
                                     setError={setError}
                                     setSuccess={setSuccess}
                                 />
-                            </div>
-                            <div className="h-fit overflow-hidden p-5 bg-background-light m-[0.75rem_0.75rem_0_0] rounded-lg fixtransition transition-all duration-700 delay-200 hover:translate-x-2">
-                                {editProductData ? (
-                                    <EditProduct
-                                        product={editProductData}
-                                        setError={setError}
-                                        setSuccess={setSuccess}
-                                        setEditProductData={setEditProductData}
-                                    />
-                                ) : (
-                                    <CreateProduct
-                                        setError={setError}
-                                        setSuccess={setSuccess}
-                                        getProducts={getProducts}
-                                    />
-                                )}
-                            </div>
+                            )}
+                        </div>
+                        {/* DONATE SECTION */}
+                        <div className="h-fit overflow-hidden mt-3 p-5 bg-background-light rounded-lg fixtransition transition-all duration-700 delay-200 hover:translate-x-2">
+                            <AdminDonate
+                                setError={setError}
+                                setSuccess={setSuccess}
+                            />
+                        </div>
+                        {/* CREATE AND EDIT PRODUCT SECTION */}
+                        <div className="h-fit overflow-hidden mt-3 p-5 bg-background-light rounded-lg fixtransition transition-all duration-700 delay-200 hover:translate-x-2">
+                            {editProductData ? (
+                                <EditProduct
+                                    product={editProductData}
+                                    setError={setError}
+                                    setSuccess={setSuccess}
+                                    setEditProductData={setEditProductData}
+                                />
+                            ) : (
+                                <CreateProduct
+                                    setError={setError}
+                                    setSuccess={setSuccess}
+                                    getProducts={getProducts}
+                                />
+                            )}
                         </div>
                     </div>
                 </div>
@@ -206,3 +206,4 @@ export default function AdminPanel() {
         </>
     );
 }
+

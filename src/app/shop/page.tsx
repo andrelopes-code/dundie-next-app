@@ -50,10 +50,10 @@ export default function Shop() {
     }, []);
 
     return (
-        <div>
+        <div className="flex flex-col">
             <Navbar />
 
-            <div className="bg-background-light shadow-lg rounded-lg mx-24 my-3 mb-24 h-full overflow-hidden">
+            <div className="bg-background-light shadow-lg rounded-lg mx-24 my-3 mb-24 h-fit overflow-auto sb">
                 <div className="bg-gradient-to-r from-background-light flex flex-row justify-between via-indigo-100 to-primary h-[300px]">
                     <div className="text-7xl ml-24 flex select-none flex-col items-start justify-center h-full">
                         <p className="font-bold text-center bg-gradient-to-r from-primary to-violet-400 bg-clip-text text-transparent text-text-invert">

@@ -20,7 +20,7 @@ export default function Navbar() {
         <div className="drop-shadow-[0_0_10px_rgba(0,0,22,0.1)] sticky top-0 z-[51]">
             <header className="bg-background-light">
                 <nav
-                    className="mx-20 flex items-center justify-between p-4 lg:px-16 "
+                    className="mx-20 flex items-center max-h-16 justify-between p-4 lg:px-16 "
                     aria-label="Global"
                 >
                     <div className="flex lg:flex-1">
@@ -98,7 +98,7 @@ export default function Navbar() {
                             </div>
                             <button
                                 onClick={useLogout}
-                                className="bg-primary py-1 px-2 rounded-lg text-sm font-medium leading-6 transition-all duration-500  hover:shadow-[#9495ee99] hover:shadow-[0_0_22px_-1px] text-text-invert"
+                                className="bg-primary text-nowrap py-1 px-2 rounded-lg text-sm font-medium leading-6 transition-all duration-500  hover:shadow-[#9495ee99] hover:shadow-[0_0_22px_-1px] text-text-invert"
                             >
                                 Log out
                             </button>

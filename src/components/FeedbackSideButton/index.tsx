@@ -66,7 +66,7 @@ export default function FeedbackSideButton() {
             <div
                 ref={sideFeedback}
                 tabIndex={0}
-                className="text-xs outline-none fixed z-50 group -left-[710px] top-20 flex flex-row drop-shadow-lg"
+                className="text-xs outline-none fixed z-50 group -left-[710px] top-[10%] flex flex-row drop-shadow-lg"
             >
                 <div className="text-text z-50 w-[700px] bg-background-light rounded-br-lg p-5">
                     <ContactAndFeedbackSide

@@ -7,6 +7,7 @@ export default function RequestAdminPassword({
 }: any) {
     const background = useRef<HTMLDivElement>(null);
     const internalDiv = useRef<HTMLDivElement>(null);
+    const Text = useRef<HTMLParagraphElement>(null);
     const animationDuration = 800;
 
     function unmount() {
@@ -42,6 +43,7 @@ export default function RequestAdminPassword({
     useEffect(() => {
         const target = background.current as HTMLDivElement;
         const internal = internalDiv.current as HTMLDivElement;
+        const text = Text.current as HTMLParagraphElement;
 
         // Add a background color to the target
         target.style.backgroundColor = "rgba(0, 0, 0, 0.1)";
@@ -55,6 +57,22 @@ export default function RequestAdminPassword({
                 let blurValue = 5 * value; // quantidade de desfoque
                 target.style.backdropFilter = `blur(${blurValue}px)`;
             },
+        });
+
+        anime({
+            targets: text,
+            easing: "easeInOutQuad",
+            duration: animationDuration * 3,
+            update: function (anim) {
+                if (anim.progress < 33) {
+                    text.innerText = "Type your admin password.";
+                } else if (anim.progress < 66) {
+                    text.innerText = "Type your admin password..";
+                } else if (anim.progress < 99) {
+                    text.innerText = "Type your admin password...";
+                }
+            },
+            loop: true,
         });
 
         anime({
@@ -82,7 +100,13 @@ export default function RequestAdminPassword({
                     className="flex flex-col items-center selection:bg-[#00000010] text-zinc-600 caret-transparent font-semibold gap-3 p-5 rounded-lg"
                 >
                     <label htmlFor="RequestAdminPassword">
-                        Type your admin password
+                        <p
+                            ref={Text}
+                            id="RequestAdminPasswordText"
+                            className="animate-pulse"
+                        >
+                            Type your admin password
+                        </p>
                     </label>
                     <input
                         onBlur={unmount}

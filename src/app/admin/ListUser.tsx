@@ -58,7 +58,7 @@ function ListUsersItem({
                 ref={floatingMenu}
                 hidden
                 onBlur={() => closeFloatingMenu()}
-                className="rounded-lg z-50 p-1 py-3 text-xs border appearance-none text-text bg-background shadow-md outline-none absolute bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-50 border-gray-100"
+                className="rounded-lg z-50 p-1 py-3 text-xs border appearance-none text-text bg-background shadow-md outline-none fixed bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-50 border-gray-100"
             >
                 <ContextMenuList user={user} />
             </div>

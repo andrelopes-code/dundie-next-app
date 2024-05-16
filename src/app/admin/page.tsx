@@ -140,6 +140,7 @@ export default function AdminPanel() {
                             )}
                         </div>
                     </div>
+                    {/* SIDE SECTION */}
                     <div className="w-1/3 max-h-full pr-3 my-3 overflow-auto overflow-x-visible noscrollbar drop-shadow-lg">
                         {/* CREATE AND EDIT USER SECTION */}
                         <div className="h-fit overflow-hidden p-5 bg-background-light rounded-lg fixtransition transition-all duration-700 delay-200 hover:translate-x-2">

@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import Loading from "@/components/Loading";
 import { CgArrowLongRight } from "react-icons/cg";
 import { User } from "@/types/user";
+import API_URL from "@/constants/apiRoute";
 
 const HeaderItem = () => {
     return (
@@ -99,7 +100,7 @@ const UserProfileTransactions = ({
     useEffect(() => {
         const getUserTransactions = () => {
             fetch(
-                `http://localhost:3000/api/user/profile/transaction${
+                `${API_URL}/user/profile/transaction${
                     targetUser && "/" + targetUser
                 }`
             )

@@ -20,8 +20,6 @@ async function verifyAdminRoute(
     }
 }
 
-const allowedOrigins = ["http://localhost:3000/", "http://localhost:3000"];
-
 /**
  * Middleware function for handling authentication and authorization.
  *

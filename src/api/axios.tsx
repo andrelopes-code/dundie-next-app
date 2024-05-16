@@ -1,5 +1,6 @@
+import { PRIVATE_API_URL } from "@/constants/apiRoute";
 import axios from "axios";
 
 export const api = axios.create({
-    baseURL: "http://localhost:8000",
+    baseURL: PRIVATE_API_URL,
 });

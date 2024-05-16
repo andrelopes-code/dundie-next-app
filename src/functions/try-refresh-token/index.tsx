@@ -1,3 +1,5 @@
+import { PRIVATE_API_URL } from "@/constants/apiRoute";
+
 interface RefreshTokenResponse {
     access_token: string;
     refresh_token: string;
@@ -7,7 +9,7 @@ interface RefreshTokenResponse {
 export const tryRefreshToken = async (
     refresh_token: string | undefined
 ): Promise<RefreshTokenResponse> => {
-    return fetch("http://localhost:8000/refresh_token", {
+    return fetch(`${PRIVATE_API_URL}/refresh_token`, {
         method: "POST",
         headers: {
             "x-refresh-token": `${refresh_token}`,

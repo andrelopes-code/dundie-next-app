@@ -1,3 +1,4 @@
+import { PRIVATE_API_URL } from "@/constants/apiRoute";
 import { useEffect, useState } from "react";
 import { VscLoading } from "react-icons/vsc";
 
@@ -72,7 +73,7 @@ const ChooseUser = ({
     // TODO: Add a timeout to the search to avoid too many requests
     // ! REMOVE THE API CALL TO THE BACKEND SERVER localhost:8000
     const getUsernameList = async (e: any) => {
-        fetch("http://localhost:8000/user/names?query=" + e.target.value)
+        fetch(`${PRIVATE_API_URL}/user/names?query=` + e.target.value)
             .then(async (res) => await res.json())
             .then((data) => setSearchResults(data));
     };
@@ -127,6 +128,5 @@ const ChooseUser = ({
         </>
     );
 };
-
 
 export default ChooseUser;

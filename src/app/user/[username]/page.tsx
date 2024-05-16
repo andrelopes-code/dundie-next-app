@@ -8,6 +8,7 @@ import { useState, useRef, useEffect } from "react";
 import Loading from "@/components/Loading";
 import { User } from "@/types/user";
 import UserProfileTransactions from "@/components/profile/user-transactions";
+import API_URL from "@/constants/apiRoute";
 
 export default function PublicProfile({
     params,
@@ -20,7 +21,7 @@ export default function PublicProfile({
 
     useEffect(() => {
         const getPublicProfile = () => {
-            fetch(`http://localhost:3000/api/user/public/${params.username}`)
+            fetch(`${API_URL}/api/user/public/${params.username}`)
                 .then(async (res) => {
                     if (res.ok) {
                         const data = await res.json();

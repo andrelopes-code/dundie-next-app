@@ -12,7 +12,7 @@ export default function About() {
                         At Dunder Mifflin, we believe in recognizing and reward
                         the commitment and talent of our employees. Our Scoring
                         System is a way fun and motivating way to recognize your
-                        contributions for the company's success.
+                        contributions for the company&apos;s success.
                     </p>
                     <h2 className="font-bold text-2xl text-primary">
                         How it works?
@@ -32,7 +32,7 @@ export default function About() {
                         The points you earn can be exchanged for a variety of
                         prizes and incentives. From financial bonuses to special
                         recognitions and even gifts Exclusive to Dunder Mifflin,
-                        there's something for everyone!
+                        there&apos;s something for everyone!
                     </p>
                     <h2 className="font-bold text-2xl text-primary">
                         Be Part of Our Community!

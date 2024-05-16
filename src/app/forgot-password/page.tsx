@@ -4,7 +4,7 @@ import API_URL from "@/constants/apiRoute";
 import { VscLoading } from "react-icons/vsc";
 import Link from "next/link";
 
-export function EnterYourEmail({ setStage }: any) {
+function EnterYourEmail({ setStage }: any) {
     const [loading, setLoading] = useState(false);
 
     const setErrorWithTimeout = (errorMessage: string) => {
@@ -85,7 +85,7 @@ export function EnterYourEmail({ setStage }: any) {
     );
 }
 
-export function ResetPassword({ resetPasswordToken, setStage }: any) {
+function ResetPassword({ resetPasswordToken, setStage }: any) {
     const [loading, setLoading] = useState(false);
 
     const setErrorWithTimeout = (errorMessage: string) => {
@@ -194,7 +194,7 @@ export function ResetPassword({ resetPasswordToken, setStage }: any) {
     );
 }
 
-export function EmailSent() {
+function EmailSent() {
     return (
         <main className="bg-background flex flex-col items-center justify-center h-screen">
             <div className="bg-background-light shadow-lg p-8 rounded-lg text-text flex flex-col gap-4">
@@ -210,7 +210,7 @@ export function EmailSent() {
     );
 }
 
-export function SuccessfullChanged() {
+function SuccessfullChanged() {
     return (
         <main className="bg-background flex flex-col items-center justify-center h-screen">
             <div className="bg-background-light shadow-lg p-8 rounded-lg text-text flex flex-col gap-4">

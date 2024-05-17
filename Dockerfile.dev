@@ -1,0 +1,18 @@
+FROM node:20.12
+
+RUN mkdir -p /home/app
+
+RUN groupadd app && useradd -g app app
+
+# Create the home directory
+ENV APP_HOME=/home/app
+WORKDIR $APP_HOME
+
+COPY . .
+
+RUN npm install
+
+RUN chown -R app:app .
+USER app
+RUN npm run build
+CMD ["npm", "run", "start"]

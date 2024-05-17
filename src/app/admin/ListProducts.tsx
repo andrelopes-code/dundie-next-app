@@ -66,7 +66,11 @@ export default function ListProducts({
     return (
         <>
             {!products && <Loading />}
-            {products?.length === 0 && <p>No orders found</p>}
+            {products?.length === 0 && (
+                <p className="text-center flex items-center justify-center text-text-inactive h-full">
+                    No products found
+                </p>
+            )}
             {/* LIST OF ALL ORDERS */}
             {products && products.length > 0 && (
                 <div className="relative mt-5">

@@ -33,7 +33,11 @@ export default function ListOrders({
     return (
         <>
             {!orders && <Loading />}
-            {orders?.total === 0 && <p>No orders found</p>}
+            {orders?.total === 0 && (
+                <p className="text-center flex items-center justify-center text-text-inactive h-full">
+                    No orders found
+                </p>
+            )}
             {/* LIST OF ALL ORDERS */}
             {orders && orders.total > 0 && (
                 <>
@@ -68,9 +72,6 @@ export default function ListOrders({
                                     ))}
                             </tbody>
                         </table>
-                        {orders?.items.length === 0 && (
-                            <p className="text-center my-12">No orders</p>
-                        )}
                     </div>
                     <Pagination
                         count={orders?.pages}

@@ -105,7 +105,7 @@ export function CreateUser({
                                 spellCheck="false"
                                 placeholder="name"
                                 id="create_name"
-                                pattern="[a-zA-Z ]+"
+                                pattern="[a-zA-Zà-úÀ-ÚçÇ ]+"
                                 minLength={8}
                                 maxLength={50}
                                 required

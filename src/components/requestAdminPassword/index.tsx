@@ -114,7 +114,6 @@ export default function RequestAdminPassword({
                         type="password"
                         name="RequestAdminPassword"
                         id="RequestAdminPassword"
-                        minLength={8}
                         autoFocus
                         required
                     />

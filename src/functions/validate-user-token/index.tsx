@@ -1,7 +1,7 @@
 import { PRIVATE_API_URL } from "@/constants/apiRoute";
 
 export const validateUserToken = async (token: string) => {
-    return fetch(`${PRIVATE_API_URL}/api/token/validate`, {
+    return fetch(`${PRIVATE_API_URL}/token/validate`, {
         method: "GET",
         headers: {
             "x-access-token": `${token}`,

@@ -1,2 +1,2 @@
-### [Clique aqui](gitpod.io/#https://github.com/andrelopes-code/dundie-full-app) para abrir o projeto no Gitpod!
+### [Clique aqui](https://gitpod.io/#https://github.com/andrelopes-code/dundie-full-app) para abrir o projeto no Gitpod!
 

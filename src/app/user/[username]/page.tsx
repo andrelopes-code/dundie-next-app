@@ -21,7 +21,7 @@ export default function PublicProfile({
 
     useEffect(() => {
         const getPublicProfile = () => {
-            fetch(`${API_URL}/api/user/public/${params.username}`)
+            fetch(`${API_URL}/user/public/${params.username}`)
                 .then(async (res) => {
                     if (res.ok) {
                         const data = await res.json();

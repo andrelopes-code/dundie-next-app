@@ -61,7 +61,7 @@ export function EditAvatarForm({
     return (
         <div
             id="background_div"
-            className="transition-all duration-200 bg-[rgba(0,0,0,0.1)] animate-fadeIn top-0 left-0 flex flex-col backdrop-blur-sm z-20 items-center h-screen w-screen justify-center absolute"
+            className="transition-all duration-200 bg-[rgba(0,0,0,0.1)] animate-fadeIn top-0 left-0 flex flex-col backdrop-blur-sm z-[51] items-center h-screen w-screen justify-center absolute"
         >
             {error && <AlertError msg={error} />}
             <div className="bg-background-light opacity-85 animate-scaleIn backdrop-blur-lg shadow-lg rounded-lg w-1/3 p-5">

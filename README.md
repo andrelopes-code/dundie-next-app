@@ -20,7 +20,7 @@ Dundie é um projeto de aprendizagem desenvolvido para fins de demonstração e 
 
 Você pode acessar o projeto Dundie rapidamente e começar a explorar suas funcionalidades usando o Gitpod. Clique no botão abaixo para iniciar:
 
-![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/andrelopes-code/dundie)
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/andrelopes-code/dundie)
 
 <p align="center">
   <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExZnNtdzBqOWJnb3NiZW9mMGllZW12YjI1aWp0cG1iczhhejF4amR0ayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/w89ak63KNl0nJl80ig/giphy.gif" alt="GIF centralizado">

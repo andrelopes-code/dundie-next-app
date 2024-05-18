@@ -63,8 +63,6 @@ export default function DeleteProduct({
                         spellCheck="false"
                         placeholder="admin password"
                         id="admin_password_product_input"
-                        minLength={8}
-                        maxLength={50}
                         autoFocus
                         required
                     />

@@ -1,4 +1,4 @@
-import { PRIVATE_API_URL } from "@/constants/apiRoute";
+import API_URL, { PRIVATE_API_URL } from "@/constants/apiRoute";
 import { useEffect, useState } from "react";
 import { VscLoading } from "react-icons/vsc";
 
@@ -70,10 +70,8 @@ const ChooseUser = ({
         input.focus();
     };
 
-    // TODO: Add a timeout to the search to avoid too many requests
-    // ! REMOVE THE API CALL TO THE BACKEND SERVER localhost:8000
     const getUsernameList = async (e: any) => {
-        fetch(`http://api:8000/user/names?query=` + e.target.value)
+        fetch(`${API_URL}/user/names?query=` + e.target.value)
             .then(async (res) => await res.json())
             .then((data) => setSearchResults(data));
     };
@@ -114,16 +112,19 @@ const ChooseUser = ({
             </div>
 
             <div className="overflow-auto w-1/4 max-h-60 noscrollbar">
-                {searchResults.map((user: any) => {
-                    return (
-                        <SearchItems
-                            key={user.username}
-                            name={user.name}
-                            username={user.username}
-                            onClick={() => handleSearchItemClick(user.username)}
-                        />
-                    );
-                })}
+                {Array.isArray(searchResults) &&
+                    searchResults.map((user: any) => {
+                        return (
+                            <SearchItems
+                                key={user.username}
+                                name={user.name}
+                                username={user.username}
+                                onClick={() =>
+                                    handleSearchItemClick(user.username)
+                                }
+                            />
+                        );
+                    })}
             </div>
         </>
     );
